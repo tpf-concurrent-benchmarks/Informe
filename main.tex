@@ -149,23 +149,39 @@ Los resultados de la evaluación permitieron analizar aspectos cuantificables, c
 
 \subsection{Palabras clave}
 
-Concurrencia, \english{benchmarks}, lenguajes de programación, entornos de desarrollo, sistemas distribuidos, criptografía, redes neuronales, servidor http, comparación, optimización.
+Concurrencia, \english{benchmarks}, lenguajes de programación, entornos de desarrollo, sistemas distribuidos, criptografía, redes neuronales, protocolos de comunicación, comparación, optimización.
+
+\newpage
 
 \section{Abstract}
 
+\begin{otherlanguage}{english}
 This work aims to evaluate various programming languages and their environments, in applications involving concurrent systems. To achieve it, these languages were compared across four application domains: distributed systems, cryptography, neural networks and communication protocols. The goal was to highlight different aspects and challenges of concurrency within each domain.
 
 The evaluation results enabled the analysis of quantifiable aspects such as language performance, as well as qualitative aspects like ease of use and development time. This allowed us to conclude which tools are most suitable depending on the use case and specific application needs.
+\end{otherlanguage}
 
 \subsection{Keywords}
 
-Concurrency, benchmarks, programming languages, environments, distributed systems, criptography, neural networks, http server, comparisons, optimization.
+\begin{otherlanguage}{english}
+Concurrency, benchmarks, programming languages, environments, distributed systems, criptography, neural networks, communication protocols, comparisons, optimization.
+\end{otherlanguage}
+
+\newpage
+
+\section{Agradecimientos}
+
+Agradecemos al Dr. Nicolás Wolovick y a la Universidad de Córdoba por brindarnos acceso a los servidores de la Facultad de Matemática, Astronomía, Física y Computación (FaMAF), que fueron fundamentales para la realización de este trabajo.
+
+También agradecemos al Centro de Simulación Computacional (CSC) del CONICET por brindarnos acceso al \english{cluster} TUPAC, aunque finalmente no fue utilizado por limitaciones técnicas y de cronograma.
+
+Por último, expresamos nuestro más sincero agradecimiento a la Lic. Rosa Wachenchauzer y al Ing. Ariel Scarpinelli por su apoyo y por brindarnos el contacto con el Dr. Nicolás Wolovick y el CSC.
 
 \newpage
 
 \section{Introducción}
 
-En los últimos años, han surgido nuevos lenguajes de programación y ecosistemas que ofrecen diferentes niveles de abstracción, mecanismos, herramientas y posibilidades para modelar problemas de manera más eficiente. Estos lenguajes y ecosistemas, a menudo no explorados, están empezando a cobrar reconocimiento.
+En los últimos años, han surgido nuevos lenguajes de programación y ecosistemas que ofrecen diferentes niveles de abstracción, mecanismos, herramientas y posibilidades para modelar problemas de manera más eficiente, utilizando diferentes técnicas de concurrencia. Estos lenguajes y ecosistemas, a menudo no explorados, están empezando a cobrar reconocimiento.
 
 Se presenta un conjunto de dominios de aplicación para el análisis: sistemas distribuidos (particularmente para el procesamiento de datos), algoritmos criptográficos, redes neuronales (dentro del contexto de la ciencia de datos) y protocolos de comunicación (enfocándonos en servidores).
 
@@ -185,7 +201,7 @@ Sin embargo, desarrollar una aplicación concurrente presenta múltiples desafí
 
 Estos desafíos han favorecido el surgimiento de muchas tecnologías, incluyendo el desarrollo de lenguajes de programación con la concurrencia como uno de sus objetivos principales \cite{rust:ex:fearless_concurrency} \cite{go:ex:concurrency_patterns}, \textit{frameworks} de \textit{benchmarking}, e incluso nuevos modelos de computación concurrente con sus respectivas implementaciones \cite{state_of_the_art:reactors}. También se han desarrollado versiones concurrentes de diversos algoritmos para favorecer el paralelismo \cite{state_of_the_art:huffman_gpu}.
 
-A día de hoy, muchos trabajos se centran en comparar diferentes algoritmos implementados en el mismo ecosistema \cite{state_of_the_art:crypto_benchmarks} \cite{state_of_the_art:nn_benchmarks}, así como en realizar comparaciones prestaciones entre lenguajes para problemas básicos \cite{state_of_the_art:lang_benchmarks}.
+A día de hoy, muchos trabajos se centran en comparar diferentes algoritmos implementados en el mismo ecosistema \cite{state_of_the_art:crypto_benchmarks} \cite{state_of_the_art:nn_benchmarks}, así como en realizar comparaciones de prestaciones entre lenguajes para problemas básicos \cite{state_of_the_art:lang_benchmarks}. Descubrimos que, con la proliferación de herramientas, resulta difícil elegir la más adecuada al iniciar un nuevo proyecto en la industria. Los enfoques centrados en la comparación de algoritmos no permiten determinar cuál es el ecosistema más eficiente en casos de uso reales.
 
 \subsection{Oportunidad de mejora}
 
@@ -214,7 +230,7 @@ Esta sección se introducen brevemente los distintos lenguajes estudiados y sus 
 
 Es un lenguaje imperativo multiparadigma, compilado, y de tipado estático. Es estándar en la industria, versátil y poderoso. Su primera versión fue lanzada en el año 1983, lo cual lo hace uno de los más antiguos de los seleccionados. Los aspectos generales de su diseño son el rendimiento, la eficiencia y la flexibilidad de uso.
 
-La biblioteca estándar provee mecanismos de sincronización propios del paradigma de estado mutable compartido: semáforos, \english{condition variables} \footnote{\lstinline{std::condition_variable} es una primitiva de sincronización utilizada para bloquear uno o más subprocesos hasta que otro subproceso modifica una variable compartida (la condición) y lo notifica.}, entre otros. También soporta programación asincrónica mediante la función \lstinline{std::async}.
+La biblioteca estándar provee mecanismos de sincronización propios del paradigma de estado mutable compartido: semáforos, \english{condition variables} \footnote{\lstinline{std::condition_variable}: primitiva de sincronización utilizada para bloquear uno o más subprocesos hasta que otro subproceso modifica una variable compartida (la condición) y lo notifica.}, entre otros. Versiones modernas soportan programación asincrónica mediante la biblioteca \lstinline{std::async}.
 
 \subsection{Scala}
 
@@ -226,13 +242,15 @@ Se ejecuta sobre la JVM (\technical{Java Virtual Machine}), pudiendo hacer uso d
 
 Un lenguaje moderno que toma prestadas ideas de otros. Busca construir sistemas simples, seguros y escalables; siendo fácil de aprender y proveyendo herramientas nativas para la concurrencia \cite{com:go}.
 
-Corre sobre un \english{runtime} que se encarga del manejo de memoria. Provee una abstracción nativa para la concurrencia, \technical{gorutinas}, y canales para su comunicación.
+Corre sobre un \english{runtime} que se encarga del manejo de memoria. Provee una abstracción nativa para la concurrencia, \technical{goroutines}, y canales para su comunicación.
 
 \subsection{Julia}
 
 Es un lenguaje orientado a la ciencia de datos y al cómputo de alto rendimiento. Busca ser dinámico, flexible y eficiente \cite{com:julia}. Fue diseñado para combinar la simplicidad de los lenguajes de alto nivel con la velocidad de los lenguajes de bajo nivel.
 
-Corre sobre un \english{runtime} propio y soporta concurrencia basada en tareas, permitiendo la ejecución paralela de bloques de código. Además, provee herramientas nativas para cómputo distribuido.
+% https://www.oreilly.com/library/view/julia-10-programming/9781788999090/98b17ad1-b461-4cc2-9e9a-2a2585f7d77c.xhtml)
+% https://discourse.julialang.org/t/so-does-julia-compile-or-interpret/56073
+Corre sobre un \english{runtime} propio, que genera código de máquina nativo al momento de  ejecutar una función, y soporta concurrencia basada en tareas, permitiendo la ejecución paralela de bloques de código. Además, provee herramientas nativas para cómputo distribuido.
 
 \subsection{Elixir}
 
@@ -243,6 +261,7 @@ Se ejecuta sobre la máquina virtual de Erlang, conocida por el desarrollo de si
 \subsection{Rust}
 
 Rust es un lenguaje de programación de sistemas que se destaca por su rendimiento, fiabilidad y productividad \cite{com:rust}. Diseñado para ser seguro y eficiente, busca eliminar los problemas comunes asociados con la gestión manual de memoria, como los errores de segmentación y las fugas de memoria, mediante un sistema de gestión de memoria basado en la propiedad y el préstamo (\english{ownership}).
+
 Este sistema se basa en limitar el acceso a memoria, asegurando que los datos no sean accedidos de manera insegura por múltiples hilos al mismo tiempo. Además, proporciona abstracciones como canales para la comunicación entre hilos y \english{Futures} para la programación asincrónica, permitiendo la escritura de código concurrente seguro y eficiente. El compilador de Rust realiza chequeos estáticos rigurosos para prevenir condiciones de carrera y otros errores comunes.
 
 \subsection{Zig}
@@ -275,7 +294,7 @@ JavaScript es un lenguaje de programación interpretado, dinámico y de propósi
 
 Utiliza un modelo de concurrencia basado en un bucle de eventos (\english{event loop}) y la programación asíncrona, lo que permite manejar múltiples tareas simultáneamente sin bloquear la ejecución del código. Esto se logra mediante el uso de \lstinline{callbacks}, promesas y la sintaxis \lstinline{async}/\lstinline{await}. Además, según el entorno, proporciona \english{worker threads} o \english{web workers} como abstracciones similares a los hilos, pensadas para operaciones de cómputo intensivo.
 
-\newpage %FIXME: Al final, ver donde ponemos de estos
+\newpage % TODO: Al final, ver donde ponemos de estos
 
 \section{Introducción a dominios de aplicación}
 
@@ -290,6 +309,8 @@ En el campo de la ciencia de datos, las redes neuronales requieren el manejo de 
 Estudiamos protocolos de comunicación en arquitecturas cliente-servidor, los cuales dependen de la concurrencia para gestionar múltiples conexiones simultáneas. Es interesante notar que en algunos de estos casos, debido a la gran cantidad de operaciones bloqueantes de entrada/salida, se puede obtener una clara mejora sin la necesidad de paralelismo.
 
 Para cada uno de estos dominios, se seleccionó un conjunto de lenguajes diferente, justificando su pertinencia en la comparación, siendo que no todos los lenguajes son apropiados para todos los casos de uso. 
+
+\newpage
 
 \section{Dominio de aplicación: Sistemas distribuidos}\label{sec:sis_dist}
 
@@ -404,7 +425,7 @@ Además, se realizaron ejecuciones complementarias en \english{Google Cloud Plat
 \subsubsection{Dataset}
 
 Para la evaluación del Grid Search, se ejecutará la función Griewank \cite{sis_dist:griewank} dentro del rango \break
-[-600; 600; $0.2$]\^{}3, es decir, el rango que va de -600 a 600 con paso de $0.2$ en 3 parámetros. Cada paquete (o \english{batch}) tiene un máximo de \numprint{10800000} números. El objetivo será buscar la configuración de parámetros que devuelven el mínimo resultado.
+[-600; 600; $0.2$]\^{}3, es decir, el rango que va de -600 a 600 con paso de $0.2$ en 3 parámetros. Cada paquete (o \english{batch}) tiene un máximo de 10800000 números. El objetivo será buscar la configuración de parámetros que devuelven el mínimo resultado.
 
 Para la evaluación del procesamiento de imágenes se utiliza el \english{dataset} BIRDS 525 SPECIES \cite{sis_dist:birds_dataset}. Con el fin de aumentar el tiempo de procesamiento total y, en consecuencia, mejorar la calidad de las métricas, se aplicaron una serie de transformaciones que duplicaron el tamaño del \english{dataset}\footnote{El script utilizado puede encontrarse en: \url{https://github.com/tpf-concurrent-benchmarks/various/blob/main/image_processing/image_multiplicator.py}. No se utilizaron las rotaciones.}, más específicamente, espejado vertical y horizontal de las imágenes.
 
@@ -550,7 +571,7 @@ Se utilizó RabbitMQ \cite{scala:lib:rabbit} como \english{middleware} para la d
 
 Se intentó utilizar Akka \cite{scala:lib:akka}, un \english{framework} popular para sistemas distribuidos basado en actores, pero su uso resultó ser dificultoso y se descartó en pos de mantener el cronograma.
 
-Se aprovecharon ampliamente las herramientas del lenguaje para evaluación perezosa\footnote{Evaluación perezosa: Estrategia de evaluación de una función o método, que implica retrasar la evaluación hasta el momento en que el resultado es requerido.} de iteradores. En el Código~\ref{code:scala:split} se puede observar el método que genera las particiones de trabajo de manera perezosa para la búsqueda en grilla.
+Se aprovecharon ampliamente las herramientas del lenguaje para evaluación perezosa \footnote{Evaluación perezosa: estrategia de evaluación de una función o método, que implica retrasar la evaluación hasta el momento en que el resultado es requerido.} de iteradores. En el Código~\ref{code:scala:split} se puede observar el método que genera las particiones de trabajo de manera perezosa para la búsqueda en grilla.
 
 \begin{listing}[ht]
 \begin{minted}[bgcolor=bg, breaklines]{scala}
@@ -749,7 +770,7 @@ El uso de esta biblioteca permite definir una arquitectura maestro-esclavo, dond
     \label{fig:jl:image_processing_arch}
 \end{figure}
 
-En específico, para la implementación de Grid Search se empleó la capacidad nativa de ejecutar un \lstinline{map} en un conjunto (\english{pool}) de trabajadores. La biblioteca brinda un elevado nivel de abstracción, pues estos trabajadores pueden encontrarse en la misma computadora o no. En el Código~\ref{code:jl:pmap} se observa el empleo de la función \lstinline{pmap}, que ejecuta una función en un conjunto de trabajadores; y el decorador \lstinline{@everywhere}, que permite especificar las secciones de código que se definirán en todos los contextos. Esto último se requiere debido a que los nodos trabajadores pueden inicializarse sin conocer el código con anticipación. El nodo \english{manager} le comunicará a los trabajadores aquellas secciones de código marcadas con el decorador.
+Específicamente, para la implementación de Grid Search se empleó la capacidad nativa de ejecutar un \lstinline{map} en un conjunto (\english{pool}) de trabajadores. La biblioteca brinda un elevado nivel de abstracción, pues estos trabajadores pueden encontrarse en la misma computadora o no. En el Código~\ref{code:jl:pmap} se observa el empleo de la función \lstinline{pmap}, que ejecuta una función en un conjunto de trabajadores; y el decorador \lstinline{@everywhere}, que permite especificar las secciones de código que se definirán en todos los contextos. Esto último se requiere debido a que los nodos trabajadores pueden inicializarse sin conocer el código con anticipación. El nodo \english{manager} le comunicará a los trabajadores aquellas secciones de código marcadas con el decorador.
 
 \begin{listing}[ht]
 \begin{minted}[bgcolor=bg, breaklines]{julia}
@@ -825,7 +846,7 @@ end
 
 La máquina virtual de Erlang es muy utilizada para sistemas distribuidos \cite{elx:ex:companies} \cite{scala:lib:rabbit}. Elixir nos permite comparar ese entorno y su sistema de actores mediante una interfaz más moderna, lo cual nos llevó a seleccionar este lenguaje para comparar.
 
-Se creó un \english{framework} de procesamiento distribuido basado en las herramientas de actores distribuidos nativas, debido a que no se encontraron herramientas externas que cumplieran con las especificaciones requeridas. Puede encontrarse la especificación del \english{framework} en los repositorios o en la documentación \cite{repos:docs}.
+Para este trabajo creamos un \english{framework} específico de procesamiento distribuido basado en las herramientas de actores distribuidos nativas, debido a que no se encontraron herramientas externas que cumplieran con las especificaciones requeridas. Puede encontrarse la especificación del \english{framework} en los repositorios o en la documentación \cite{repos:docs}.
 
 Se puede observar, en la Figura~\ref{fig:elx:image_processing_framework}, la definición de procesos del \english{pipeline} de procesamiento de imágenes utilizando el \english{framework} mencionado. Se definen cuatro tipos de nodo:
 \begin{enumerate}
@@ -851,7 +872,7 @@ Por otro lado, se puede ver en la Figura~\ref{fig:elx:image_processing_arch} el 
     \label{fig:elx:image_processing_arch}
 \end{figure}
 
-Al igual que en Julia, el código está completamente definido sobre el nodo \english{manager}. Este es este quien asigna la funcionalidad de los trabajadores, además de proveerles el trabajo. Podemos observar la definición del sistema para Grid Search en el Código~\ref{code:elx:gs} y para el \english{pipeline} de imágenes en el Código~\ref{code:elx:ip}. El método \lstinline{start_link} es el que instancia a los actores locales del \english{source}, \english{sink} y \english{broker}; mientras que los trabajadores remotos son iniciados mediante \lstinline{start_remote_worker}.
+Al igual que en Julia, el código está completamente definido sobre el nodo \english{manager}. Éste es quien asigna la funcionalidad de los trabajadores, además de proveerles el trabajo. Podemos observar la definición del sistema para Grid Search en el Código~\ref{code:elx:gs} y para el \english{pipeline} de imágenes en el Código~\ref{code:elx:ip}. El método \lstinline{start_link} es el que instancia a los actores locales del \english{source}, \english{sink} y \english{broker}; mientras que los trabajadores remotos son iniciados mediante \lstinline{start_remote_worker}.
 
 \begin{listing}[ht]
 \begin{minted}[bgcolor=bg, breaklines]{elixir}
@@ -982,7 +1003,7 @@ En el Cuadro~\ref{tab:sis_dist:gs_metrics} se pueden observar los resultados cor
     \item \textbf{Uso de red}: uso de red promedio de los procesos trabajadores.
 \end{itemize}
 
-Este resumen se encuentra expresado en valores relativos a C++. Esto quiere decir, por ejemplo, que el \english{Throughput} de Scala fue el 27\% del Throughput de C++.
+Este resumen se encuentra expresado en valores relativos a C++. Esto quiere decir, por ejemplo, que el \english{throughput} de Scala fue el 27\% del \english{throughput} de C++.
 
 \begin{table}[h]
 \centering
@@ -990,7 +1011,7 @@ Este resumen se encuentra expresado en valores relativos a C++. Esto quiere deci
 \hline
 \multicolumn{1}{|c|}{Métrica} & \multicolumn{1}{c|}{C++} & \multicolumn{1}{c|}{Scala} & \multicolumn{1}{c|}{Go} & \multicolumn{1}{c|}{Julia} & \multicolumn{1}{c|}{Elixir} \\ \hline
 \english{Throughput} combinado           & 100\%                    & 27\%                       & 80\%                    & 55\%                       & 10\%                        \\ \hline
-Uso de memoria                  & 100\%                    & \numprint{9175}\%                     & 175\%                   & \numprint{31744}\%                    & \numprint{2250}\%                      \\ \hline
+Uso de memoria                  & 100\%                    & 9175\%                     & 175\%                   & 31744\%                    & 2250\%                      \\ \hline
 Uso de red                 & 100\%                    & 60\%                       & 84\%                    & 59\%                       & 80\%                        \\ \hline
 \end{tabular}
 \caption{Resumen de métricas de Grid Search. Basado en mediciones para 8 nodos trabajadores, ejecutadas en FaMAF-2, relativas a C++ (Ver Cuadro \ref{tab:gs:8_workers_famaf2})}
@@ -1024,7 +1045,7 @@ Este resumen, al igual que el Cuadro \ref{tab:sis_dist:gs_metrics}, está expres
 \hline
 \multicolumn{1}{|c|}{Métrica} & \multicolumn{1}{c|}{C++} & \multicolumn{1}{c|}{Scala} & \multicolumn{1}{c|}{Go} & \multicolumn{1}{c|}{Julia} & \multicolumn{1}{c|}{Elixir} \\ \hline
 \english{Throughput} combinado           & 100\%                    & 56\%                       & 37\%                    & 298\%                      & 56\%                        \\ \hline
-Uso de memoria máximo              & 100\%                    & \numprint{1300}\%                     & 173\%                   & 836\%                      & 209\%                       \\ \hline
+Uso de memoria máximo              & 100\%                    & 1300\%                     & 173\%                   & 836\%                      & 209\%                       \\ \hline
 Uso de red máximo             & 100\%                    & 76\%                       & 34\%                    & 515\%                      & 33\%                        \\ \hline
 Uso de CPU promedio                 & 100\%                    & 82\%                       & 160\%                   & 157\%                      & 156\%                       \\ \hline
 \end{tabular}
@@ -1035,7 +1056,7 @@ Uso de CPU promedio                 & 100\%                    & 82\%           
 De estos datos, es posible obtener algunas conclusiones preliminares:
 
 \begin{itemize}
-    \item El rendimiento de Julia es marcadamente mejor para este caso de uso: tanto el \english{Throughput} como el uso de CPU son más altos que casi todos los otros lenguajes.
+    \item El rendimiento de Julia es marcadamente mejor para este caso de uso: tanto el \english{throughput} como el uso de CPU son más altos que casi todos los otros lenguajes. Esto puede deberse a diferencias en la implementación de las bibliotecas utilizada. La biblioteca de Julia, Images.jl \cite{jl:lib:images}, forma parte de un ecosistema de bibliotecas centrado alrededor del procesamiento de imágenes (JuliaImages \cite{jl:lib:juliaimages}), por lo cual es esperable que se encuentre mejor optimizada.
     \item El rendimiento de Elixir es mejor en comparación con el anterior caso de uso: Esto es debido a que en este caso las variables inmutables no son la mayor limitación, por lo que la \english{performance} se vuelve comparable a otros lenguajes.
 \end{itemize}
 
@@ -1056,7 +1077,7 @@ Los resultados se pueden observar en la tabla \ref{tab:sis_dist:general_metrics}
 \hline
 \multicolumn{1}{|c|}{Métrica} & \multicolumn{1}{c|}{C++} & \multicolumn{1}{c|}{Scala} & \multicolumn{1}{c|}{Go} & \multicolumn{1}{c|}{Julia} & \multicolumn{1}{c|}{Elixir} \\ \hline
 Tiempo                        & 125\%                    & 100\%                      & 75\%                    & 50\%                       & 150\%                       \\ \hline
-Espacio                       & x2.5                     & x26.2                      & x2                      & x100-x266                  & x11.4                       \\ \hline
+Espacio                       & x$2.5$                     & x$26.2$                      & x2                      & x100-x266                  & x$11.4$                       \\ \hline
 \end{tabular}
 \caption{Métricas generales correspondientes al área de Sistemas Distribuidos}
 \label{tab:sis_dist:general_metrics}
@@ -1114,11 +1135,10 @@ Existen otros métodos de gestión de paquetes que intentan resolver este proble
 
 \subsubsection{Scala}
 
-% Powered by ChatGPT - Confirmation needed
 
 Scala es un lenguaje accesible y fácil de aprender, con una documentación extensa y abstracciones de alto nivel que simplifican el desarrollo. Una ventaja notable es que la experiencia previa en Java se transfiere fácilmente a Scala. Sin embargo, Scala puede ser bastante verboso y requerir una cantidad significativa de código \english{boilerplate}, lo que puede reducir su legibilidad.
 
-En el desarrollo de Grid Search, las herramientas de evaluación perezosa fueron esenciales, simplificando enormemente el proceso, mientras que el uso de \textit{traits} facilitó la creación de componentes genéricos.
+En el desarrollo de Grid Search, las herramientas de evaluación perezosa fueron esenciales, simplificando enormemente el proceso, mientras que el uso de \textit{Traits} facilitó la creación de componentes genéricos.
 
 Contar con este primer proyecto de referencia simplificó el desarrollo del \english{pipeline} de procesamiento de imágenes, ya que se reutilizó gran parte del código de comunicación con RabbitMQ.
 
@@ -1146,7 +1166,7 @@ Adicionalmente, Go cuenta con un gestor de paquetes muy eficaz que es compatible
 
 \subsubsection{Julia}
 
-Julia es un lenguaje que presenta algunas particularidades en su aprendizaje; aunque es simple en su base, posee detalles específicos que lo hacen único, como su sistema de tipos y la indeterminación respecto a si la memoria se reserva en \english{heap} o en \english{stack}.
+Julia es un lenguaje que presenta algunas particularidades en su aprendizaje; aunque es simple en su base, posee detalles específicos que lo hacen único, como su sistema de tipos y la indeterminación respecto a si la memoria se reserva en \english{heap} o en \english{stack}. La particularidad que presenta su sistema de tipos es que es dinámico, pero aprovecha los beneficios de \english{performance} del tipado estático al permitir indicar el tipo de determinados valores, si éstos son conocidos con anticipación.
 
 Por un lado, el desarrollo en Julia tomó la mitad del tiempo esperado, demostrando que es un lenguaje que se aprende y desarrolla rápidamente. Sin embargo, una gran parte de ese tiempo se dedicó a optimizaciones de rendimiento, lo cual resultó ser un proceso en ocasiones bastante críptico.
 
@@ -1422,7 +1442,7 @@ let ciphered_blocks = blocks
 
 No fue necesario utilizar ningún mecanismo propio de sincronización, ya que la biblioteca se encarga de distribuir las tareas entre los hilos, recolectarlas y devolverlas en orden.
 
-Por otro lado, la implementación del cifrado y descifrado de bloques se realizó en un \lstinline{struct} llamado \lstinline{AESBlockCipher}, como se ve en el Código~\ref{code:aes:rust_cipher_block} (se omitió el código de descifrado por ser muy similar al de cifrado). La sintaxis se asemeja bastante a la de un lenguaje orientado a objetos, como Java o Python. Sin embargo, las capacidades de Rust en dicho paradigma son muy diferentes \cite{aes:rust_oop}.
+Por otro lado, la implementación del cifrado y descifrado de bloques se realizó en un \lstinline{struct} llamado \lstinline{AESBlockCipher}, como se ve en el Código~\ref{code:aes:rust_cipher_block} (se omitió el código de descifrado por ser muy similar al de cifrado). La sintaxis se asemeja bastante a la de un lenguaje orientado a objetos, como Java o Python. Sin embargo, las herramientas que provee Rust en dicho paradigma son muy diferentes \cite{aes:rust_oop}. Lo más destacable es que no posee clases, sino \lstinline{structs}, y el polimorfismo se logra a través de \english{Traits}, que entre otras restricciones, no permite definirle variables. Además, al ser un lenguaje de tipado estático, el compilador debe conocer el tamaño de todas las variables, lo que genera ciertas dificultades, como al retornar un \english{Trait}.
 
 \begin{listing}[h]
 \begin{minted}[bgcolor=bg, breaklines]{rust}
@@ -1471,16 +1491,16 @@ impl AESBlockCipher {
 
 Seleccionamos este lenguaje por su hincapié en la concurrencia \cite{go:ex:concurrency_patterns} y la simplicidad \cite{go:ex:simple}, lo que lo convierte en un buen punto de comparación contra otros lenguajes.
 
-Se utilizaron herramientas nativas de Go para la concurrencia: \lstinline{gorrutinas} \footnote{Las \lstinline{gorutinas} son una abstracción comparable a los hilos} y \lstinline{canales}, en conjunto con el módulo \lstinline{sync} para sincronizar.
+Se utilizaron herramientas nativas de Go para la concurrencia: \lstinline{goroutines} \footnote{ \lstinline{Goroutine}: abstracción comparable a los hilos.} y \lstinline{channels}, en conjunto con el módulo \lstinline{sync} para sincronizar.
 
-En la filosofía del lenguaje prima la idea de \technical{No comunicar compartiendo memoria, sino que, compartir memoria comunicando} \cite{go:ex:sharing}. Por lo cual, esta implementación difiere de las otras, manteniendo un flujo de mensajes continuo, en vez de trabajar sobre un \english{chunk} de memoria compartida.
+En la filosofía del lenguaje prima la idea de \technical{No comunicar compartiendo memoria, sino, compartir memoria comunicando} \cite{go:ex:sharing}. Por lo cual, esta implementación difiere de las otras, manteniendo un flujo de mensajes continuo, en vez de trabajar sobre un \english{chunk} de memoria compartida.
 
-Se implementó un diseño de tipo \english{pipeline} con una fuente que envía mensajes de trabajo a un conjunto de trabajadores mediante un canal, y un sumidero que los recibe y reordena. En la Figura~\ref{fig:go:robustness} se puede apreciar el despliegue de las gorutinas.
+Se implementó un diseño de tipo \english{pipeline} con una fuente que envía mensajes de trabajo a un conjunto de trabajadores mediante un canal, y un sumidero que los recibe y reordena. En la Figura~\ref{fig:go:robustness} se puede apreciar el despliegue de las gorutines.
 
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.7]{resources/aes/go_robustness.png}
-    \caption{Diagrama de robustez que representa las gorutinas de Go en AES}
+    \caption{Diagrama de robustez que representa las gorutines de Go en AES}
     \label{fig:go:robustness}
 \end{figure}
 
@@ -1654,7 +1674,7 @@ def applyOperationsAndCompare(cipher: AESCipher,
 \label{code:scala:aes_concurrent}
 \end{listing}
 
-Ell cifrado y descifrado de bloques se implementó en una clase llamada \lstinline{AESBlockCipher}, como se ve en el Código~\ref{code:scala:aes_cipher_block}.
+El cifrado y descifrado de bloques se implementó en una clase llamada \lstinline{AESBlockCipher}, como se ve en el Código~\ref{code:scala:aes_cipher_block}.
 
 \begin{listing}[h]
 \begin{minted}[bgcolor=bg, breaklines]{scala}
@@ -1692,7 +1712,7 @@ class AesBlockCipher(val expandedKey: AESKey, val invExpandedKey: AESKey) {
 
 Seleccionamos este lenguaje por ser una alternativa innovadora y con hincapié en la \english{performance} \cite{zig:ex:zig_in_100_sec}.
 
-Como se trata de un lenguaje bastante nuevo, no existen muchas bibliotecas relacionadas con la concurrencia. Por lo tanto, la paralelización de tareas se realizó con la primitiva \lstinline{std.Thread.spawn}, que funciona de manera similar a la función \lstinline{pthread_create} de C. Se aplicó la técnica de \english{Work Stealing} para la distribución de tareas, utilizando una implementación propia de una \english{Queue} \english{thread-safe}. Los hilos trabajadores realizan la encriptación/desencriptación y guardan el resultado en la dirección de memoria indicada. El código resultante fue un \lstinline{struct} llamado \lstinline{ParallelMap}, que imita la funcionalidad de las implementaciones en Rust y Scala.
+Como se trata de un lenguaje bastante nuevo, no existen muchas bibliotecas relacionadas con la concurrencia. Por lo tanto, la paralelización de tareas se realizó con la primitiva \lstinline{std.Thread.spawn}, que funciona de manera similar a la función \lstinline{pthread_create} de C. Se distribuyeron las tareas utilizando una implementación propia de una \english{Queue} \english{thread-safe}. Los hilos trabajadores realizan la encriptación/desencriptación y guardan el resultado en la dirección de memoria indicada. El código resultante fue un \lstinline{struct} llamado \lstinline{ParallelMap}, que imita la funcionalidad de las implementaciones en Rust y Scala.
 
 En el Código~\ref{code:zig_parallel_map} se puede observar, entre otras cosas, la forma en que Zig implementa los \english{generics}. Se define una función que recibe valores de tipo \lstinline{type}, y devuelve un nuevo tipo. Los \english{generics} \lstinline{R} y \lstinline{S} corresponden a los tipos de entrada y salida del \lstinline{map}, respectivamente, y \lstinline{Ctx} es un argumento adicional que puede recibir la función que mapea los valores. En nuestro caso de uso, \lstinline{R} y \lstinline{S} corresponden a bloques de 128 bits, y \lstinline{Ctx} es el cifrador de bloques AES. 
 
@@ -1754,8 +1774,8 @@ En el Cuadro~\ref{tab:aes:metrics} se pueden observar los resultados obtenidos. 
 
 \begin{itemize}
     \item \textbf{Duración}: tiempo que tardó el programa en ejecutarse.
-    \item \textbf{Uso de memoria}: uso de memoria promedio del \english{container} que ejecuta el programa.
-    \item \textbf{Uso de CPU}: uso de CPU promedio del \english{container} que ejecuta el programa.
+    \item \textbf{Uso de memoria}: uso de memoria promedio del contenedor que ejecuta el programa.
+    \item \textbf{Uso de CPU}: uso de CPU promedio del contenedor que ejecuta el programa.
 \end{itemize}
 
 Los valores del cuadro son relativos, al igual que las métricas del área anterior (sección~\ref{sec:gs_metrics}).
@@ -1765,7 +1785,7 @@ Los valores del cuadro son relativos, al igual que las métricas del área anter
 \begin{tabular}{|l|c|c|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & Rust & Go & Julia & Scala & Zig \\ \hline
-Duración & $100.00\%$& $603.55\%$& $94.08\%$& $\numprint{1491.12}\%$& $143.79\%$\\ \hline
+Duración & $100.00\%$& $603.55\%$& $94.08\%$& $1491.12\%$& $143.79\%$\\ \hline
 Uso de memoria & $100.00\%$& $6.88\%$& $237.23\%$& $245.02\%$& $0.98\%$\\ \hline
 Uso de CPU & $100.00\%$& $112.33\%$& $76.33\%$& $59.67\%$& $77.33\%$\\ \hline
 \end{tabular}
@@ -1773,11 +1793,10 @@ Uso de CPU & $100.00\%$& $112.33\%$& $76.33\%$& $59.67\%$& $77.33\%$\\ \hline
 \label{tab:aes:metrics}
 \end{table}
 
-% FIXME!!!: Completar
 De estos datos, es posible obtener algunas conclusiones preliminares:
 
 \begin{itemize}
-    \item El tiempo que tarda Scala en ejecutarse es mucho mayor que el del resto: esto era esperable, pues se trata del único lenguaje que no compila a código nativo.
+    \item El tiempo que tarda Scala en ejecutarse es mucho mayor que el del resto: esto era esperable, pues se trata del único lenguaje, de los analizados en este caso de uso, que no compila a código nativo.
     \item Go y Zig utilizaron una cantidad de memoria comparable: esto es muy interesante, pues ambos lenguajes ofrecen mecanismos de manejo de memoria muy diferentes: Go utiliza un recolector de basura, mientras que en Zig se debe reservar y liberar manualmente.
 \end{itemize}
 
@@ -1877,9 +1896,9 @@ La implementación de la lógica de negocio se realizó en base a la implementac
 
 No se encontró una biblioteca convincente para iteración paralela. Por lo tanto, se optó por implementar un mecanismo propio utilizando el patrón \textit{pipeline}. Este patrón fue elegido inicialmente en base a la filosofía del lenguaje \cite{go:ex:sharing} e influenciado por el desarrollo del \nameref{sec:sis_dist}. Esta elección se vio reforzada posteriormente, dado que este patrón de concurrencia es comúnmente utilizado en Go \cite{go:ex:pipelines}.
 
-Dado que la entrada es por archivo y de longitud indefinida, se implementó un \textit{pipeline} adaptado a procesamiento continuo. El desarrollo de este fue simple y directo. Go proporciona todas las herramientas necesarias para su desarrollo y demuestra estar preparado para la aplicación de mecanismos concurrentes.
+Dado que la entrada es por archivo y de longitud indefinida, se implementó un \textit{pipeline} adaptado a procesamiento continuo. El desarrollo de éste fue simple y directo. Go proporciona todas las herramientas necesarias para su desarrollo y demuestra estar preparado para la aplicación de mecanismos concurrentes.
 
-El uso de \textit{gorutinas} y canales simplifica la repartición de tareas, mientras que la sincronización de cierre se maneja con el cierre de los canales y el uso de \lstinline{WaitGroups}.
+El uso de \textit{goroutines} y canales simplifica la repartición de tareas, mientras que la sincronización de cierre se maneja con el cierre de los canales y el uso de \lstinline{WaitGroups}.
 
 Como consecuencia del modelo de procesamiento, las tareas pueden llegar desordenadas al sumidero. Sin embargo, el caso de uso requiere la escritura de bloques ordenados, por lo que se implementó un mecanismo de reordenamiento en el sumidero utilizando un \english{heap}.
 
@@ -1921,7 +1940,7 @@ Con estas consideraciones, pensamos que paralelizar el código sería una tarea 
     \item Funciones terminadas con `!': en Julia, una función que termina con `!' indica que modifica sus argumentos de entrada. En muchos casos, las funciones de la biblioteca estándar tienen una versión con `!' y otra sin. Usualmente la versión con `!' es más eficiente, ya que realiza la operación en el lugar, reduciendo la necesidad de reservar memoria adicional.
 \end{itemize}
 
-Al hacer uso de todas estas herramientas, la eficiencia del código mejoró enormemente. No obstante, la versión con un solo hilo seguía siendo más rápida que la versión multihilo. Esto nos llevó a pensar que la falta de rendimiento utilizando paralelismo se debía a un caso de \english{false sharing}\footnote{False sharing: mecanismo por el cual el protocolo de caché puede forzar a un programa a recargar todo un bloque de caché a pesar de no existir necesidad para ello, debido a que se intenta acceder periódicamente a datos que nunca serán alterados pero que comparten bloques de caché con datos que sí son alterados.}. En nuestro programa, para leer el archivo que se quería encriptar, se leía sobre un \english{buffer} que luego se dividía en diferentes partes, las cuales eran pasadas a distintas hilos para su encriptación. Julia no nos brinda control directo sobre cómo se reserva la memoria de la aplicación ni sobre cómo se controla el acceso entre diferentes hilos. Esta característica del lenguaje puede considerarse una ventaja, pues simplifica su uso, pero la pérdida de rendimiento la convierte en un problema. Un método recomendado para evitar el \english{false sharing} es espaciar los \english{buffers} de cada hilo en relación a dónde se ubican en la memoria. Como no hay una forma explícita de hacer esto en Julia, recurrimos a probarlo reservando \english{buffers} vacíos entre los verdaderos \english{buffers} que se iban a usar para el algoritmo. Luego de hacer este \english{refactor}, se probó nuevamente el programa, y no se notó mejoría en el rendimiento, por lo que se concluyó que ese no era el problema.
+Al hacer uso de todas estas herramientas, la eficiencia del código mejoró enormemente. No obstante, la versión con un solo hilo seguía siendo más rápida que la versión multihilo. Esto nos llevó a pensar que la falta de rendimiento utilizando paralelismo se debía a un caso de \english{false sharing}\footnote{\english{False sharing}: mecanismo por el cual el protocolo de caché puede forzar a un programa a recargar todo un bloque de caché a pesar de no existir necesidad para ello, debido a que se intenta acceder periódicamente a datos que nunca serán alterados pero que comparten bloques de caché con datos que sí son alterados.}. En nuestro programa, para leer el archivo que se quería encriptar, se leía sobre un \english{buffer} que luego se dividía en diferentes partes, las cuales eran pasadas a distintas hilos para su encriptación. Julia no nos brinda control directo sobre cómo se reserva la memoria de la aplicación ni sobre cómo se controla el acceso entre diferentes hilos. Esta característica del lenguaje puede considerarse una ventaja, pues simplifica su uso, pero la pérdida de rendimiento la convierte en un problema. Un método recomendado para evitar el \english{false sharing} es espaciar los \english{buffers} de cada hilo en relación a dónde se ubican en la memoria. Como no hay una forma explícita de hacer esto en Julia, recurrimos a probarlo reservando \english{buffers} vacíos entre los verdaderos \english{buffers} que se iban a usar para el algoritmo. Luego de hacer este \english{refactor}, se probó nuevamente el programa, y no se notó mejoría en el rendimiento, por lo que se concluyó que ese no era el problema.
 
 Nuestro siguiente paso en la búsqueda de una solución fue usar un \english{profiler}, que resultó ser muy agradable de usar. Este \english{profiler} genera un gráfico que permite navegar a través de cada función ejecutada, y las funciones están ordenadas verticalmente, según el \english{stack}; y horizontalmente, según cuánto tiempo estuvieron ejecutándose en relación al tiempo de ejecución total. Además, es posible visualizar el programa en su totalidad o por hilo. Cuando se realizó el primer \english{profile} de la aplicación, los resultados parecían indicar que el 75\% del tiempo no había ninguna función ejecutándose. Luego de un poco de investigación, se descubrió que el \english{profiler} omitía las funciones ejecutadas en C. Sin embargo, este inconveniente pudo ser solucionado cambiando la versión del \english{profiler} y agregando un \english{flag} especial.
 
@@ -1935,7 +1954,7 @@ Luego de todas estas optimizaciones, el esfuerzo rindió frutos y Julia logró e
 
 Scala no tiene la capacidad de diferencia entre los distintos tipos de enteros (signados, no signados o aquellos con diferente cantidad de bits/bytes). En este caso, tenemos los tipos \lstinline{int} (tipo nativo) e \lstinline{Integer} (clase de Java) que son los mismos dos tipos/clases con los que nos podemos encontrar en Java. Sin embargo, sí existe el tipo de dato ``Byte`` que nos permitió hacer una transferencia/paralelismo uno a uno con la especificación del estándar de AES. Al mismo tiempo, el lenguaje presentó una expresividad muy alta debido a que permite un híbrido entre programación orientada a objetos y programación funcional.Esto hace que el código sea más legible y mantenible, algo que puede ser muy interesante en proyectos grandes, como una alternativa a Java. Además, el hecho de ser híbrido permite programar puramente en POO (si se viene del ámbito de C\#, Java o incluso C++) o programar puramente en estilo funcional.
 
-En cuanto al uso de bibliotecas, Scala no tiene una biblioteca que nos provea de un cliente nativo para enviar datos a Graphite, por lo que optamos por utilizar una biblioteca de Java (mantenida por DataDog).
+En cuanto al uso de bibliotecas, Scala no tiene una biblioteca que nos provea de un cliente nativo para enviar datos a Graphite, por lo que optamos por utilizar una biblioteca de Java (mantenida por DataDog \cite{com:datadog}) \cite{scala:lib:java-dogstatsd-client}.
 
 \subsubsection{Zig}
 
@@ -1992,11 +2011,9 @@ Algunos de los \english{allocators} más usados son:
 
 Cabe destacar que es posible definir nuevos \english{allocators} con un comportamiento diferente.
 
-% FIXME: ver comentario
-
 Por otro lado, el lenguaje tiene carencias en otras áreas. El manejo de errores es pobre, por lo que nos resultó dificultoso realizar \english{debugging}. Algunos errores no son descriptivos o indican líneas incorrectas debido a que el propio compilador presenta errores. Además, como en la mayoría de los lenguajes, no está permitido compilar si hay errores, pero Zig presenta errores que deberían ser \english{warnings} (por ejemplo variables o parámetros sin utilizar, que suele suceder cuando estamos en proceso de desarrollo). 
 
-Uno de nuestros objetivos era probar el modelo de concurrencia nativo del lenguaje y eso no fue posible puesto que las funcionalidades asincrónicas fueron removidas a partir de la v0.11 (se encontraba en v0.12 a la fecha del desarrollo) porque generaban errores. Esta inestabilidad genera que no se encuentran bibliotecas útiles a raíz de que se introducen \english{breaking changes} entre versiones y el código queda rápidamente obsoleto. Al ser lenguaje que se encuentra en las primeras fases de su desarrollo, posee una mala integración con los entornos de desarrollo; y suelen renombrar funciones o métodos que son comunes para la industria. Por ejemplo, al utilizar semáforos, la operación \english{signal} es llamada \english{post}. Si bien es un inconveniente menor, dificulta innecesariamente el proceso de aprendizaje e investigación de la biblioteca estándar.
+Uno de nuestros objetivos era probar el modelo de concurrencia nativo del lenguaje y eso no fue posible puesto que las funcionalidades asincrónicas fueron removidas a partir de la v0.11 (se encontraba en v0.12 a la fecha del desarrollo) porque generaban errores. Esta inestabilidad genera que no se encuentran bibliotecas útiles a raíz de que se introducen \english{breaking changes} entre versiones y el código queda rápidamente obsoleto. Al ser lenguaje que se encuentra en las primeras fases de su desarrollo, posee una mala integración con los entornos de desarrollo; y suelen renombrar funciones o métodos que son comunes para la industria. Por ejemplo, al utilizar semáforos, la operación \lstinline{signal} es llamada \lstinline{post}. Si bien es un inconveniente menor, dificulta innecesariamente el proceso de aprendizaje e investigación de la biblioteca estándar.
 
 Este tipo de errores o falencias entorpecen el desarrollo, pero el equipo de Zig está trabajando activamente en solucionarlos. Cabe destacar que el lenguaje aún no ha alcanzado su primera versión estable.
 
@@ -2085,7 +2102,7 @@ Para este área de investigación, se analizaron los modelos de programación co
 
 \subsection{Caso de uso: Predicción de precios de casas en California}
 
-Se decidió implementar redes neuronales para el caso de predicción de la mediana de precios de casas en California, cuyos datos son derivados del censo de \numprint{1990} en Estados Unidos. Los datos fueron tomados de la plataforma Kaggle \cite{com:kaggle}. Para este caso de uso, se decidió utilizar Python y Julia. Para ambos casos, la función de activación es ReLU, que se define como:
+Se decidió implementar redes neuronales para el caso de predicción de la mediana de precios de casas en California, cuyos datos son derivados del censo de 1990 en Estados Unidos. Los datos fueron tomados de la plataforma Kaggle \cite{com:kaggle}. Para este caso de uso, se decidió utilizar Python y Julia. Para ambos casos, la función de activación es ReLU, que se define como:
 
 \begin{equation}
 \text{ReLU}(x) = \max(0, x)
@@ -2098,11 +2115,11 @@ En esta sección se especifican los detalles de despliegue. Esto incluye el ento
 
 \subsubsection{Entorno}
 
-El despliegue se realizó en el servidor de FaMAF-2 considerando que, para este caso en particular, necesitaríamos el uso de la GPU para el entrenamiento de los modelos. Nos encontramos con la dificultad de que, como el servidor cuenta con CUDA 12 \footnote{CUDA es la plataforma que permite desarrollar aplicaciones paralelas que se ejecutan en GPU de Nvidia}, debíamos utilizar una imagen de Docker específica para que permita hacer la integración con esa determinada versión de CUDA.
+El despliegue se realizó en el servidor de FaMAF-2 considerando que, para este caso en particular, necesitaríamos el uso de la GPU para el entrenamiento de los modelos. Nos encontramos con la dificultad de que, como el servidor cuenta con CUDA 12 \footnote{CUDA: plataforma que permite desarrollar aplicaciones paralelas que se ejecutan en una GPU de Nvidia}, debíamos utilizar una imagen de Docker específica para que permita hacer la integración con esa determinada versión de CUDA.
 
 \subsubsection{Dataset}
 
-Como se comentó anteriormente, el \english{dataset} está compuesto por \numprint{20640} registros con 10 atributos. Dichos datos fueron tomados de la plataforma Kaggle. Los atributos son:
+Como se comentó anteriormente, el \english{dataset} está compuesto por 20640 registros con 10 atributos. Dichos datos fueron tomados de la plataforma Kaggle. Los atributos son:
 
 \begin{itemize}
     \item \english{longitude}: longitud en donde se encuentra la propiedad.
@@ -2171,7 +2188,7 @@ Cabe aclarar que, si bien parece que cierta información de las \english{feature
 
 Al mismo tiempo, se realizó un \english{encoding} para la única variable categórica (\english{ocean\_proximity\_enc}). Dicho \english{encoding} consiste en asignarle un valor numérico entero (entre 0 y 4) a cada tipo de categoría de acuerdo a qué tan cercano se encuentra la propiedad respecto del océano, por ejemplo, al valor ``ISLAND`` se le asigno el valor 4, y así sucesivamente.
 
-Pasando al entrenamiento, se optó por usar dos de las bibliotecas más utilizadas dentro del mundo de redes neuronales, PyTorch y Tensorflow/Keras. Para ambos casos, la red neuronal consiste en los siguientes hiperparámetros:
+Pasando al entrenamiento, se optó por usar dos de las bibliotecas más utilizadas dentro del mundo de redes neuronales, PyTorch \cite{python:lib:pytorch} y Tensorflow/Keras \cite{python:lib:tensorflow}. Para ambos casos, la red neuronal consiste en los siguientes hiperparámetros:
 
 \begin{itemize}
     \item Optimizador: Adam.
@@ -2180,16 +2197,16 @@ Pasando al entrenamiento, se optó por usar dos de las bibliotecas más utilizad
     \item Cantidad de \english{inputs}: 9.
     \item Ratio de \english{dropout}: 0.1.
     \item Función de activación: ReLU.
-    \item \english{Epochs}: \numprint{2000} con \english{early stopping}.
+    \item \english{Epochs}: 2000 con \english{early stopping}.
     \item Tamaño de \english{batch}: 16.
     \item Función de \english{loss}: error cuadrático medio.
 \end{itemize}
 
 Cabe aclarar que no se hizo ninguna optimización de hiperparámetros, ya que se consideró que dicha búsqueda fue cubierta con el Grid Search dentro del área de sistemas distribuidos.
 
-Tensorflow/Keras presentan bibliotecas accesorias que permiten que el entrenamiento y la configuración sean muy similar a la que si usáramos un modelo propio de Sklearn, principalmente a la hora de construir pipelines con distintos pasos previos al entrenamiento (por ejemplo, escalado de datos).
+Tensorflow/Keras presentan bibliotecas accesorias que permiten que el entrenamiento y la configuración sean muy similar a la que si usáramos un modelo propio de SkLearn \cite{python:lib:scikitlearn}, principalmente a la hora de construir pipelines con distintos pasos previos al entrenamiento (por ejemplo, escalado de datos).
 
-En el Código~\ref{code:nn:python_tensorflow} se define una función que permite ir construyendo la red neuronal en base a los nodos de entrada, los nodos densos y los nodos de \english{dropout} para evitar el \english{overfit}.
+En el Código~\ref{code:nn:python_tensorflow} se define una función que permite ir construyendo la red neuronal en base a los nodos de entrada, los nodos densos y los nodos de \english{dropout} para evitar el \english{overfitting} \footnote{\english{Overfitting}: situación en la cual una red neuronal, u otro modelo de \english{machine learning}, ajusta demasiado sus parámetros a los datos de entrenamiento, mientras que presenta resultados muy pobres frente a datos nuevos}. Estos últimos nodos basan su funcionamiento en la idea de ignorar ciertas conexiones con la próxima capa.
 
 \begin{listing}
 \begin{minted}[bgcolor=bg, breaklines]{python}
@@ -2261,7 +2278,7 @@ pipe.fit(X_train, y_train, keras__validation_data=(X_test_transformed, y_test))
 \label{code:nn:python_pipe_training_tensorflow}
 \end{listing}
 
-Por su lado, \english{PyTorch} presenta la particularidad de que hay que adecuarse a su manera de extender modelos en base a la programación orientada a objetos. Además, no tiene una integración tan amena como sí lo hace Tensorflow/Keras para con Sklearn, sino que se tiene que pasar las estructuras de datos (por ejemplo, DataFrames) hacia las estructuras de datos propias de PyTorch. Al mismo tiempo, cuenta con un método de \english{early stopping} pero se debe instalar como una dependencia aparte.
+Por su lado, PyTorch presenta la particularidad de que hay que adecuarse a su manera de extender modelos en base a la programación orientada a objetos. Además, no tiene una integración tan amena como sí lo hace Tensorflow/Keras para con Sklearn, sino que se tiene que pasar las estructuras de datos (por ejemplo, DataFrames) hacia las estructuras de datos propias de PyTorch. Al mismo tiempo, cuenta con un método de \english{early stopping} pero se debe instalar como una dependencia aparte.
 
 En el Código~\ref{code:nn:python_pytorch}, y con el mismo espíritu que lo visto en el Código~\ref{code:nn:python_tensorflow}, se define una clase que permite ir construyendo la red neuronal en base a los nodos de entrada, los nodos densos y los nodos de \english{dropout} para evitar el \english{overfit}. Notar que la clase hereda de una clase propia de la biblioteca de PyTorch.
 
@@ -2290,17 +2307,17 @@ class MLPRegressor(nn.Module):
         x = self.output_layer(x)
         return x
 \end{minted}
-\caption{Modelo base de regresor lineal con Pytorch}
+\caption{Modelo base de regresor lineal con PyTorch}
 \label{code:nn:python_pytorch}
 \end{listing}
 
 \subsubsection{Julia}
 
-Para el caso de Julia, se replicó el mismo procedimiento que en Python. Se utilizaron las bibliotecas \lstinline{DataFrames}, \lstinline{CSV}, \lstinline{Plots}, \lstinline{ScikitLearn}, \lstinline{Statistics}, y \lstinline{StatsPlots} para realizar un análisis exhaustivo de los datos. A partir de este análisis, se llevó a cabo la ingeniería de datos, la cual incluyó la eliminación de \textit{outliers}, la codificación de campos y la generación de nuevos campos con una mayor correlación al objetivo.
+Para el caso de Julia, se replicó el mismo procedimiento que en Python. Se utilizaron las bibliotecas DataFrames \cite{jl:lib:dataframe}, CSV \cite{jl:lib:csv}, Plots \cite{jl:lib:plots}, ScikitLearn \cite{jl:lib:scikitlearn}, Statistics \cite{jl:lib:statitics}, y StatsPlots \cite{jl:lib:statsplots} para realizar un análisis exhaustivo de los datos. A partir de este análisis, se llevó a cabo la ingeniería de datos, la cual incluyó la eliminación de valores atípicos, la codificación de campos y la generación de nuevos campos con una mayor correlación al objetivo.
 
-En la etapa de entrenamiento, se emplearon dos bibliotecas: \textit{Flux} y \textit{SciKitLearn}. \textit{Flux}, al igual que \textit{Tensorflow}, es una biblioteca de bajo nivel que otorga un gran control al usuario sobre cómo modelar y entrenar la red neuronal. La desventaja de esta característica es que el proceso de desarrollo puede volverse tedioso y más propenso a errores. Por ejemplo, durante gran parte del tiempo, asumimos incorrectamente que el rendimiento del modelo desarrollado en \textit{Flux} era considerablemente inferior al de otros modelos. No obstante, esto se debió simplemente a que no transpusimos el vector objetivo al calcular la métrica de error cuadrático, y la biblioteca \textit{Flux} no detectó este error.
+En la etapa de entrenamiento, se emplearon dos bibliotecas: Flux \cite{jl:lib:flux} y ScikitLearn. 
 
-En el Código~\ref{code:nn:julia_training} se presenta un extracto de nuestro código en el cual entrenamos el modelo utilizando \textit{Flux}. Como se puede observar, la biblioteca \textit{Flux} es muy flexible y de bajo nivel, lo que permite manipular el bucle de entrenamiento de la manera que deseemos. Proporciona herramientas esenciales, como funciones de pérdida, cargadores de datos y \textit{early stopping}, pero también ofrece la posibilidad de realizar nuestras propias implementaciones e integrarlas en el proceso. En cuanto a la construcción del modelo, \textit{Flux} demuestra una notable flexibilidad, permitiéndonos controlar cada capa de la red y sus dimensiones. En el Código~\ref{code:nn:julia_model} se muestra la función que utilizamos para construir el modelo.
+En el Código~\ref{code:nn:julia_training} se presenta un extracto de nuestro código en el cual entrenamos el modelo utilizando Flux. Como se puede observar, la biblioteca Flux es muy flexible y de bajo nivel, lo que permite manipular el bucle de entrenamiento de la manera que deseemos. Proporciona herramientas esenciales, como funciones de pérdida, cargadores de datos y \textit{early stopping}, pero también ofrece la posibilidad de realizar nuestras propias implementaciones e integrarlas en el proceso. En cuanto a la construcción del modelo, Flux demuestra una notable flexibilidad, permitiéndonos controlar cada capa de la red y sus dimensiones. En el Código~\ref{code:nn:julia_model} se muestra la función que utilizamos para construir el modelo.
 
 \begin{listing}[h]
 \begin{minted}[bgcolor=bg, breaklines]{julia}
@@ -2358,7 +2375,7 @@ end
 \label{code:nn:julia_model}
 \end{listing}
 
-En los ejemplos de código \ref{code:nn:julia_training} y \ref{code:nn:julia_model} se destaca una de las características más interesantes de Julia en el ámbito del entrenamiento de redes neuronales: la forma en que interactúa con la GPU. Gracias a la compatibilidad de Julia con CUDA, el lenguaje ofrece un manejo de la GPU simple y potente. \textit{Flux} aprovecha esta capacidad al máximo, ya que toda su biblioteca es compatible con la GPU. Para indicarle a la biblioteca que utilice la GPU, basta con agregar la sentencia \lstinline{|> gpu} al final de cualquier estructura de la biblioteca o tipo de dato. En nuestro código, se puede observar cómo el modelo completo se traslada a la GPU, así como también los datos de entrenamiento.
+En los ejemplos de código \ref{code:nn:julia_training} y \ref{code:nn:julia_model} se destaca una de las características más interesantes de Julia en el ámbito del entrenamiento de redes neuronales: la forma en que interactúa con la GPU. Gracias a la compatibilidad de Julia con CUDA, el lenguaje ofrece un manejo de la GPU simple y potente. Flux aprovecha esta capacidad al máximo, ya que toda su biblioteca es compatible con la GPU. Para indicarle a la biblioteca que utilice la GPU, basta con agregar la sentencia \lstinline{|> gpu} al final de cualquier estructura de la biblioteca o tipo de dato. En nuestro código, se puede observar cómo el modelo completo se traslada a la GPU, así como también los datos de entrenamiento.
 
 \subsection{Métricas}
 
@@ -2368,9 +2385,9 @@ En el Cuadro~\ref{tab:nn:metrics} se pueden observar los resultados correspondie
 
 \begin{itemize}
     \item \textbf{Duración}: tiempo que tardó el sistema en realizar la ejecución.
-    \item \textbf{Uso de memoria}: uso de memoria del \english{container} que realiza la ejecución.
-    \item \textbf{Uso de CPU}: uso de CPU del \english{container} que realiza la ejecución.
-    \item \textbf{Uso de GPU}: uso de GPU del \english{container} que realiza la ejecución.
+    \item \textbf{Uso de memoria}: uso de memoria del contenedor que realiza la ejecución.
+    \item \textbf{Uso de CPU}: uso de CPU del contenedor que realiza la ejecución.
+    \item \textbf{Uso de GPU}: uso de GPU del contenedor que realiza la ejecución.
     \item \textbf{Raíz del error cuadrático medio}: tipo de métrica utilizada para determinar qué tan preciso es el modelo entrenado.
 \end{itemize}
 
@@ -2392,10 +2409,9 @@ Raíz del error cuadrático medio & \multicolumn{1}{c|}{$94.75$\%} & $98.47\%$& 
 
 De estos datos, es posible obtener algunas conclusiones preliminares:
 
-% FIXME: ver comentario
 \begin{itemize}
-    \item Julia con Flux presentó un mejor rendimiento en términos generales. Si bien Python con Tensorflow/Keras tuvo un menor métrica de error, el tiempo que consumió el entrenamiento (aproximadamente ocho veces mas que Flux) sumado al elevado uso de GPU, hace que el mejor resultado en cuanto a la métrica de error quede descompensado.
-    \item Python con PyTorch presenta resultados muy similares a los de Julia con Flux en cuanto al uso de memoria, uso de CPU y uso de GPU; no obstante, la duración del entrenamiento es casi tres veces mas a la de Julia con Flux, por lo que cae también por debajo de Flux.
+    \item Julia con Flux presentó un mejor rendimiento en términos generales. Si bien Python con Tensorflow/Keras tuvo un menor métrica de error, el tiempo que consumió el entrenamiento (aproximadamente ocho veces más que Flux) sumado al elevado uso de GPU, hace que el mejor resultado en cuanto a la métrica de error quede descompensado.
+    \item Python con PyTorch presenta resultados muy similares a los de Julia con Flux en cuanto al uso de memoria, uso de CPU y uso de GPU; no obstante, la duración del entrenamiento es casi tres veces más a la de Julia con Flux, por lo que cae también por debajo de Flux.
 \end{itemize}
 
 
@@ -2497,14 +2513,14 @@ Un protocolo de comunicación es un conjunto de reglas que determina la forma en
 
 En el contexto de Internet, los protocolos de comunicación pueden clasificarse, según el modelo TCP/IP, en 4 capas:
 
-\begin{itemize} % FIXME!!!: add small description for each one + examples (maybe with references)
+\begin{itemize}
     \item Capa de aplicación: es la capa donde las aplicaciones de red y sus protocolos se comunican directamente con el usuario final. En esta capa podemos encontrar protocolos como HTTP (utilizado para transferir páginas web), FTP (utilizado para la transferencia de archivos) y MQTT (utilizado para la comunicación en redes IoT).
     \item Capa de transporte: proporciona comunicación de procesos, posiblemente ubicados en distintos dispositivos. Gestiona la entrega de datos de extremo a extremo, controlando la integridad y la corrección de los datos transmitidos. En esta capa encontramos a los protocolos TCP (que garantiza una transmisión confiable y ordenada) y UDP (que permite una transmisión rápida pero sin garantía de entrega).
     \item Capa de red: proporciona comunicación entre diferentes dispositivos en una red, determinando la ruta que los datos deben seguir para llegar a su destino. En esta capa encontramos al protocolo IP (que maneja el direccionamiento y la fragmentación de los paquetes de datos).
     \item Capa de acceso a red: engloba las capas de enlace y física, gestionando la transmisión de datos entre dispositivos en la misma red local. Se encarga del direccionamiento físico (usando direcciones MAC), el control de acceso al medio, y la detección y corrección de errores. En esta capa podemos encontrar protocolos como Ethernet (que define las reglas para el cableado y la transmisión de datos en redes locales), Wi-Fi (que permite la conexión inalámbrica entre dispositivos) y ARP (que resuelve las direcciones IP a direcciones MAC).
 \end{itemize}
 
-Resulta de gran interés analizar la capa de aplicación, pues tiene el mayor número de protocolos y, con el surgimiento de nuevas tecnologías, dicho número se incrementa día a día. En los párrafos y secciones que siguen, este informe solo hará referencia a los protocolos de esta capa. % FIXME: Citation needed
+Resulta de gran interés analizar la capa de aplicación, pues tiene el mayor número de protocolos y, con el surgimiento de nuevas tecnologías, dicho número se incrementa día a día. En los párrafos y secciones que siguen, este informe solo hará referencia a los protocolos de esta capa.
 
 Al momento de seleccionar un lenguaje de programación para un nuevo proyecto, resulta fundamental conocer qué herramientas brinda para poder cumplir con la especificación de los protocolos utilizados. Realizar una implementación ``de cero'' puede ser una tarea muy difícil, dependiendo de la complejidad del protocolo. En muchos casos, el uso de una biblioteca especializada es preferido.
 
@@ -2821,8 +2837,6 @@ export const authenticateUser = (
 
 \subsubsection{Go}
 
-% Powered by ChatGPT - Confirmation needed
-
 Para Go se utilizó el \english{framework} Gin\cite{http:go:gin}, el cual permite crear un servidor HTTP asincrónico. En el ejemplo \ref{code:http_go:gin} podemos ver como es la declaración de rutas en Gin.
 
 \begin{listing}
@@ -2881,8 +2895,8 @@ Además, para la capa de persistencia se empleó una base de datos PostgreSQL, a
 En el Cuadro~\ref{tab:http:metrics} se pueden observar los resultados correspondientes al caso de uso de HTTP. El significado de cada una de las métricas es el siguiente:
 
 \begin{itemize}
-    \item \textbf{Uso de CPU}: uso de CPU del container que ejecuta el servidor.
-    \item \textbf{Uso de memoria}: uso de memoria del container que ejecuta el servidor.
+    \item \textbf{Uso de CPU}: uso de CPU del contenedor que ejecuta el servidor.
+    \item \textbf{Uso de memoria}: uso de memoria del contenedor que ejecuta el servidor.
     \item \textbf{Latencia}: latencia de las respuestas, bajo condiciones normales de funcionamiento.
     \item \textbf{Throughput}: cantidad de peticiones por segundo que soporta. Se testeó un máximo de 70 escenarios por segundo.
 \end{itemize}
@@ -2966,7 +2980,7 @@ El principio ``Convención sobre configuración'', explicado anteriormente, trae
 \end{itemize}
 Estas cuestiones deben analizarse para el caso de uso en el que se desea utilizar el \english{framework}.
 
-Al momento de crear un proyecto en Rails se incluyen un gran número de utilidades, tales como una base de datos (SQLite por defecto), un ORM, un sistema de migración de \english{schemas}, un archivo Dockerfile para poder ejecutar el servidor en un \english{container}, entre muchas otras cosas.
+Al momento de crear un proyecto en Rails se incluyen un gran número de utilidades, tales como una base de datos (SQLite por defecto), un ORM, un sistema de migración de \english{schemas}, un archivo Dockerfile para poder ejecutar el servidor en un contenedor, entre muchas otras cosas.
 
 Una \english{feature} destacable es la consola, que permite, entre otras cosas, interactuar con la base de datos utilizando las clases definidas en el ORM. Es posible crear nuevos ítems, modificarlos o eliminarlos, lo cual es muy útil para probar funcionalidades nuevas sin tener que implementar los \english{endpoints} ni usar herramientas externas (como Postman o \lstinline{curl}).
 
@@ -2976,11 +2990,11 @@ Todas estas características hicieron que el desarrollo sea muy particular. No f
 
 El lenguaje es muy extensible y cuenta con una amplia gama de bibliotecas para diversas funcionalidades, lo cual puede representar una ventaja significativa. Sin embargo, esta abundancia de opciones también puede dificultar la selección de la biblioteca más adecuada.
 
-Dentro del \english{stack} seleccionado, no se encontró una forma adecuada de generar documentación (\lstinline{Swagger}) de manera automática. De modo que se opto por la utilizacion de Postman \cite{js:ex:postman}; notablemente, este provee funcionalidades de automatizacion, programables utilizando Java Script.
+Dentro del \english{stack} seleccionado, no se encontró una forma adecuada de generar documentación (\lstinline{Swagger}) de manera automática. De modo que se optó por la utilización de Postman \cite{js:ex:postman}; notablemente, éste provee funcionalidades de automatización, programables utilizando JavaScript.
 
 El ORM, \lstinline{Sequelize}, abstrae completamente la existencia de una base de datos, permitiendo trabajar directamente con los modelos. Excepto por que no proporciona soporte para asociaciones con clave primaria compuesta, lo que llevó a realizar algunas consultas utilizando SQL crudo.
 
-La arquitectura de \english{pipeline} de Express genera una division de tareas natural de las diferentes etapas de manejo de peticiones, generando implementaciones de \english{endpoints} que son fáciles tanto de entender como de extender.
+La arquitectura de \english{pipeline} de Express genera una división de tareas natural de las diferentes etapas de manejo de peticiones, generando implementaciones de \english{endpoints} que son fáciles tanto de entender como de extender.
 
 La integración del lenguaje y el tipado mediante \lstinline{TypeScript} en el IDE es muy completa, lo que simplifica el desarrollo y la navegación del código.
 
@@ -3003,11 +3017,24 @@ Python fue la implementación que más recursos utilizó entre las analizadas y,
 \subsection{Ruby}
 Ruby fue el segundo lenguaje qué más recursos utilizó, pero no logró completar las pruebas de carga. A pesar de proveer un ecosistema muy completo para desarrollar aplicaciones complejas, su filosofía de ``Convención sobre configuración'' puede dificultar el seguimiento del código para quienes no están familiarizados con el \textit{framework}. No se recomienda su uso a menos que el equipo tenga mucha experiencia con este \english{framework}.
 
+\newpage
+
+\section{Riesgos materializados y lecciones aprendidas}
+
+% Ideas:
+% Tecnologias que no funcionaron: Akka, lo mitigamos adaptando la implementacion usando RabbitMQ, docker-compose (no estaba instalado en el servidr de FaMAF), lo solucionamos usando docker swarm, y de paso aprendimos a usarlo, sockets de zeromq, despliegue en redes neuronales no fue tan lineal, tambien hubo problemas en las versiones de python, en criptografia usamos un lenguaje muy nuevo (zig) que no tiene version estable, por lo que habia features que no funcionaban o funcionaban mal
+% TUPAC no funciono porque era dificil de usar con los diferentes lenguajes, nos pasamos a FaMAF
+% Temas de organizacion: al principio coordinamos las tareas pendientes con Trello, pero despues nos resulto mas facil la coordinacion "por whatsapp"
+% Cambio de calendario: al inicio del trabajo profesional creiamos que ibamos a tener tiempo hasta finales de junio para terminarlo. A mediados del segundo cuatrimestre se nos informo que el trabajo se entregaba la segunda semana de junio. No fue tan grave porque ese mes lo teniamos reservado para ajustes e imprevistos.
+
+
+\newpage
+
 \section{Trabajos futuros}
 
 Con el objetivo de facilitar la extensión de este trabajo, se incluye esta sección dedicada a describir cómo se llevó a cabo la investigación y la definición del proyecto, así como las posibles vías para su expansión y desarrollo futuro.
 
-\subsection{Extensión siguiendo el desarrollo del Trabajo}
+\subsection{Extensión siguiendo el desarrollo del trabajo}
 
 \subsubsection{Proceso de investigación y selección}
 
@@ -3015,7 +3042,7 @@ El proceso de investigación se basó en la exploración independiente de casos 
 
 \subsubsection{Agregando nuevos casos de uso}
 
-La seleccion de casos de uso se baso en aplicaciones reales que utilizan o pueden beneficiarse de implementaciones concurrentes.
+La selección de casos de uso se baso en aplicaciones reales que utilizan o pueden beneficiarse de implementaciones concurrentes.
 
 Inicialmente, se realizo una selección preliminar utilizando nuestra experiencia, recomendaciones y una investigación inicial. Posteriormente, se llevo a cabo un análisis más profundo de cada caso de uso para identificar aquellos más pertinentes.
 
@@ -3045,7 +3072,7 @@ Una vez seleccionado, su adición a la comparación es simple. Primero, debe imp
 
 Durante el desarrollo hemos tomado decisiones que han condicionado los casos de uso. Modificar estas premisas podría generar resultados nuevos.
 
-En los desarrollos de sistemas distribuidos, se hizo foco en sistemas de procesamiento de datos, ignorando la tolerancia a fallos. Además, los casos de uso requieren mantener poco o nulo estado.
+En los desarrollos de sistemas distribuidos, se hizo foco en sistemas de procesamiento de datos, ignorando la tolerancia a fallas. Además, los casos de uso requieren mantener poco o nulo estado.
 
 Para el caso de criptografía, se optó por el algoritmo AES, escogiendo un modo de paralelismo casi trivial. No obstante, hay múltiples alternativas que podrían ser desarrolladas. Al mismo tiempo, a pesar de ser el desarrollo de menor envergadura, se impuso el requisito de persistir los datos en disco.
 
@@ -3060,6 +3087,8 @@ En nuestra investigación nos hemos centrado en los ``casos de uso`` y los ``len
 Podría enfocarse en otras características de los lenguajes, como la \textit{portabilidad}, evaluando el rendimiento de los lenguajes y \english{frameworks} en distintos entornos de implementación; la velocidad de desarrollo; o su extensibilidad.
 
 También se podrían explorar lenguajes emergentes, aún poco evaluados, como Zig, así como otros que podrían tener el potencial de competir con C/C++ en ciertos dominios \cite{cpp_killers}.
+
+\newpage
 
 \section{Conclusiones}
 
@@ -3077,7 +3106,7 @@ Finalmente, se abrieron líneas de investigación futura que, sin duda, enriquec
 
 Consideramos que los resultados de nuestra investigación proporcionan una base más sólida para la comparación de lenguajes, en comparación con los análisis basados en la implementación de algoritmos clásicos. Destacamos, principalmente, el valor del análisis subjetivo, posible gracias a que los casos de uso presentan un nivel de complejidad más cercano a la realidad.
 
-Asimismo, aplicamos diversas técnicas de programación en múltiples lenguajes y ecosistemas, enfrentándonos a desafíos relacionados con la eficiencia, la gestión de recursos y la concurrencia dentro de los dominios mencionados. Por otro lado, desarrollamos y reforzamos habilidades, que si bien no son técnicas, fueron necesarias para el para la consecución de este proyecto, tales como, el trabajo en equipo y la colaboración constante; la capacidad de comunicar ideas de manera clara y concisa; la planificación y ejecución de tareas en plazos específicos y la capacidad de documentar y mantener trazabilidad del desarrollo para que todos los miembros del equipo estén al tanto. A lo largo de este trabajo, también adquirimos nuevos conocimientos y habilidades que complementan y amplían nuestra formación previa: exploramos lenguajes y herramientas emergentes, entendiendo sus ventajas y limitaciones en comparación con alternativas más establecidas; y profundizamos en técnicas de \english{benchmarking}, aprendiendo a diseñar y ejecutar pruebas de rendimiento de manera efectiva.
+Asimismo, aplicamos diversas técnicas de programación en múltiples lenguajes y ecosistemas, enfrentándonos a desafíos relacionados con la eficiencia, la gestión de recursos y la concurrencia dentro de los dominios mencionados. Por otro lado, desarrollamos y reforzamos habilidades, que si bien no son técnicas, fueron necesarias para la consecución de este proyecto, tales como, el trabajo en equipo y la colaboración constante; la capacidad de comunicar ideas de manera clara y concisa; la planificación y ejecución de tareas en plazos específicos y la capacidad de documentar y mantener trazabilidad del desarrollo para que todos los miembros del equipo estén al tanto. A lo largo de este trabajo, también adquirimos nuevos conocimientos y habilidades que complementan y amplían nuestra formación previa: exploramos lenguajes y herramientas emergentes, entendiendo sus ventajas y limitaciones en comparación con alternativas más establecidas; y profundizamos en técnicas de \english{benchmarking}, aprendiendo a diseñar y ejecutar pruebas de rendimiento de manera efectiva.
 
 \newpage
 
@@ -3097,6 +3126,8 @@ Asimismo, aplicamos diversas técnicas de programación en múltiples lenguajes 
 \printbibliography[keyword={repos},nottype=unused,heading=none]
 \nocite{*} % FIXME ?: This requieres Repos are the only unreferenced bibilography
 \endgroup
+
+\newpage
 
 \section{Anexos}
 
@@ -3133,7 +3164,7 @@ Una métrica que usamos constantemente para comparar la rapidez de procesamiento
 
 En Elixir, en nuestra primera ejecución con dos nodos trabajadores, obtuvimos 0.1 req/s. En comparación, el resto de los lenguajes presentaron desempeños significativamente mejores que este. Estos resultados tan pobres, combinados con nuestra limitada experiencia con el lenguaje, nos llevaron a buscar oportunidades de optimización.
 
-Después de mucha búsqueda e intentos, encontramos una herramienta que resultó de gran ayuda llamada \textit{mix profile}. \textit{Mix profile} es una herramienta integrada en \textit{mix}\footnote{Mix: herramienta propia de Elixir que permite mediante linea de comandos, crear, compilar, ejecutar pruebas y gestionar dependencias de una aplicación.} que genera perfiles de llamadas a funciones a partir de la ejecución de cualquier aplicación de Elixir. Es importante mencionar que esta herramienta es posible gracias a Erlang, ya que Elixir la utiliza a través de su máquina virtual.
+Después de mucha búsqueda e intentos, encontramos una herramienta que resultó de gran ayuda llamada mix profile. Mix profile es una herramienta integrada en mix\footnote{Mix: herramienta propia de Elixir que permite mediante linea de comandos, crear, compilar, ejecutar pruebas y gestionar dependencias de una aplicación.} que genera perfiles de llamadas a funciones a partir de la ejecución de cualquier aplicación de Elixir. Es importante mencionar que esta herramienta es posible gracias a Erlang, ya que Elixir la utiliza a través de su máquina virtual.
 
 \begin{figure}[ht]
     \centering
@@ -3174,16 +3205,30 @@ A pesar de la utilidad de la herramienta de \english{profiling}, la búsqueda de
 
 \subsection{Métricas Extendidas} \label{sec:anex:metrics} 
 % FIXME: check that the values of the tables are ok
-% FIXME: make descriptions standalone [?] (add section title to desc)
 
-\subsubsection{Grid Search} \label{sec:anex:metrics:gs}
+\subsubsection{Sistemas Distribuidos: grid search} \label{sec:anex:metrics:gs}
+
+El significado de cada una de las métricas es el siguiente:
+
+\begin{itemize}
+    \item \textbf{\english{Throughput} de los trabajadores}: promedio de la tasa de datos procesados por unidad de tiempo de los trabajadores.
+    \item \textbf{\english{Throughput} combinado}: tasa de datos procesados por unidad de tiempo del sistema.
+    \item \textbf{Variación  del tiempo de trabajo}: coeficiente de variación del tiempo de trabajo de los trabajadores.
+    \item \textbf{Uso de memoria}: uso de memoria promedio de los procesos trabajadores.
+    \item \textbf{Uso de red (Tx)}: tasa de transferencia de escritura de red promedio de los procesos trabajadores.
+    \item \textbf{Uso de red (Rx)}: tasa de transferencia de lectura de red promedio de los procesos trabajadores.
+    \item \textbf{Uso de CPU}: uso de CPU promedio de los procesos trabajadores.
+    \item \textbf{Tiempo de ejecución}: tiempo que demoró en ejecutarse el sistema.
+\end{itemize}
+
+Este resumen se encuentra expresado en valores relativos a C++. Esto quiere decir, por ejemplo, que el \english{Throughput} de Scala fue el 27\% del \english{Throughput} de C++.
 
 \begin{table}[H]
 \centering
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 4 Nodos & 8 Nodos & 16 Nodos \\ \hline
-\row{\english{Throughput} de los worker\\{[Resultados/Segundo]}} & $2.42$  & $2.28$ & $2.26$ \\ \hline
+\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $2.42$  & $2.28$ & $2.26$ \\ \hline
 \row{\english{Throughput} combinado\\{[Resultados/Segundo]}}  & $9.60$  & $18.2$ & $34.8$ \\ \hline
 \row{Variación del tiempo\\de trabajo {[\%]}} & $0.83$& $0.25$& $0.38$\\ \hline
 \row{Uso de memoria\\{[MB/Trabajador]}} & $1.7-9.0$  & $1.6-9.0$ & $1.3-8.6$ \\ \hline
@@ -3200,7 +3245,7 @@ Tiempo de ejecución [Minutos] & $41.5$ & $22.0$ & $11.2$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 4 Nodos & 8 Nodos & 16 Nodos \\ \hline
-\row{\english{Throughput} de los worker\\{[Resultados/Segundo]}} & $1.87$ & $1.65$ & $1.68$ \\ \hline
+\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $1.87$ & $1.65$ & $1.68$ \\ \hline
 \row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $7.48$ & $13.2$ & $26.8$ \\ \hline
 \row{Variación del tiempo\\de trabajo {[\%]}} & $0.432$ & $0.705$ & $3.80$ \\ \hline
 \row{Uso de memoria\\{[MB/Trabajador]}} & $1.29-4.00$ & $1.35-2.95$ & $1.00-4.50$ \\ \hline
@@ -3219,7 +3264,7 @@ Tiempo de ejecución [Minutos] & $54.0$ & $26.7$ & $15.1$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 4 Nodos & 8 Nodos & 16 Nodos \\ \hline
-\row{\english{Throughput} de los worker\\{[Resultados/Segundo]}} & $0.64$ & $0.63$ & $0.6$ \\ \hline
+\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $0.64$ & $0.63$ & $0.6$ \\ \hline
 \row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $2.57$ & $4.85$ & $9.47$ \\ \hline
 \row{Variación del tiempo\\de trabajo {[\%]}} & $1.57$ & $1.95$ & $1.83$ \\ \hline
 \row{Uso de memoria\\{[MB/Trabajador]}} & 370 & 367 & 360 \\ \hline
@@ -3238,7 +3283,7 @@ Tiempo de ejecución [Minutos] & 155 & 82.2 & $42.1$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 4 Nodos & 8 Nodos & 16 Nodos \\ \hline
-\row{\english{Throughput} de los worker\\{[Resultados/Segundo]}} & $0.51$ & $0.51$ & $0.52$ \\ \hline
+\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $0.51$ & $0.51$ & $0.52$ \\ \hline
 \row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $2.03$ & $4.12$ & $8.40$ \\ \hline
 \row{Variación del tiempo\\de trabajo {[\%]}} & $3.16$ & $5.04$ & $6.19$ \\ \hline
 \row{Uso de memoria\\{[MB/Trabajador]}} & 52-64 & 52-60 & 52-58 \\ \hline
@@ -3257,7 +3302,7 @@ Tiempo de ejecución [Minutos] & $196.8$ & $97.2$ & $47.7$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 4 Nodos & 8 Nodos & 16 Nodos \\ \hline
-\row{\english{Throughput} de los worker\\{[Resultados/Segundo]}} & $2.07$ & $1.81$ & $1.88$ \\ \hline
+\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $2.07$ & $1.81$ & $1.88$ \\ \hline
 \row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $8.25$ & $14.5$ & $30.2$ \\ \hline
 \row{Variación del tiempo\\de trabajo {[\%]}} & $0.686$ & $0.466$ & $0.840$ \\ \hline
 \row{Uso de memoria\\{[MB/Trabajador]}} & $6.8-8.4$ & $4.1-8.7$ & $4.0-6.2$ \\ \hline
@@ -3276,7 +3321,7 @@ Tiempo de ejecución [Minutos] & $49.9$ & $27.0$ & $13.4$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 4 Nodos & 8 Nodos & 16 Nodos \\ \hline
-\row{\english{Throughput} de los worker\\{[Resultados/Segundo]}} & $1.52$ & $1.54$ & $1.51$ \\ \hline
+\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $1.52$ & $1.54$ & $1.51$ \\ \hline
 \row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $5.91$ & $11.7$ & $23.5$ \\ \hline
 \row{Variación del tiempo\\de trabajo {[\%]}} & $0.275$ & $5.21$ & $0.644$ \\ \hline
 \row{Uso de memoria\\{[MB/Trabajador]}} & $2.4-4.8$ & $1.8-4.4$ & $1.4-2.8$ \\ \hline
@@ -3295,7 +3340,7 @@ Tiempo de ejecución [Minutos] & $67.2$ & $34.2$ & $17.2$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 4 Nodos & 8 Nodos & 16 Nodos \\ \hline
-\row{\english{Throughput} de los worker\\{[Resultados/Segundo]}} & $1.36$ & $1.26$ & $1.26$ \\ \hline
+\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $1.36$ & $1.26$ & $1.26$ \\ \hline
 \row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $5.43$ & $10.1$ & $20.0$ \\ \hline
 \row{Variación del tiempo\\de trabajo {[\%]}} & $1.83$ & $1.21$ & $0.757$ \\ \hline
 Uso de memoria [GB/Trabajador] & $1.24$ & $1.24$ & $1.18$ \\ \hline
@@ -3314,7 +3359,7 @@ Tiempo de ejecución [Minutos] & $73.2$ & $39.2$ & $20.0$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 4 Nodos & 8 Nodos & 16 Nodos \\ \hline
-\row{\english{Throughput} de los worker\\{[Resultados/Segundo]}} & $1.18$ & $1.16$ & $1.18$ \\ \hline
+\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $1.18$ & $1.16$ & $1.18$ \\ \hline
 \row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $4.69$ & $9.19$ & $18.8$ \\ \hline
 \row{Variación del tiempo\\de trabajo {[\%]}} & $2.40$ & $1.58$ & $2.19$ \\ \hline
 Uso de memoria [GB/Trabajador] & $1.10$ & $1.08$ & $1.09$ \\ \hline
@@ -3333,7 +3378,7 @@ Tiempo de ejecución [Minutos] & $85.2$ & $43.3$ & $21.3$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 4 Nodos & 8 Nodos & 16 Nodos \\ \hline
-\row{\english{Throughput} de los worker\\{[Resultados/Segundo]}} & $0.25$ & $0.24$ & $0.23$ \\ \hline
+\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $0.25$ & $0.24$ & $0.23$ \\ \hline
 \row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $0.991$ & $1.90$ & $3.74$ \\ \hline
 \row{Variación del tiempo\\de trabajo {[\%]}} & $3.05$ & 659 & $2.37$ \\ \hline
 \row{Uso de memoria\\{[MB/Trabajador]}} & 83-95 & 84-96 & 84 \\ \hline
@@ -3354,7 +3399,7 @@ Tiempo de ejecución [Minutos] & $403.2$ & $209.4$ & $106.8$ \\ \hline
 \multicolumn{1}{|c|}{Métrica} & C++ & Scala & Go & Julia & Elixir \\ \hline
 \row{\english{Throughput} combinado \\ {[Resultados/Segundo]}} & $18.2$ & $4.85$ & $14.5$ & $10.1$ & $1.90$ \\ \hline
 \row{Variación del tiempo \\ de trabajo {[}\%{]}} & $0.25$ & $1.95$ & $0.466$ & $1.21$ & $0.659$ \\ \hline
-\row{Uso de memoria \\ {[}MB/Trabajador{]}} & $1.6-9.0$ & 367 & $4.1-8.7$ & \numprint{1240} & 84-96 \\ \hline
+\row{Uso de memoria \\ {[}MB/Trabajador{]}} & $1.6-9.0$ & 367 & $4.1-8.7$ & 1240 & 84-96 \\ \hline
 \row{Uso de red (Tx)\\ {[}B/(s * Trabajador){]}} & 710 & 332 & 598 & 305 & 399 \\ \hline
 \row{Uso de red (Rx)\\ {[}B/(s * Trabajador){]}} & 155 & 184 & 130 & 207 & 296 \\ \hline
 Tiempo de ejecución {[}Minutos{]} & $22.0$ & $82.2$ & $27.0$ & $39.2$ & $209.4$ \\ \hline
@@ -3371,7 +3416,7 @@ Tiempo de ejecución {[}Minutos{]} & $22.0$ & $82.2$ & $27.0$ & $39.2$ & $209.4$
 \multicolumn{1}{|c|}{Métrica} & C++ & Scala & Go & Julia & Elixir \\ \hline
 \row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $13.2$ & $4.12$ & $11.7$ & $9.19$ & - \\ \hline
 \row{Variación del tiempo \\ de trabajo {[}\%{]}} & $0.705$ & $5.04$ & $5.21$ & $1.58$ & - \\ \hline
-\row{Uso de memoria \\ {[}MB/Trabajador{]}} & $1.35-2.95$ & 52-60 & $1.8-4.4$ & \numprint{1080} & - \\ \hline
+\row{Uso de memoria \\ {[}MB/Trabajador{]}} & $1.35-2.95$ & 52-60 & $1.8-4.4$ & 1080 & - \\ \hline
 \row{Uso de red (Tx)\\ {[}B/(s * Trabajador){]}} & 550 & 281 & 490 & 276 & - \\ \hline
 \row{Uso de red (Rx)\\ {[}B/(s * Trabajador){]}} & 130 & 156 & 104 & 187 & - \\ \hline
 Tiempo de ejecución {[}Minutos{]} & $26.7$ & $97.2$ & $34.2$ & $43.3$ & - \\ \hline
@@ -3395,13 +3440,28 @@ Tiempo de ejecución {[}Minutos{]} & $26.7$ & $97.2$ & $34.2$ & $43.3$ & - \\ \h
 \multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Middleware} & $14.4$ MB \\ \hline
 \multicolumn{1}{|c|}{\multirow{2}{*}{Julia}} & \multicolumn{1}{c|}{Manager} & 754 MB \\ \cline{2-3} 
 \multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Worker} & 795 MB \\ \hline
-\multicolumn{1}{|c|}{\multirow{2}{*}{Elixir}} & \multicolumn{1}{c|}{Manager} & \textgreater{}84.8MB \\ \cline{2-3} 
-\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Worker} & \textgreater{}84.8MB \\ \hline
+\multicolumn{1}{|c|}{\multirow{2}{*}{Elixir}} & \multicolumn{1}{c|}{Manager} & 85 MB \\ \cline{2-3} 
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Worker} & 85 MB \\ \hline
 \end{tabular}
 \caption{Tamaño de imágenes de Docker para el caso de uso de Grid Search}
 \end{table}
 
-\subsubsection{Procesamiento de Imágenes} \label{sec:anex:metrics:ip}
+\subsubsection{Sistemas Distribuidos: Procesamiento de Imágenes} \label{sec:anex:metrics:ip}
+
+El significado de cada una de las métricas es el siguiente:
+
+
+\begin{itemize}
+    \item \textbf{\english{Throughput} de los trabajadores}: promedio de la tasa de datos procesados por unidad de tiempo de los trabajadores.
+    \item \textbf{\english{Throughput} combinado}: tasa de datos procesados por unidad de tiempo del sistema.
+    \item \textbf{Máxima Variación  del tiempo de trabajo}: coeficiente de variación del tiempo de trabajo de los trabajadores de la etapa con más variación.
+    \item \textbf{Uso de memoria}: uso de memoria promedio de los procesos trabajadores de la etapa con mayor uso.
+    \item \textbf{Máximo uso de red (Tx)}: tasa de transferencia de escritura de red promedio de los procesos trabajadores de la etapa con mayor uso.
+    \item \textbf{Máximo uso de red (Rx)}: tasa de transferencia de lectura de red promedio de los procesos trabajadores de la etapa con mayor uso.
+    \item \textbf{Uso de CPU}: uso de CPU promedio de los procesos trabajadores de cada etapa.
+    \item \textbf{Tiempo de ejecución}: tiempo que demoró en ejecutarse el sistema.
+\end{itemize}
+
 
 \begin{table}[H]
 \centering
@@ -3409,7 +3469,7 @@ Tiempo de ejecución {[}Minutos{]} & $26.7$ & $97.2$ & $34.2$ & $43.3$ & - \\ \h
 \hline
 \multicolumn{1}{|c|}{Métrica} & 2 Nodos & 4 Nodos & 6 Nodos \\ \hline
 \row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & 172 & 250 & 263 \\ \hline
-\row{Máxima variacaión del \\ tiempo de trabajo {[}\%{]}} & $5.5$ & $2.8$ & $5.6$ \\ \hline
+\row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $5.5$ & $2.8$ & $5.6$ \\ \hline
 \row{Máximo uso de memoria \\ {[MB/Trabajador]}} & 70 & 55 & 41 \\ \hline
 \row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & 32 & 22 & 14 \\ \hline
 \row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & 18 & 12 & $1.2$  \\ \hline
@@ -3428,7 +3488,7 @@ Tiempo de ejecución [Minutos] & $26.1$ & $18.0$ & $17.1$ \\ \hline
 \hline
 \multicolumn{1}{|c|}{Métrica} & 2 Nodos & 4 Nodos & 6 Nodos \\ \hline
 \row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $75.2$ & $84$ & $119$ \\ \hline
-\row{Máxima variacaión del \\ tiempo de trabajo {[}\%{]}} & $1.1$ & $1.9$ & $3.3$ \\ \hline
+\row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $1.1$ & $1.9$ & $3.3$ \\ \hline
 \row{Máximo uso de memoria \\ {[MB/Trabajador]}} & 180 & 97 & 75 \\ \hline
 \row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & 13 & $6.9$ & $6.8$ \\ \hline
 \row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & $7.2$ & $3.8$ & $3.8$ \\ \hline
@@ -3447,7 +3507,7 @@ Tiempo de ejecución [Minutos] & $19.9$ & $17.8$ & $12.6$ \\ \hline
 \hline
 \multicolumn{1}{|c|}{Métrica} & 2 Nodos & 4 Nodos & 6 Nodos \\ \hline
 \row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & 117 & 139 & 162 \\ \hline
-\row{Máxima variacaión del \\ tiempo de trabajo {[}\%{]}} & $0.8$ & $3.2$ & $2.7$ \\ \hline
+\row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $0.8$ & $3.2$ & $2.7$ \\ \hline
 \row{Máximo uso de memoria \\ {[MB/Trabajador]}} & 830 & 715 & 660 \\ \hline
 \row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & 24 & 15 & 12 \\ \hline
 \row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & 18 & 11 & $8.9$ \\ \hline
@@ -3466,7 +3526,7 @@ Tiempo de ejecución [Minutos] & $38.4$ & $32.3$ & $27.7$ \\ \hline
 \hline
 \multicolumn{1}{|c|}{Métrica} & 2 Nodos & 4 Nodos & 6 Nodos \\ \hline
 \row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $75.3$ & 109 & 153 \\ \hline
-\row{Máxima variacaión del \\ tiempo de trabajo {[}\%{]}} & $4.3$ & $2.4$ & $8.6$ \\ \hline
+\row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $4.3$ & $2.4$ & $8.6$ \\ \hline
 \row{Máximo uso de memoria \\ {[MB/Trabajador]}} & 330 & 240 & 200 \\ \hline
 \row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & 15 & 12 & 11 \\ \hline
 \row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & 11 & $1.4$ & $1.0$ \\ \hline
@@ -3485,7 +3545,7 @@ Tiempo de ejecución [Minutos] & $19.9$ & $13.7$ & $9.8$ \\ \hline
 \hline
 \multicolumn{1}{|c|}{Métrica} & 2 Nodos & 4 Nodos & 6 Nodos \\ \hline
 \row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & 50 & 92 & 135 \\ \hline
-\row{Máxima variacaión del \\ tiempo de trabajo {[}\%{]}} & $2.11$ & $5.78$ & $9.42$ \\ \hline
+\row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $2.11$ & $5.78$ & $9.42$ \\ \hline
 \row{Máximo uso de memoria \\ {[MB/Trabajador]}} & 128 & 96 & 68 \\ \hline
 \row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & $7.85$ & $7.21$ & $7.03$ \\ \hline
 \row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & $5.51$ & $4.23$ & $4.16$ \\ \hline
@@ -3504,7 +3564,7 @@ Tiempo de ejecución [Minutos] & $89.9$ & $48.8$ & $33.3$ \\ \hline
 \hline
 \multicolumn{1}{|c|}{Métrica} & 2 Nodos & 4 Nodos & 6 Nodos \\ \hline
 \row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & 40 & 75 & 104 \\ \hline
-\row{Máxima variacaión del \\ tiempo de trabajo {[}\%{]}} & $2.96$ & $11.3$ & $24.9$ \\ \hline
+\row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $2.96$ & $11.3$ & $24.9$ \\ \hline
 \row{Máximo uso de memoria \\ {[MB/Trabajador]}} & 144 & 90 & 64 \\ \hline
 \row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & $6.03$ & $5.62$ & $5.20$ \\ \hline
 \row{Máximo uso de red (Rx) \\ {[KB/(s * Trabajador)]}} & $3.58$ & $3.37$ & $3.12$ \\ \hline
@@ -3522,8 +3582,8 @@ Tiempo de ejecución [Minutos] & $37.5$ & $20.0$ & $14.4$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 2 Nodos & 4 Nodos & 6 Nodos \\ \hline
-\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & 400 & 745 & \numprint{1100} \\ \hline
-\row{Máxima variacaión del \\ tiempo de trabajo {[}\%{]}} & $1.7$ & $1.5$ & 8 \\ \hline
+\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & 400 & 745 & 1100 \\ \hline
+\row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $1.7$ & $1.5$ & 8 \\ \hline
 \row{Máximo uso de memoria \\ {[MB/Trabajador]}} & 448 & 460 & 450 \\ \hline
 \row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & 136 & 125 & 118 \\ \hline
 \row{Máximo uso de red (Rx) \\ {[KB/(s * Trabajador)]}} & 55 & 50 & 48 \\ \hline
@@ -3542,8 +3602,8 @@ Tiempo de ejecución [Minutos] & $11.2$ & $6.0$ & $4.1$ \\ \hline
 \hline
 \multicolumn{1}{|c|}{Métrica} & 2 Nodos & 4 Nodos & 6 Nodos \\ \hline
 \row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & 82.6 & 215 & 235 \\ \hline
-\row{Máxima variacaión del \\ tiempo de trabajo {[}\%{]}} & $6.5$ & $5.7$ & $8.3$ \\ \hline
-\row{Máximo uso de memoria \\ {[MB/Trabajador]}} & \numprint{1130} & 896 & 704 \\ \hline
+\row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $6.5$ & $5.7$ & $8.3$ \\ \hline
+\row{Máximo uso de memoria \\ {[MB/Trabajador]}} & 1130 & 896 & 704 \\ \hline
 \row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & 28 & 37 & 27 \\ \hline
 \row{Máximo uso de red (Rx) \\ {[KB/(s * Trabajador)]}} & 11 & 15 & 11 \\ \hline
 \row{Uso de CPU - Formato\\{[\%/Trabajador]}} & 24 & 38 & 25 \\ \hline
@@ -3597,7 +3657,7 @@ Tiempo de ejecución {[Minutos]} & $57.5$ & $31.9$ & $18.3$ \\ \hline
 \hline
 \multicolumn{1}{|c|}{Métrica} & C++ & Scala & Go & Julia & Elixir \\ \hline
 \row{\english{Throughput} combinado\\ {[}Resultados/Segundo{]}} & 250 & 139 & 92 & 745 & 141 \\ \hline
-\row{Máxima variacaión del \\ tiempo de trabajo {[}\%{]}} & $2.8$ & $3.2$ & $5.78$ & $1.5$ & $2.3$ \\ \hline
+\row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $2.8$ & $3.2$ & $5.78$ & $1.5$ & $2.3$ \\ \hline
 \row{Uso máximo de memoria \\ {[}MB/Trabajador{]}} & 55 & 715 & 96 & 460 & 115 \\ \hline
 \row{Uso máximo de la red (Tx)\\ {[}KB/(s * Trabajador){]}} & 22 & 15 & $7.21$ & 125 & $8.2$ \\ \hline
 \row{Uso máximo de la red (Rx)\\ {[}KB/(s * Trabajador){]}} & 12 & 11 & $4.23$ & 50 & $3.0$ \\ \hline
@@ -3617,7 +3677,7 @@ Tiempo de ejecución {[}Minutos{]} & $18.0$ & $32.3$ & $48.8$ & $6.0$ & $17.4$ \
 \hline
 \multicolumn{1}{|c|}{Métrica} & C++ & Scala & Go & Julia & Elixir \\ \hline
 \row{\english{Throughput} combinado \\ {[Resultados/Segundo]}} & 84 & 109 & 75 & 215 & $85.1$ \\ \hline
-\row{Máxima variacaión del \\ tiempo de trabajo {[}\%{]}} & $1.9$ & $2.4$ & $11.3$ & $5.7$ & $5.6$ \\ \hline
+\row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $1.9$ & $2.4$ & $11.3$ & $5.7$ & $5.6$ \\ \hline
 \row{Uso máximo de memoria \\ {[}MB/Trabajador{]}} & 97 & 240 & 90 & 896 & 240 \\ \hline
 \row{Uso máximo de la red (Tx) \\ {[}KB/(s * Trabajador){]}} & $6.9$ & 12 & $5.62$ & 37 & $4.8$ \\ \hline
 \row{Uso máximo de la red (Rx)\\ {[}KB/(s * Trabajador){]}} & $3.8$ & $8.4$ & $3.37$ & 15 & $1.8$ \\ \hline
@@ -3654,6 +3714,14 @@ Tiempo de ejecución {[}Minutos{]} & $17.8$ & $13.7$ & $20.0$ & $1.9$ & $17.6$ \
 
 \subsubsection{Criptografía: AES} \label{sec:anex:metrics:aes}
 
+El significado de cada una de las métricas es el siguiente:
+
+\begin{itemize}
+    \item \textbf{Duración}: tiempo que tardó el programa en ejecutarse.
+    \item \textbf{Uso de memoria}: uso de memoria promedio del contenedor que ejecuta el programa.
+    \item \textbf{Uso de CPU}: uso de CPU promedio del contenedor que ejecuta el programa.
+\end{itemize}
+
 \begin{table}[H]
 \centering
 \begin{tabular}{|c|c|c|c|c|c|}
@@ -3681,7 +3749,17 @@ Zig & $11.7$ MB \\ \hline
 \label{tab:aes:container_metrics}
 \end{table}
 
-\subsubsection{Redes neuronales: Regresión} \label{sec:anex:metrics:nn}
+\subsubsection{Redes neuronales: predicción} \label{sec:anex:metrics:nn}
+
+El significado de cada una de las métricas es el siguiente:
+
+\begin{itemize}
+    \item \textbf{Duración}: tiempo que tardó el sistema en realizar la ejecución.
+    \item \textbf{Uso de memoria}: uso de memoria del contenedor que realiza la ejecución.
+    \item \textbf{Uso de CPU}: uso de CPU del contenedor que realiza la ejecución.
+    \item \textbf{Uso de GPU}: uso de GPU del contenedor que realiza la ejecución.
+    \item \textbf{Raíz del error cuadrático medio}: tipo de métrica utilizada para determinar qué tan preciso es el modelo entrenado.
+\end{itemize}
 
 \begin{table}[H]
 \centering
@@ -3693,13 +3771,22 @@ Duración [Minutos] & 21 & $7.3$ & $2.56$ & $0.35$ \\ \hline
 Uso de memoria [GB] & $2.55$ & $3.16$ & $2.69$ & $1.33$ \\ \hline
 Uso de CPU [\%] & $126.00$ & $99.99$& $106.00$& $105.00$\\ \hline
 Uso de GPU [GB] & $6.76$ & $1.08$ & $0.69$ & - \\ \hline
-Raíz del error cuadrático medio [USD] & \numprint{50500} & \numprint{52582} & \numprint{53400} & \numprint{49000} \\ \hline
+Raíz del error cuadrático medio [USD] & 50500 & 52582 & 53400 & 49000 \\ \hline
 \end{tabular}
 \caption{Resumen de métricas del área de redes neuronales, en FaMAF-2. Un uso del CPU del 100\% significa que el proceso utilizó, en promedio, un único \english{core}}
 \label{tab:nn:famaf_2}
 \end{table}
 
 \subsubsection{Protocolos de comunicación: HTTP}
+
+El significado de cada una de las métricas es el siguiente:
+
+\begin{itemize}
+    \item \textbf{Uso de CPU}: uso de CPU del contenedor que ejecuta el servidor.
+    \item \textbf{Uso de memoria}: uso de memoria del contenedor que ejecuta el servidor.
+    \item \textbf{Latencia}: latencia de las respuestas, bajo condiciones normales de funcionamiento.
+    \item \textbf{Throughput}: cantidad de peticiones por segundo que soporta. Se testeó un máximo de 70 escenarios por segundo.
+\end{itemize}
 
 \begin{table}[H]
 \centering
