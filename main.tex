@@ -1010,9 +1010,9 @@ Este resumen se encuentra expresado en valores relativos a C++. Esto quiere deci
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & \multicolumn{1}{c|}{C++} & \multicolumn{1}{c|}{Scala} & \multicolumn{1}{c|}{Go} & \multicolumn{1}{c|}{Julia} & \multicolumn{1}{c|}{Elixir} \\ \hline
-\english{Throughput} combinado           & 100\%                    & 27\%                       & 80\%                    & 55\%                       & 10\%                        \\ \hline
-Uso de memoria                  & 100\%                    & 9175\%                     & 175\%                   & 31744\%                    & 2250\%                      \\ \hline
-Uso de red                 & 100\%                    & 60\%                       & 84\%                    & 59\%                       & 80\%                        \\ \hline
+\english{Throughput} combinado           & $100.0$\%                    & $27.0$\%                       & $80.0$\%                    & $55.0$\%                       & $10.0$\%                        \\ \hline
+Uso de memoria                  & $100.0$\%                    & $9175.0$\%                     & $175.0$\%                   & $31744.0$\%                    & $2250.0$\%                      \\ \hline
+Uso de red                 & $100.0$\%                    & $60.0$\%                       & $84.0$\%                    & $59.00$\%                       & $80.0$\%                        \\ \hline
 \end{tabular}
 \caption{Resumen de métricas de Grid Search. Basado en mediciones para 8 nodos trabajadores, ejecutadas en FaMAF-2, relativas a C++ (Ver Cuadro \ref{tab:gs:8_workers_famaf2})}
 \label{tab:sis_dist:gs_metrics}
@@ -1044,10 +1044,10 @@ Este resumen, al igual que el Cuadro \ref{tab:sis_dist:gs_metrics}, está expres
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & \multicolumn{1}{c|}{C++} & \multicolumn{1}{c|}{Scala} & \multicolumn{1}{c|}{Go} & \multicolumn{1}{c|}{Julia} & \multicolumn{1}{c|}{Elixir} \\ \hline
-\english{Throughput} combinado           & 100\%                    & 56\%                       & 37\%                    & 298\%                      & 56\%                        \\ \hline
-Uso de memoria máximo              & 100\%                    & 1300\%                     & 173\%                   & 836\%                      & 209\%                       \\ \hline
-Uso de red máximo             & 100\%                    & 76\%                       & 34\%                    & 515\%                      & 33\%                        \\ \hline
-Uso de CPU promedio                 & 100\%                    & 82\%                       & 160\%                   & 157\%                      & 156\%                       \\ \hline
+\english{Throughput} combinado           & $100.0$\%                    & $56.0$\%                       & $37.0$\%                    & $298.0$\%                      & $56.0$\%                        \\ \hline
+Uso de memoria máximo              & $100.0$\%                    & $1300.0$\%                     & $173.0$\%                   & $836.0$\%                      & $209.0$\%                       \\ \hline
+Uso de red máximo             & $100.0$\%                    & $76.0$\%                       & $34.0$\%                    & $515.0$\%                      & $33.0$\%                        \\ \hline
+Uso de CPU promedio                 & $100.0$\%                    & $82.0$\%                       & $160.0$\%                   & $157.0$\%                      & $156.0$\%                       \\ \hline
 \end{tabular}
 \caption{Resumen de métricas de Procesamiento de Imágenes. Basado en mediciones para 4 nodos trabajadores por etapa, ejecutadas en FaMAF-2, relativas a C++ (Ver Cuadro \ref{tab:ip:4_workers_famaf_2})}
 \label{tab:sis_dist:ip_metrics}
@@ -1076,8 +1076,8 @@ Los resultados se pueden observar en la tabla \ref{tab:sis_dist:general_metrics}
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & \multicolumn{1}{c|}{C++} & \multicolumn{1}{c|}{Scala} & \multicolumn{1}{c|}{Go} & \multicolumn{1}{c|}{Julia} & \multicolumn{1}{c|}{Elixir} \\ \hline
-Tiempo                        & 125\%                    & 100\%                      & 75\%                    & 50\%                       & 150\%                       \\ \hline
-Espacio                       & x$2.5$                     & x$26.2$                      & x2                      & x100-x266                  & x$11.4$                       \\ \hline
+Tiempo                        & $125.0$\%                    & $100.0$\%                      & $75.0$\%                    & $50.0$\%                       & $150.0$\%                       \\ \hline
+Espacio                       & x$2.5$                     & x$26.2$                      & x$2.0$                      & x$100.0$-x$266.0$                  & x$11.4$                       \\ \hline
 \end{tabular}
 \caption{Métricas generales correspondientes al área de Sistemas Distribuidos}
 \label{tab:sis_dist:general_metrics}
@@ -1785,9 +1785,9 @@ Los valores del cuadro son relativos, al igual que las métricas del área anter
 \begin{tabular}{|l|c|c|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & Rust & Go & Julia & Scala & Zig \\ \hline
-Duración & $100.00\%$& $603.55\%$& $94.08\%$& $1491.12\%$& $143.79\%$\\ \hline
-Uso de memoria & $100.00\%$& $6.88\%$& $237.23\%$& $245.02\%$& $0.98\%$\\ \hline
-Uso de CPU & $100.00\%$& $112.33\%$& $76.33\%$& $59.67\%$& $77.33\%$\\ \hline
+Duración & $100.0\%$& $603.5\%$& $94.1\%$& $1491.1\%$& $143.8\%$\\ \hline
+Uso de memoria & $100.0\%$& $6.9\%$& $237.2\%$& $245.0\%$& $1.0\%$\\ \hline
+Uso de CPU & $100.0\%$& $112.3\%$& $76.3\%$& $59.7\%$& $77.3\%$\\ \hline
 \end{tabular}
 \caption{Métricas de Criptografía. Basado en mediciones en FaMAF-2, relativas a Rust  (Ver Cuadro~\ref{tab:aes:famaf_2})}
 \label{tab:aes:metrics}
@@ -1809,8 +1809,8 @@ Se evaluaron, al igual que en el área de Sistemas Distribuidos, métricas relac
 \begin{tabular}{|l|c|c|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & Rust & Go & Julia & Scala & Zig \\ \hline
-Tiempo & 125\% & 75\% & 150\% & 75\% & 125\% \\ \hline
-Espacio & x$0.56$ & x$1.45$ & x$91.9$ & x$24.6$ & x$1.50$ \\ \hline
+Tiempo & $125.0$\% & $75.0$\% & $150.0$\% & $75.0$\% & $125.0$\% \\ \hline
+Espacio & x$0.6$ & x$1.4$ & x$91.9$ & x$24.6$ & x$1.5$ \\ \hline
 \end{tabular}
 \caption{Métricas generales correspondientes al área de Criptografía}
 \label{tab:aes:relative_general_metrics}
@@ -2397,11 +2397,11 @@ En el Cuadro~\ref{tab:nn:metrics} se pueden observar los resultados correspondie
 \hline
 \multicolumn{1}{|c|}{\multirow{2}{*}{Métrica}} & \multicolumn{2}{c|}{Python} & \multicolumn{2}{c|}{Julia} \\ \cline{2-5} 
 \multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Tensorflow/Keras} & PyTorch & \multicolumn{1}{c|}{Flux} & SciKitLearn \\ \hline
-Duración & \multicolumn{1}{c|}{$820.31$\%} & $285.16\%$& \multicolumn{1}{c|}{$100.00$\%} & \multicolumn{1}{c|}{$13.67$\%} \\ \hline
-Uso de memoria & \multicolumn{1}{c|}{$94.80$\%} & $117.47\%$& \multicolumn{1}{c|}{$100.00$\%} & \multicolumn{1}{c|}{$49.44$\%} \\ \hline
-Uso de CPU & \multicolumn{1}{c|}{$118.87$\%} & $94.33\%$& \multicolumn{1}{c|}{$100.00$\%} & \multicolumn{1}{c|}{$99.07$\%} \\ \hline
-Uso de GPU & \multicolumn{1}{c|}{$979.71$\%} & $156.52\%$& \multicolumn{1}{c|}{$100.00$\%} & - \\ \hline
-Raíz del error cuadrático medio & \multicolumn{1}{c|}{$94.75$\%} & $98.47\%$& \multicolumn{1}{c|}{$100.00$\%} & \multicolumn{1}{c|}{$91.76$\%} \\ \hline
+Duración & \multicolumn{1}{c|}{$820.3$\%} & $285.2\%$& \multicolumn{1}{c|}{$100.0$\%} & \multicolumn{1}{c|}{$13.7$\%} \\ \hline
+Uso de memoria & \multicolumn{1}{c|}{$94.8$\%} & $117.5\%$& \multicolumn{1}{c|}{$100.0$\%} & \multicolumn{1}{c|}{$49.4$\%} \\ \hline
+Uso de CPU & \multicolumn{1}{c|}{$118.9$\%} & $94.3\%$& \multicolumn{1}{c|}{$100.0$\%} & \multicolumn{1}{c|}{$99.1$\%} \\ \hline
+Uso de GPU & \multicolumn{1}{c|}{$979.7$\%} & $156.5\%$& \multicolumn{1}{c|}{$100.0$\%} & - \\ \hline
+Raíz del error cuadrático medio & \multicolumn{1}{c|}{$94.7$\%} & $98.5\%$& \multicolumn{1}{c|}{$100.0$\%} & \multicolumn{1}{c|}{$91.8$\%} \\ \hline
 \end{tabular}
 \caption{Métricas de Redes Neuronales. Basado en mediciones en FaMAF-2, relativas a Julia con Flux (ver Cuadro~\ref{tab:nn:famaf_2})}
 \label{tab:nn:metrics}
@@ -2423,7 +2423,7 @@ De estos datos, es posible obtener algunas conclusiones preliminares:
 \begin{tabular}{|c|c|c|}
 \hline
 Métrica & Python & Julia \\ \hline
-Tiempo & 100\% & 125\% \\ \hline
+Tiempo & $100.0$\% & $125.0$\% \\ \hline
 \end{tabular}
 \caption{Métrica temporal para redes neuronales, relativa a los valores planificados (ver Sección~\ref{sec:annex:schedule} (\nameref{sec:annex:schedule})}
 \end{table}
@@ -2906,10 +2906,10 @@ En el Cuadro~\ref{tab:http:metrics} se pueden observar los resultados correspond
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
 Métrica & Go       & Java     & Python   & Ruby     & JavaScript \\ \hline
-Uso de CPU   & $10.02$\%  & $100.00$\% & $292.27$\% & $240.21$\% & $30.93$\%    \\ \hline
-Uso de memoria  & $10.78$\%  & $100.00$\% & $316.41$\% & $445.31$\% & $21.88$\%    \\ \hline
-Latencia     & $40.00$\%  & $100.00$\% & $160.00$\% & $152.00$\% & $52.00$\%    \\ \hline
-\textit{Throughput} & $100.00$\% & $100.00$\% & $85.71$\%  & $85.71$\%  & $28.57$\%    \\ \hline
+Uso de CPU   & $10.0$\%  & $100.0$\% & $292.3$\% & $240.2$\% & $30.9$\%    \\ \hline
+Uso de memoria  & $10.8$\%  & $100.0$\% & $316.4$\% & $445.3$\% & $21.9$\%    \\ \hline
+Latencia     & $40.0$\%  & $100.0$\% & $160.0$\% & $152.0$\% & $52.0$\%    \\ \hline
+\textit{Throughput} & $100.0$\% & $100.0$\% & $85.7$\%  & $85.7$\%  & $28.6$\%    \\ \hline
 \end{tabular}
 \caption{Métricas de Servidores HTTP. Basado en mediciones en FaMAF-2, relativas a Java (Ver Cuadro \ref{tab:http:famaf_1})}
 \label{tab:http:metrics}
@@ -3228,13 +3228,13 @@ Este resumen se encuentra expresado en valores relativos a C++. Esto quiere deci
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 4 Nodos & 8 Nodos & 16 Nodos \\ \hline
-\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $2.42$  & $2.28$ & $2.26$ \\ \hline
-\row{\english{Throughput} combinado\\{[Resultados/Segundo]}}  & $9.60$  & $18.2$ & $34.8$ \\ \hline
-\row{Variación del tiempo\\de trabajo {[\%]}} & $0.83$& $0.25$& $0.38$\\ \hline
+\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $2.4$  & $2.3$ & $2.3$ \\ \hline
+\row{\english{Throughput} combinado\\{[Resultados/Segundo]}}  & $9.6$  & $18.2$ & $34.8$ \\ \hline
+\row{Variación del tiempo\\de trabajo {[\%]}} & $0.8$& $0.3$& $0.4$\\ \hline
 \row{Uso de memoria\\{[MB/Trabajador]}} & $1.7-9.0$  & $1.6-9.0$ & $1.3-8.6$ \\ \hline
-\row{Uso de red (Tx)\\{[B/(s * Trabajador)]}} & 740 & 710 & 680 \\ \hline
-\row{Uso de red (Rx)\\{[B/(s * Trabajador)]}} & 160 & 155 & 150 \\ \hline
-\row{Uso de CPU\\{[\%/Trabajador]}} & 100 & 100 & 100 \\ \hline
+\row{Uso de red (Tx)\\{[B/(s * Trabajador)]}} & $740.0$ & $710.0$ & $680.0$ \\ \hline
+\row{Uso de red (Rx)\\{[B/(s * Trabajador)]}} & $160.0$ & $155.0$ & $150.0$ \\ \hline
+\row{Uso de CPU\\{[\%/Trabajador]}} & $100.0$ & $100.0$ & $100.0$ \\ \hline
 Tiempo de ejecución [Minutos] & $41.5$ & $22.0$ & $11.2$ \\ \hline
 \end{tabular}
 \gscap{C++}{FaMAF-2}
@@ -3245,13 +3245,13 @@ Tiempo de ejecución [Minutos] & $41.5$ & $22.0$ & $11.2$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 4 Nodos & 8 Nodos & 16 Nodos \\ \hline
-\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $1.87$ & $1.65$ & $1.68$ \\ \hline
-\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $7.48$ & $13.2$ & $26.8$ \\ \hline
-\row{Variación del tiempo\\de trabajo {[\%]}} & $0.432$ & $0.705$ & $3.80$ \\ \hline
-\row{Uso de memoria\\{[MB/Trabajador]}} & $1.29-4.00$ & $1.35-2.95$ & $1.00-4.50$ \\ \hline
-\row{Uso de red (Tx)\\{[B/(s * Trabajador)]}} & 580 & 550 & 600 \\ \hline
-\row{Uso de red (Rx)\\{[B/(s * Trabajador)]}} & 130 & 130 & 132 \\ \hline
-\row{Uso de CPU\\{[\%/Trabajador]}} & 100 & 100 & 100 \\ \hline
+\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $1.9$ & $1.6$ & $1.7$ \\ \hline
+\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $7.5$ & $13.2$ & $26.8$ \\ \hline
+\row{Variación del tiempo\\de trabajo {[\%]}} & $0.4$ & $0.7$ & $3.8$ \\ \hline
+\row{Uso de memoria\\{[MB/Trabajador]}} & $1.3-4.0$ & $1.3-2.9$ & $1.0-4.5$ \\ \hline
+\row{Uso de red (Tx)\\{[B/(s * Trabajador)]}} & $580.0$ & $550.0$ & $600.0$ \\ \hline
+\row{Uso de red (Rx)\\{[B/(s * Trabajador)]}} & $130.0$ & $130.0$ & $132.0$ \\ \hline
+\row{Uso de CPU\\{[\%/Trabajador]}} & $100.0$ & $100.0$ & $100.0$ \\ \hline
 Tiempo de ejecución [Minutos] & $54.0$ & $26.7$ & $15.1$ \\ \hline
 \end{tabular}
 \gscap{C++}{GCP}
@@ -3264,14 +3264,14 @@ Tiempo de ejecución [Minutos] & $54.0$ & $26.7$ & $15.1$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 4 Nodos & 8 Nodos & 16 Nodos \\ \hline
-\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $0.64$ & $0.63$ & $0.6$ \\ \hline
-\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $2.57$ & $4.85$ & $9.47$ \\ \hline
-\row{Variación del tiempo\\de trabajo {[\%]}} & $1.57$ & $1.95$ & $1.83$ \\ \hline
-\row{Uso de memoria\\{[MB/Trabajador]}} & 370 & 367 & 360 \\ \hline
-\row{Uso de red (Tx)\\{[B/(s * Trabajador)]}} & 352 & 332 & 322 \\ \hline
-\row{Uso de red (Rx)\\{[B/(s * Trabajador)]}} & 195 & 184 & 179 \\ \hline
-\row{Uso de CPU\\{[\%/Trabajador]}} & 100 & 100 & 100 \\ \hline
-Tiempo de ejecución [Minutos] & 155 & 82.2 & $42.1$ \\ \hline
+\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $0.6$ & $0.6$ & $0.6$ \\ \hline
+\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $2.6$ & $4.8$ & $9.5$ \\ \hline
+\row{Variación del tiempo\\de trabajo {[\%]}} & $1.6$ & $1.9$ & $1.8$ \\ \hline
+\row{Uso de memoria\\{[MB/Trabajador]}} & $370.0$ & $367.0$ & $360.0$ \\ \hline
+\row{Uso de red (Tx)\\{[B/(s * Trabajador)]}} & $352.0$ & $332.0$ & $322.0$ \\ \hline
+\row{Uso de red (Rx)\\{[B/(s * Trabajador)]}} & $195.0$ & $184.0$ & $179.0$ \\ \hline
+\row{Uso de CPU\\{[\%/Trabajador]}} & $100.0$ & $100.0$ & $100.0$ \\ \hline
+Tiempo de ejecución [Minutos] & $155.0$ & $82.2$ & $42.1$ \\ \hline
 \end{tabular}
 \gscap{Scala}{FaMAF-2}
 \end{table}
@@ -3283,13 +3283,13 @@ Tiempo de ejecución [Minutos] & 155 & 82.2 & $42.1$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 4 Nodos & 8 Nodos & 16 Nodos \\ \hline
-\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $0.51$ & $0.51$ & $0.52$ \\ \hline
-\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $2.03$ & $4.12$ & $8.40$ \\ \hline
-\row{Variación del tiempo\\de trabajo {[\%]}} & $3.16$ & $5.04$ & $6.19$ \\ \hline
-\row{Uso de memoria\\{[MB/Trabajador]}} & 52-64 & 52-60 & 52-58 \\ \hline
-\row{Uso de red (Tx)\\{[B/(s * Trabajador)]}} & 276 & 281 & 285 \\ \hline
-\row{Uso de red (Rx)\\{[B/(s * Trabajador)]}} & 153 & 156 & 159 \\ \hline
-\row{Uso de CPU\\{[\%/Trabajador]}} & 100 & 100 & 100 \\ \hline
+\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $0.5$ & $0.5$ & $0.5$ \\ \hline
+\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $2.0$ & $4.1$ & $8.4$ \\ \hline
+\row{Variación del tiempo\\de trabajo {[\%]}} & $3.2$ & $5.0$ & $6.2$ \\ \hline
+\row{Uso de memoria\\{[MB/Trabajador]}} & $52.0$ - $64.0$ & $52.0$ - $60.0$ & $52.0$ - $58.0$ \\ \hline
+\row{Uso de red (Tx)\\{[B/(s * Trabajador)]}} & $276.0$ & $281.0$ & $285.0$ \\ \hline
+\row{Uso de red (Rx)\\{[B/(s * Trabajador)]}} & $153.0$ & $156.0$ & $159.0$ \\ \hline
+\row{Uso de CPU\\{[\%/Trabajador]}} & $100.0$ & $100.0$ & $100.0$ \\ \hline
 Tiempo de ejecución [Minutos] & $196.8$ & $97.2$ & $47.7$ \\ \hline
 \end{tabular}
 \gscap{Scala}{GCP}
@@ -3302,13 +3302,13 @@ Tiempo de ejecución [Minutos] & $196.8$ & $97.2$ & $47.7$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 4 Nodos & 8 Nodos & 16 Nodos \\ \hline
-\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $2.07$ & $1.81$ & $1.88$ \\ \hline
-\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $8.25$ & $14.5$ & $30.2$ \\ \hline
-\row{Variación del tiempo\\de trabajo {[\%]}} & $0.686$ & $0.466$ & $0.840$ \\ \hline
+\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $2.1$ & $1.8$ & $1.9$ \\ \hline
+\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $8.2$ & $14.5$ & $30.2$ \\ \hline
+\row{Variación del tiempo\\de trabajo {[\%]}} & $0.7$ & $0.5$ & $0.8$ \\ \hline
 \row{Uso de memoria\\{[MB/Trabajador]}} & $6.8-8.4$ & $4.1-8.7$ & $4.0-6.2$ \\ \hline
-\row{Uso de red (Tx)\\{[B/(s * Trabajador)]}} & 637 & 598 & 578 \\ \hline
-\row{Uso de red (Rx)\\{[B/(s * Trabajador)]}} & 150 & 130 & 126 \\ \hline
-\row{Uso de CPU\\{[\%/Trabajador]}} & 100 & 100 & 100 \\ \hline
+\row{Uso de red (Tx)\\{[B/(s * Trabajador)]}} & $637.0$ & $598.0$ & $578.0$ \\ \hline
+\row{Uso de red (Rx)\\{[B/(s * Trabajador)]}} & $150.0$ & $130.0$ & $126.0$ \\ \hline
+\row{Uso de CPU\\{[\%/Trabajador]}} & $100.0$ & $100.0$ & $100.0$ \\ \hline
 Tiempo de ejecución [Minutos] & $49.9$ & $27.0$ & $13.4$ \\ \hline
 \end{tabular}
 \gscap{Go}{FaMAF-2}
@@ -3321,13 +3321,13 @@ Tiempo de ejecución [Minutos] & $49.9$ & $27.0$ & $13.4$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 4 Nodos & 8 Nodos & 16 Nodos \\ \hline
-\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $1.52$ & $1.54$ & $1.51$ \\ \hline
-\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $5.91$ & $11.7$ & $23.5$ \\ \hline
-\row{Variación del tiempo\\de trabajo {[\%]}} & $0.275$ & $5.21$ & $0.644$ \\ \hline
+\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $1.5$ & $1.5$ & $1.5$ \\ \hline
+\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $5.9$ & $11.7$ & $23.5$ \\ \hline
+\row{Variación del tiempo\\de trabajo {[\%]}} & $0.3$ & $5.2$ & $0.6$ \\ \hline
 \row{Uso de memoria\\{[MB/Trabajador]}} & $2.4-4.8$ & $1.8-4.4$ & $1.4-2.8$ \\ \hline
-\row{Uso de red (Tx)\\{[B/(s * Trabajador)]}} & 462 & 490 & 480 \\ \hline
-\row{Uso de red (Rx)\\{[B/(s * Trabajador)]}} & 102 & 104 & 100 \\ \hline
-\row{Uso de CPU\\{[\%/Trabajador]}} & 100 & 100 & 100 \\ \hline
+\row{Uso de red (Tx)\\{[B/(s * Trabajador)]}} & $462.0$ & $490.0$ & $480.0$ \\ \hline
+\row{Uso de red (Rx)\\{[B/(s * Trabajador)]}} & $102.0$ & $104.0$ & $100.0$ \\ \hline
+\row{Uso de CPU\\{[\%/Trabajador]}} & $100.0$ & $100.0$ & $100.0$ \\ \hline
 Tiempo de ejecución [Minutos] & $67.2$ & $34.2$ & $17.2$ \\ \hline
 \end{tabular}
 \gscap{Go}{GCP}
@@ -3340,13 +3340,13 @@ Tiempo de ejecución [Minutos] & $67.2$ & $34.2$ & $17.2$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 4 Nodos & 8 Nodos & 16 Nodos \\ \hline
-\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $1.36$ & $1.26$ & $1.26$ \\ \hline
-\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $5.43$ & $10.1$ & $20.0$ \\ \hline
-\row{Variación del tiempo\\de trabajo {[\%]}} & $1.83$ & $1.21$ & $0.757$ \\ \hline
-Uso de memoria [GB/Trabajador] & $1.24$ & $1.24$ & $1.18$ \\ \hline
-\row{Uso de red (Tx)\\{[B/(s * Trabajador)]}} & 327 & 305 & 302 \\ \hline
-\row{Uso de red (Rx)\\{[B/(s * Trabajador)]}} & 220 & 207 & 206 \\ \hline
-\row{Uso de CPU\\{[\%/Trabajador]}} & 100 & 100 & 100 \\ \hline
+\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $1.4$ & $1.3$ & $1.3$ \\ \hline
+\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $5.4$ & $10.1$ & $20.0$ \\ \hline
+\row{Variación del tiempo\\de trabajo {[\%]}} & $1.8$ & $1.2$ & $0.8$ \\ \hline
+Uso de memoria [GB/Trabajador] & $1.2$ & $1.2$ & $1.2$ \\ \hline
+\row{Uso de red (Tx)\\{[B/(s * Trabajador)]}} & $327.0$ & $305.0$ & $302.0$ \\ \hline
+\row{Uso de red (Rx)\\{[B/(s * Trabajador)]}} & $220.0$ & $207.0$ & $206.0$ \\ \hline
+\row{Uso de CPU\\{[\%/Trabajador]}} & $100.0$ & $100.0$ & $100.0$ \\ \hline
 Tiempo de ejecución [Minutos] & $73.2$ & $39.2$ & $20.0$ \\ \hline
 \end{tabular}
 \gscap{Julia}{FaMAF-2}\label{tab:jl:gs:famaf2}
@@ -3359,13 +3359,13 @@ Tiempo de ejecución [Minutos] & $73.2$ & $39.2$ & $20.0$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 4 Nodos & 8 Nodos & 16 Nodos \\ \hline
-\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $1.18$ & $1.16$ & $1.18$ \\ \hline
-\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $4.69$ & $9.19$ & $18.8$ \\ \hline
-\row{Variación del tiempo\\de trabajo {[\%]}} & $2.40$ & $1.58$ & $2.19$ \\ \hline
-Uso de memoria [GB/Trabajador] & $1.10$ & $1.08$ & $1.09$ \\ \hline
-\row{Uso de red (Tx)\\{[B/(s * Trabajador)]}} & 280 & 276 & 282 \\ \hline
-\row{Uso de red (Rx)\\{[B/(s * Trabajador)]}} & 189 & 187 & 194 \\ \hline
-\row{Uso de CPU\\{[\%/Trabajador]}} & 100 & 100 & 100 \\ \hline
+\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $1.2$ & $1.2$ & $1.2$ \\ \hline
+\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $4.7$ & $9.2$ & $18.8$ \\ \hline
+\row{Variación del tiempo\\de trabajo {[\%]}} & $2.4$ & $1.6$ & $2.2$ \\ \hline
+Uso de memoria [GB/Trabajador] & $1.1$ & $1.1$ & $1.1$ \\ \hline
+\row{Uso de red (Tx)\\{[B/(s * Trabajador)]}} & $280.0$ & $276.0$ & $282.0$ \\ \hline
+\row{Uso de red (Rx)\\{[B/(s * Trabajador)]}} & $189.0$ & $187.0$ & $194.0$ \\ \hline
+\row{Uso de CPU\\{[\%/Trabajador]}} & $100.0$ & $100.0$ & $100.0$ \\ \hline
 Tiempo de ejecución [Minutos] & $85.2$ & $43.3$ & $21.3$ \\ \hline
 \end{tabular}
 \gscap{Julia}{GCP}
@@ -3378,13 +3378,13 @@ Tiempo de ejecución [Minutos] & $85.2$ & $43.3$ & $21.3$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 4 Nodos & 8 Nodos & 16 Nodos \\ \hline
-\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $0.25$ & $0.24$ & $0.23$ \\ \hline
-\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $0.991$ & $1.90$ & $3.74$ \\ \hline
-\row{Variación del tiempo\\de trabajo {[\%]}} & $3.05$ & 659 & $2.37$ \\ \hline
-\row{Uso de memoria\\{[MB/Trabajador]}} & 83-95 & 84-96 & 84 \\ \hline
-\row{Uso de red (Tx)\\{[B/(s * Trabajador)]}} & 376 & 399 & 469 \\ \hline
-\row{Uso de red (Rx)\\{[B/(s * Trabajador)]}} & 266 & 296 & 367 \\ \hline
-\row{Uso de CPU\\{[\%/Trabajador]}} & 100 & 100 & 100 \\ \hline
+\row{\english{Throughput} de los trabajadores\\{[Resultados/Segundo]}} & $0.2$ & $0.2$ & $0.2$ \\ \hline
+\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $1.0$ & $1.9$ & $3.7$ \\ \hline
+\row{Variación del tiempo\\de trabajo {[\%]}} & $3.0$ & $659.0$ & $2.4$ \\ \hline
+\row{Uso de memoria\\{[MB/Trabajador]}} & $83.0$ - $95.0$ & $84.0$ - $96.0$ & $84.0$ \\ \hline
+\row{Uso de red (Tx)\\{[B/(s * Trabajador)]}} & $376.0$ & $399.0$ & $469.0$ \\ \hline
+\row{Uso de red (Rx)\\{[B/(s * Trabajador)]}} & $266.0$ & $296.0$ & $367.0$ \\ \hline
+\row{Uso de CPU\\{[\%/Trabajador]}} & $100.0$ & $100.0$ & $100.0$ \\ \hline
 Tiempo de ejecución [Minutos] & $403.2$ & $209.4$ & $106.8$ \\ \hline
 \end{tabular}
 \gscap{Elixir}{FaMAF-2}
@@ -3397,11 +3397,11 @@ Tiempo de ejecución [Minutos] & $403.2$ & $209.4$ & $106.8$ \\ \hline
 \begin{tabular}{|l|c|c|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & C++ & Scala & Go & Julia & Elixir \\ \hline
-\row{\english{Throughput} combinado \\ {[Resultados/Segundo]}} & $18.2$ & $4.85$ & $14.5$ & $10.1$ & $1.90$ \\ \hline
-\row{Variación del tiempo \\ de trabajo {[}\%{]}} & $0.25$ & $1.95$ & $0.466$ & $1.21$ & $0.659$ \\ \hline
-\row{Uso de memoria \\ {[}MB/Trabajador{]}} & $1.6-9.0$ & 367 & $4.1-8.7$ & 1240 & 84-96 \\ \hline
-\row{Uso de red (Tx)\\ {[}B/(s * Trabajador){]}} & 710 & 332 & 598 & 305 & 399 \\ \hline
-\row{Uso de red (Rx)\\ {[}B/(s * Trabajador){]}} & 155 & 184 & 130 & 207 & 296 \\ \hline
+\row{\english{Throughput} combinado \\ {[Resultados/Segundo]}} & $18.2$ & $4.8$ & $14.5$ & $10.1$ & $1.9$ \\ \hline
+\row{Variación del tiempo \\ de trabajo {[}\%{]}} & $0.2$ & $1.9$ & $0.5$ & $1.2$ & $0.6$ \\ \hline
+\row{Uso de memoria \\ {[}MB/Trabajador{]}} & $1.6-9.0$ & $367.0$ & $4.1-8.7$ & $1240.0$ & $84.0$-$96.0$ \\ \hline
+\row{Uso de red (Tx)\\ {[}B/(s * Trabajador){]}} & $710.0$ & $332.0$ & $598.0$ & $305.0$ & $399.0$ \\ \hline
+\row{Uso de red (Rx)\\ {[}B/(s * Trabajador){]}} & $155.0$ & $184.0$ & $130.0$ & $207.0$ & $296.0$ \\ \hline
 Tiempo de ejecución {[}Minutos{]} & $22.0$ & $82.2$ & $27.0$ & $39.2$ & $209.4$ \\ \hline
 \end{tabular}
 \caption{Resumen de métricas corridas con 8 Workers en FaMAF-2, para el caso de uso de Grid Search}
@@ -3414,11 +3414,11 @@ Tiempo de ejecución {[}Minutos{]} & $22.0$ & $82.2$ & $27.0$ & $39.2$ & $209.4$
 \begin{tabular}{|l|c|c|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & C++ & Scala & Go & Julia & Elixir \\ \hline
-\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $13.2$ & $4.12$ & $11.7$ & $9.19$ & - \\ \hline
-\row{Variación del tiempo \\ de trabajo {[}\%{]}} & $0.705$ & $5.04$ & $5.21$ & $1.58$ & - \\ \hline
-\row{Uso de memoria \\ {[}MB/Trabajador{]}} & $1.35-2.95$ & 52-60 & $1.8-4.4$ & 1080 & - \\ \hline
-\row{Uso de red (Tx)\\ {[}B/(s * Trabajador){]}} & 550 & 281 & 490 & 276 & - \\ \hline
-\row{Uso de red (Rx)\\ {[}B/(s * Trabajador){]}} & 130 & 156 & 104 & 187 & - \\ \hline
+\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $13.2$ & $4.1$ & $11.7$ & $9.2$ & - \\ \hline
+\row{Variación del tiempo \\ de trabajo {[}\%{]}} & $0.7$ & $5.0$ & $5.2$ & $1.6$ & - \\ \hline
+\row{Uso de memoria \\ {[}MB/Trabajador{]}} & $1.3-2.9$ & $52.0$-$60.0$ & $1.8-4.4$ & $1080.0$ & - \\ \hline
+\row{Uso de red (Tx)\\ {[}B/(s * Trabajador){]}} & $550.0$ & $281.0$ & $490.0$ & $276.0$ & - \\ \hline
+\row{Uso de red (Rx)\\ {[}B/(s * Trabajador){]}} & $130.0$ & $156.0$ & $104.0$ & $187.0$ & - \\ \hline
 Tiempo de ejecución {[}Minutos{]} & $26.7$ & $97.2$ & $34.2$ & $43.3$ & - \\ \hline
 \end{tabular}
 \caption{Resumen de métricas corridas con 8 Workers en GCP, para el caso de uso de Grid Search}
@@ -3432,16 +3432,16 @@ Tiempo de ejecución {[}Minutos{]} & $26.7$ & $97.2$ & $34.2$ & $43.3$ & - \\ \h
 \hline
 \multicolumn{1}{|c|}{\multirow{2}{*}{C++}} & \multicolumn{1}{c|}{Manager} & $17.4$ MB \\ \cline{2-3} 
 \multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Worker} & $17.3$ MB \\ \hline
-\multicolumn{1}{|c|}{\multirow{3}{*}{Scala}} & \multicolumn{1}{c|}{Manager} & 192 MB \\ \cline{2-3} 
-\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Worker} & 192 MB \\ \cline{2-3} 
-\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Middleware} & 180 MB \\ \hline
+\multicolumn{1}{|c|}{\multirow{3}{*}{Scala}} & \multicolumn{1}{c|}{Manager} & $192.0$ MB \\ \cline{2-3} 
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Worker} & $192.0$ MB \\ \cline{2-3} 
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Middleware} & $180.0$ MB \\ \hline
 \multicolumn{1}{|c|}{\multirow{3}{*}{Go}} & \multicolumn{1}{c|}{Manager} & $15.5$ MB \\ \cline{2-3} 
 \multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Worker} & $15.4$ MB \\ \cline{2-3} 
 \multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Middleware} & $14.4$ MB \\ \hline
-\multicolumn{1}{|c|}{\multirow{2}{*}{Julia}} & \multicolumn{1}{c|}{Manager} & 754 MB \\ \cline{2-3} 
-\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Worker} & 795 MB \\ \hline
-\multicolumn{1}{|c|}{\multirow{2}{*}{Elixir}} & \multicolumn{1}{c|}{Manager} & 85 MB \\ \cline{2-3} 
-\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Worker} & 85 MB \\ \hline
+\multicolumn{1}{|c|}{\multirow{2}{*}{Julia}} & \multicolumn{1}{c|}{Manager} & $754.0$ MB \\ \cline{2-3} 
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Worker} & $795.0$ MB \\ \hline
+\multicolumn{1}{|c|}{\multirow{2}{*}{Elixir}} & \multicolumn{1}{c|}{Manager} & $85.0$ MB \\ \cline{2-3} 
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Worker} & $85.0$ MB \\ \hline
 \end{tabular}
 \caption{Tamaño de imágenes de Docker para el caso de uso de Grid Search}
 \end{table}
@@ -3468,14 +3468,14 @@ El significado de cada una de las métricas es el siguiente:
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 2 Nodos & 4 Nodos & 6 Nodos \\ \hline
-\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & 172 & 250 & 263 \\ \hline
+\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $172.0$ & $250.0$ & $263.0$ \\ \hline
 \row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $5.5$ & $2.8$ & $5.6$ \\ \hline
-\row{Máximo uso de memoria \\ {[MB/Trabajador]}} & 70 & 55 & 41 \\ \hline
-\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & 32 & 22 & 14 \\ \hline
-\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & 18 & 12 & $1.2$  \\ \hline
-\row{Uso de CPU - Formato\\{[\%/Trabajador]}} & 100 & 75  & 50 \\ \hline
-\row{Uso de CPU - Resolución\\{[\%/Trabajador]}} & 56 & 40 & 35 \\ \hline
-\row{Uso de CPU - Tamaño\\{[\%/Trabajador]}} & 18 & 10 & 10 \\ \hline
+\row{Máximo uso de memoria \\ {[MB/Trabajador]}} & $70.0$ & $55.0$ & $41.0$ \\ \hline
+\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & $32.0$ & $22.0$ & $14.0$ \\ \hline
+\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & $18.0$ & $12.0$ & $1.2$  \\ \hline
+\row{Uso de CPU - Formato\\{[\%/Trabajador]}} & $100.0$ & $75.0$  & $50.0$ \\ \hline
+\row{Uso de CPU - Resolución\\{[\%/Trabajador]}} & $56.0$ & $40.0$ & $35.0$ \\ \hline
+\row{Uso de CPU - Tamaño\\{[\%/Trabajador]}} & $18.0$ & $10.0$ & $10.0$ \\ \hline
 Tiempo de ejecución [Minutos] & $26.1$ & $18.0$ & $17.1$ \\ \hline
 \end{tabular}
 \ipcap{C++}{FaMAF-2}
@@ -3487,14 +3487,14 @@ Tiempo de ejecución [Minutos] & $26.1$ & $18.0$ & $17.1$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 2 Nodos & 4 Nodos & 6 Nodos \\ \hline
-\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $75.2$ & $84$ & $119$ \\ \hline
+\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $75.2$ & $84.0$ & $119.0$ \\ \hline
 \row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $1.1$ & $1.9$ & $3.3$ \\ \hline
-\row{Máximo uso de memoria \\ {[MB/Trabajador]}} & 180 & 97 & 75 \\ \hline
-\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & 13 & $6.9$ & $6.8$ \\ \hline
+\row{Máximo uso de memoria \\ {[MB/Trabajador]}} & $180.0$ & $97.0$ & $75.0$ \\ \hline
+\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & $13.0$ & $6.9$ & $6.8$ \\ \hline
 \row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & $7.2$ & $3.8$ & $3.8$ \\ \hline
-\row{Uso de CPU - Formato\\{[\%/Trabajador]}} & 60 & 35 & 35 \\ \hline
-\row{Uso de CPU - Resolución\\{[\%/Trabajador]}} & 22 & 10 & 12 \\ \hline
-\row{Uso de CPU - Tamaño\\{[\%/Trabajador]}} & 7 & 5 & 5 \\ \hline
+\row{Uso de CPU - Formato\\{[\%/Trabajador]}} & $60.0$ & $35.0$ & $35.0$ \\ \hline
+\row{Uso de CPU - Resolución\\{[\%/Trabajador]}} & $22.0$ & $10.0$ & $12.0$ \\ \hline
+\row{Uso de CPU - Tamaño\\{[\%/Trabajador]}} & $7.0$ & $5.0$ & $5.0$ \\ \hline
 Tiempo de ejecución [Minutos] & $19.9$ & $17.8$ & $12.6$ \\ \hline
 \end{tabular}
 \ipcap{C++}{GCP}
@@ -3506,14 +3506,14 @@ Tiempo de ejecución [Minutos] & $19.9$ & $17.8$ & $12.6$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 2 Nodos & 4 Nodos & 6 Nodos \\ \hline
-\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & 117 & 139 & 162 \\ \hline
+\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $117.0$ & $139.0$ & $162.0$ \\ \hline
 \row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $0.8$ & $3.2$ & $2.7$ \\ \hline
-\row{Máximo uso de memoria \\ {[MB/Trabajador]}} & 830 & 715 & 660 \\ \hline
-\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & 24 & 15 & 12 \\ \hline
-\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & 18 & 11 & $8.9$ \\ \hline
-\row{Uso de CPU - Formato\\{[\%/Trabajador]}} & 85 & 55 & 41 \\ \hline
-\row{Uso de CPU - Resolución\\{[\%/Trabajador]}} & 65 & 38 & 30 \\ \hline
-\row{Uso de CPU - Tamaño\\{[\%/Trabajador]}} & 19 & 10 & 8 \\ \hline
+\row{Máximo uso de memoria \\ {[MB/Trabajador]}} & $830.0$ & $715.0$ & $660.0$ \\ \hline
+\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & $24.0$ & $15.0$ & $12.0$ \\ \hline
+\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & $18.0$ & $11.0$ & $8.9$ \\ \hline
+\row{Uso de CPU - Formato\\{[\%/Trabajador]}} & $85.0$ & $55.0$ & $41.0$ \\ \hline
+\row{Uso de CPU - Resolución\\{[\%/Trabajador]}} & $65.0$ & $38.0$ & $30.0$ \\ \hline
+\row{Uso de CPU - Tamaño\\{[\%/Trabajador]}} & $19.0$ & $10.0$ & $8.0$ \\ \hline
 Tiempo de ejecución [Minutos] & $38.4$ & $32.3$ & $27.7$ \\ \hline
 \end{tabular}
 \ipcap{Scala}{FaMAF-2}
@@ -3525,14 +3525,14 @@ Tiempo de ejecución [Minutos] & $38.4$ & $32.3$ & $27.7$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 2 Nodos & 4 Nodos & 6 Nodos \\ \hline
-\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $75.3$ & 109 & 153 \\ \hline
+\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $75.3$ & $109.0$ & $153.0$ \\ \hline
 \row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $4.3$ & $2.4$ & $8.6$ \\ \hline
-\row{Máximo uso de memoria \\ {[MB/Trabajador]}} & 330 & 240 & 200 \\ \hline
-\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & 15 & 12 & 11 \\ \hline
-\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & 11 & $1.4$ & $1.0$ \\ \hline
-\row{Uso de CPU - Formato\\{[\%/Trabajador]}} & 64 & 44 & 42 \\ \hline
-\row{Uso de CPU - Resolución\\{[\%/Trabajador]}} & 37 & 28 & 27 \\ \hline
-\row{Uso de CPU - Tamaño\\{[\%/Trabajador]}} & 13 & 8 & 9 \\ \hline
+\row{Máximo uso de memoria \\ {[MB/Trabajador]}} & $330.0$ & $240.0$ & $200.0$ \\ \hline
+\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & $15.0$ & $12.0$ & $11.0$ \\ \hline
+\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & $11.0$ & $1.4$ & $1.0$ \\ \hline
+\row{Uso de CPU - Formato\\{[\%/Trabajador]}} & $64.0$ & $44.0$ & $42.0$ \\ \hline
+\row{Uso de CPU - Resolución\\{[\%/Trabajador]}} & $37.0$ & $28.0$ & $27.0$ \\ \hline
+\row{Uso de CPU - Tamaño\\{[\%/Trabajador]}} & $13.0$ & $8.0$ & $9.0$ \\ \hline
 Tiempo de ejecución [Minutos] & $19.9$ & $13.7$ & $9.8$ \\ \hline
 \end{tabular}
 \ipcap{Scala}{GCP}
@@ -3544,14 +3544,14 @@ Tiempo de ejecución [Minutos] & $19.9$ & $13.7$ & $9.8$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 2 Nodos & 4 Nodos & 6 Nodos \\ \hline
-\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & 50 & 92 & 135 \\ \hline
-\row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $2.11$ & $5.78$ & $9.42$ \\ \hline
-\row{Máximo uso de memoria \\ {[MB/Trabajador]}} & 128 & 96 & 68 \\ \hline
-\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & $7.85$ & $7.21$ & $7.03$ \\ \hline
-\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & $5.51$ & $4.23$ & $4.16$ \\ \hline
-\row{Uso de CPU - Formato\\{[\%/Trabajador]}} & 100 & 100 & 100 \\ \hline
-\row{Uso de CPU - Resolución\\{[\%/Trabajador]}} & 80 & 80 & 80 \\ \hline
-\row{Uso de CPU - Tamaño\\{[\%/Trabajador]}} & 20 & 20 & 20 \\ \hline
+\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $50.0$ & $92.0$ & $135.0$ \\ \hline
+\row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $2.1$ & $5.8$ & $9.4$ \\ \hline
+\row{Máximo uso de memoria \\ {[MB/Trabajador]}} & $128.0$ & $96.0$ & $68.0$ \\ \hline
+\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & $7.8$ & $7.2$ & $7.0$ \\ \hline
+\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & $5.5$ & $4.2$ & $4.2$ \\ \hline
+\row{Uso de CPU - Formato\\{[\%/Trabajador]}} & $100.0$ & $100.0$ & $100.0$ \\ \hline
+\row{Uso de CPU - Resolución\\{[\%/Trabajador]}} & $80.0$ & $80.0$ & $80.0$ \\ \hline
+\row{Uso de CPU - Tamaño\\{[\%/Trabajador]}} & $20.0$ & $20.0$ & $20.0$ \\ \hline
 Tiempo de ejecución [Minutos] & $89.9$ & $48.8$ & $33.3$ \\ \hline
 \end{tabular}
 \ipcap{Go}{FaMAF-2}
@@ -3563,14 +3563,14 @@ Tiempo de ejecución [Minutos] & $89.9$ & $48.8$ & $33.3$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 2 Nodos & 4 Nodos & 6 Nodos \\ \hline
-\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & 40 & 75 & 104 \\ \hline
-\row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $2.96$ & $11.3$ & $24.9$ \\ \hline
-\row{Máximo uso de memoria \\ {[MB/Trabajador]}} & 144 & 90 & 64 \\ \hline
-\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & $6.03$ & $5.62$ & $5.20$ \\ \hline
-\row{Máximo uso de red (Rx) \\ {[KB/(s * Trabajador)]}} & $3.58$ & $3.37$ & $3.12$ \\ \hline
-\row{Uso de CPU - Formato\\{[\%/Trabajador]}} & 80 & 80 & 80 \\ \hline
-\row{Uso de CPU - Resolución\\{[\%/Trabajador]}} & 30 & 30 & 25 \\ \hline
-\row{Uso de CPU - Tamaño\\{[\%/Trabajador]}} & 5 & 5 & 5 \\ \hline
+\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $40.0$ & $75.0$ & $104.0$ \\ \hline
+\row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $3.0$ & $11.3$ & $24.9$ \\ \hline
+\row{Máximo uso de memoria \\ {[MB/Trabajador]}} & $144.0$ & $90.0$ & $64.0$ \\ \hline
+\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & $6.0$ & $5.6$ & $5.2$ \\ \hline
+\row{Máximo uso de red (Rx) \\ {[KB/(s * Trabajador)]}} & $3.6$ & $3.4$ & $3.1$ \\ \hline
+\row{Uso de CPU - Formato\\{[\%/Trabajador]}} & $80.0$ & $80.0$ & $80.0$ \\ \hline
+\row{Uso de CPU - Resolución\\{[\%/Trabajador]}} & $30.0$ & $30.0$ & $25.0$ \\ \hline
+\row{Uso de CPU - Tamaño\\{[\%/Trabajador]}} & $5.0$ & $5.0$ & $5.0$ \\ \hline
 Tiempo de ejecución [Minutos] & $37.5$ & $20.0$ & $14.4$ \\ \hline
 \end{tabular}
 \ipcap{Go}{GCP}
@@ -3582,14 +3582,14 @@ Tiempo de ejecución [Minutos] & $37.5$ & $20.0$ & $14.4$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 2 Nodos & 4 Nodos & 6 Nodos \\ \hline
-\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & 400 & 745 & 1100 \\ \hline
-\row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $1.7$ & $1.5$ & 8 \\ \hline
-\row{Máximo uso de memoria \\ {[MB/Trabajador]}} & 448 & 460 & 450 \\ \hline
-\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & 136 & 125 & 118 \\ \hline
-\row{Máximo uso de red (Rx) \\ {[KB/(s * Trabajador)]}} & 55 & 50 & 48 \\ \hline
-\row{Uso de CPU - Formato\\{[\%/Trabajador]}} & 92 & 96 & 96 \\ \hline
-\row{Uso de CPU - Resolución\\{[\%/Trabajador]}} & 73 & 69 & 72 \\ \hline
-\row{Uso de CPU - Tamaño\\{[\%/Trabajador]}} & 34 & 31 & 30 \\ \hline
+\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $400.0$ & $745.0$ & $1100.0$ \\ \hline
+\row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $1.7$ & $1.5$ & $8.0$ \\ \hline
+\row{Máximo uso de memoria \\ {[MB/Trabajador]}} & $448.0$ & $460.0$ & $450.0$ \\ \hline
+\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & $136.0$ & $125.0$ & $118.0$ \\ \hline
+\row{Máximo uso de red (Rx) \\ {[KB/(s * Trabajador)]}} & $55.0$ & $50.0$ & $48.0$ \\ \hline
+\row{Uso de CPU - Formato\\{[\%/Trabajador]}} & $92.0$ & $96.0$ & $96.0$ \\ \hline
+\row{Uso de CPU - Resolución\\{[\%/Trabajador]}} & $73.0$ & $69.0$ & $72.0$ \\ \hline
+\row{Uso de CPU - Tamaño\\{[\%/Trabajador]}} & $34.0$ & $31.0$ & $30.0$ \\ \hline
 Tiempo de ejecución [Minutos] & $11.2$ & $6.0$ & $4.1$ \\ \hline
 \end{tabular}
 \ipcap{Julia}{FaMAF-2}
@@ -3601,15 +3601,15 @@ Tiempo de ejecución [Minutos] & $11.2$ & $6.0$ & $4.1$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 2 Nodos & 4 Nodos & 6 Nodos \\ \hline
-\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & 82.6 & 215 & 235 \\ \hline
+\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $82.6$ & $215.0$ & $235.0$ \\ \hline
 \row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $6.5$ & $5.7$ & $8.3$ \\ \hline
-\row{Máximo uso de memoria \\ {[MB/Trabajador]}} & 1130 & 896 & 704 \\ \hline
-\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & 28 & 37 & 27 \\ \hline
-\row{Máximo uso de red (Rx) \\ {[KB/(s * Trabajador)]}} & 11 & 15 & 11 \\ \hline
-\row{Uso de CPU - Formato\\{[\%/Trabajador]}} & 24 & 38 & 25 \\ \hline
-\row{Uso de CPU - Resolución\\{[\%/Trabajador]}} & 18 & 24 & 19 \\ \hline
-\row{Uso de CPU - Tamaño\\{[\%/Trabajador]}} & 9 & 11 & 7 \\ \hline
-Tiempo de ejecución [Minutos] & $18.1$ & $6.9$ & $6.37$ \\ \hline
+\row{Máximo uso de memoria \\ {[MB/Trabajador]}} & $1130.0$ & $896.0$ & $704.0$ \\ \hline
+\row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & $28.0$ & $37.0$ & $27.0$ \\ \hline
+\row{Máximo uso de red (Rx) \\ {[KB/(s * Trabajador)]}} & $11.0$ & $15.0$ & $11.0$ \\ \hline
+\row{Uso de CPU - Formato\\{[\%/Trabajador]}} & $24.0$ & $38.0$ & $25.0$ \\ \hline
+\row{Uso de CPU - Resolución\\{[\%/Trabajador]}} & $18.0$ & $24.0$ & $19.0$ \\ \hline
+\row{Uso de CPU - Tamaño\\{[\%/Trabajador]}} & $9.0$ & $11.0$ & $7.0$ \\ \hline
+Tiempo de ejecución [Minutos] & $18.1$ & $6.9$ & $6.4$ \\ \hline
 \end{tabular}
 \ipcap{Julia}{GCP}
 \end{table}
@@ -3619,14 +3619,14 @@ Tiempo de ejecución [Minutos] & $18.1$ & $6.9$ & $6.37$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 2 Nodos & 4 Nodos & 6 Nodos \\ \hline
-\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $78.2$ & 141 & 245 \\ \hline
+\row{\english{Throughput} combinado\\{[Resultados/Segundo]}} & $78.2$ & $141.0$ & $245.0$ \\ \hline
 \row{Máxima variación del\\tiempo de trabajo [\%]} & $1.3$ & $2.3$ & $2.0$ \\ \hline
-\row{Máximo uso de memoria\\{[MB/Trabajador]}} & 140 & 115 & 650 \\ \hline
+\row{Máximo uso de memoria\\{[MB/Trabajador]}} & $140.0$ & $115.0$ & $650.0$ \\ \hline
 \row{Máximo uso de red (Tx)\\{[KB/(s * Trabajador)]}} & $9.2$ & $8.2$ & $9.4$ \\ \hline
 \row{Máximo uso de red (Rx)\\{[KB/(s * Trabajador)]}} & $3.4$ & $3.0$ & $3.6$ \\ \hline
-\row{Uso de CPU - Formato\\ {[\%/Trabajador]}} & 96 & 77 & 77 \\ \hline
-\row{Uso de CPU - Resolución\\ {[\%/Trabajador]}} & 110 & 93 & 92 \\ \hline
-\row{Uso de CPU - Tamaño\\ {[\%/Trabajador]}} & 33 & 25 & 26 \\ \hline
+\row{Uso de CPU - Formato\\ {[\%/Trabajador]}} & $96.0$ & $77.0$ & $77.0$ \\ \hline
+\row{Uso de CPU - Resolución\\ {[\%/Trabajador]}} & $110.0$ & $93.0$ & $92.0$ \\ \hline
+\row{Uso de CPU - Tamaño\\ {[\%/Trabajador]}} & $33.0$ & $25.0$ & $26.0$ \\ \hline
 Tiempo de ejecución {[Minutos]} & $57.5$ & $31.9$ & $18.3$ \\ \hline
 \end{tabular}
 \ipcap{Elixir}{FaMAF-2}
@@ -3637,15 +3637,15 @@ Tiempo de ejecución {[Minutos]} & $57.5$ & $31.9$ & $18.3$ \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & 2 Nodos & 4 Nodos & 6 Nodos \\ \hline
-\row{\english{Throughput} combinado \\ {[Resultados/Segundo]}} & $57.6$ & $85.1$ & 103 \\ \hline
+\row{\english{Throughput} combinado \\ {[Resultados/Segundo]}} & $57.6$ & $85.1$ & $103.0$ \\ \hline
 \row{Máxima variación del \\ tiempo de trabajo {[\%]}} & $3.6$ & $5.6$ & $6.6$ \\ \hline
-\row{Máximo uso de memoria \\ {[MB/Trabajador]}} & 390 & 240 & 180 \\ \hline
+\row{Máximo uso de memoria \\ {[MB/Trabajador]}} & $390.0$ & $240.0$ & $180.0$ \\ \hline
 \row{Máximo uso de red (Tx) \\ {[KB/(s * Trabajador)]}} & $6.6$ & $4.8$ & $1.0$ \\ \hline
 \row{Máximo uso de red (Rx)\\{[KB/(s * Trabajador)]}} & $2.3$ & $1.8$ & $1.5$ \\ \hline
-\row{Uso de CPU - Formato\\{[\%/Trabajador]}} & 44 & 35 & 28 \\ \hline
-\row{Uso de CPU - Resolución\\{[\%/Trabajador]}} & 26 & 20 & 18 \\ \hline
-\row{Uso de CPU - Tamaño\\{[\%/Trabajador]}} & 18 & 16 & 12 \\ \hline
-\row{Tiempo de ejecución [Minutos]} & $26.0$ & $17.6$ & $14.54$ \\ \hline
+\row{Uso de CPU - Formato\\{[\%/Trabajador]}} & $44.0$ & $35.0$ & $28.0$ \\ \hline
+\row{Uso de CPU - Resolución\\{[\%/Trabajador]}} & $26.0$ & $20.0$ & $18.0$ \\ \hline
+\row{Uso de CPU - Tamaño\\{[\%/Trabajador]}} & $18.0$ & $16.0$ & $12.0$ \\ \hline
+\row{Tiempo de ejecución [Minutos]} & $26.0$ & $17.6$ & $14.5$ \\ \hline
 \end{tabular}
 \ipcap{Elixir}{GCP}
 \end{table}
@@ -3656,14 +3656,14 @@ Tiempo de ejecución {[Minutos]} & $57.5$ & $31.9$ & $18.3$ \\ \hline
 \begin{tabular}{|l|c|c|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & C++ & Scala & Go & Julia & Elixir \\ \hline
-\row{\english{Throughput} combinado\\ {[}Resultados/Segundo{]}} & 250 & 139 & 92 & 745 & 141 \\ \hline
-\row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $2.8$ & $3.2$ & $5.78$ & $1.5$ & $2.3$ \\ \hline
-\row{Uso máximo de memoria \\ {[}MB/Trabajador{]}} & 55 & 715 & 96 & 460 & 115 \\ \hline
-\row{Uso máximo de la red (Tx)\\ {[}KB/(s * Trabajador){]}} & 22 & 15 & $7.21$ & 125 & $8.2$ \\ \hline
-\row{Uso máximo de la red (Rx)\\ {[}KB/(s * Trabajador){]}} & 12 & 11 & $4.23$ & 50 & $3.0$ \\ \hline
-\row{Uso de CPU - Formato \\ {[}\%/Trabajador{]}} & 75 & 55 & 100 & 96 & 77 \\ \hline
-\row{Uso de CPU - Resolución \\ {[}\%/Trabajador{]}} & 40 & 38 & 80 & 69 & 93 \\ \hline
-\row{Uso de CPU - Tamaño \\ {[}\%/Trabajador{]}} & 10 & 10 & 20 & 31 & 25 \\ \hline
+\row{\english{Throughput} combinado\\ {[}Resultados/Segundo{]}} & $250.0$ & $139.0$ & $92.0$ & $745.0$ & $141.0$ \\ \hline
+\row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $2.8$ & $3.2$ & $5.8$ & $1.5$ & $2.3$ \\ \hline
+\row{Uso máximo de memoria \\ {[}MB/Trabajador{]}} & $55.0$ & $715.0$ & $96.0$ & $460.0$ & $115.0$ \\ \hline
+\row{Uso máximo de la red (Tx)\\ {[}KB/(s * Trabajador){]}} & $22.0$ & $15.0$ & $7.2$ & $125.0$ & $8.2$ \\ \hline
+\row{Uso máximo de la red (Rx)\\ {[}KB/(s * Trabajador){]}} & $12.0$ & $11.0$ & $4.2$ & $50.0$ & $3.0$ \\ \hline
+\row{Uso de CPU - Formato \\ {[}\%/Trabajador{]}} & $75.0$ & $55.0$ & $100.0$ & $96.0$ & $77.0$ \\ \hline
+\row{Uso de CPU - Resolución \\ {[}\%/Trabajador{]}} & $40.0$ & $38.0$ & $80.0$ & $69.0$ & $93.0$ \\ \hline
+\row{Uso de CPU - Tamaño \\ {[}\%/Trabajador{]}} & $10.0$ & $10.0$ & $20.0$ & $31.0$ & $25.0$ \\ \hline
 Tiempo de ejecución {[}Minutos{]} & $18.0$ & $32.3$ & $48.8$ & $6.0$ & $17.4$ \\ \hline
 \end{tabular}
 \caption{Resumen de métricas ejecutadas con 4 nodos por etapa en FaMAF-2, para el caso de uso de Procesamiento de Imágenes}
@@ -3676,14 +3676,14 @@ Tiempo de ejecución {[}Minutos{]} & $18.0$ & $32.3$ & $48.8$ & $6.0$ & $17.4$ \
 \begin{tabular}{|l|c|c|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & C++ & Scala & Go & Julia & Elixir \\ \hline
-\row{\english{Throughput} combinado \\ {[Resultados/Segundo]}} & 84 & 109 & 75 & 215 & $85.1$ \\ \hline
+\row{\english{Throughput} combinado \\ {[Resultados/Segundo]}} & $84.0$ & $109.0$ & $75.0$ & $215.0$ & $85.1$ \\ \hline
 \row{Máxima variación del \\ tiempo de trabajo {[}\%{]}} & $1.9$ & $2.4$ & $11.3$ & $5.7$ & $5.6$ \\ \hline
-\row{Uso máximo de memoria \\ {[}MB/Trabajador{]}} & 97 & 240 & 90 & 896 & 240 \\ \hline
-\row{Uso máximo de la red (Tx) \\ {[}KB/(s * Trabajador){]}} & $6.9$ & 12 & $5.62$ & 37 & $4.8$ \\ \hline
-\row{Uso máximo de la red (Rx)\\ {[}KB/(s * Trabajador){]}} & $3.8$ & $8.4$ & $3.37$ & 15 & $1.8$ \\ \hline
-\row{Uso de CPU - Formato \\ {[\%/Trabajador]}} & 35 & 44 & 80 & 38 & 35 \\ \hline
-\row{Uso de CPU - Resolución \\ {[\%/Trabajador]}} & 10 & 28 & 30 & 24 & 20 \\ \hline
-\row{Uso de CPU - Tamaño \\ {[\%/Trabajador]}} & 5 & 8 & 5 & 11 & 16 \\ \hline
+\row{Uso máximo de memoria \\ {[}MB/Trabajador{]}} & $97.0$ & $240.0$ & $90.0$ & $896.0$ & $240.0$ \\ \hline
+\row{Uso máximo de la red (Tx) \\ {[}KB/(s * Trabajador){]}} & $6.9$ & $12.0$ & $5.6$ & $37.0$ & $4.8$ \\ \hline
+\row{Uso máximo de la red (Rx)\\ {[}KB/(s * Trabajador){]}} & $3.8$ & $8.4$ & $3.4$ & $15.0$ & $1.8$ \\ \hline
+\row{Uso de CPU - Formato \\ {[\%/Trabajador]}} & $35.0$ & $44.0$ & $80.0$ & $38.0$ & $35.0$ \\ \hline
+\row{Uso de CPU - Resolución \\ {[\%/Trabajador]}} & $10.0$ & $28.0$ & $30.0$ & $24.0$ & $20.0$ \\ \hline
+\row{Uso de CPU - Tamaño \\ {[\%/Trabajador]}} & $5.0$ & $8.0$ & $5.0$ & $11.0$ & $16.0$ \\ \hline
 Tiempo de ejecución {[}Minutos{]} & $17.8$ & $13.7$ & $20.0$ & $1.9$ & $17.6$ \\ \hline
 \end{tabular}
 \caption{Resumen de métricas ejecutadas con 4 nodos por etapa en GCP, para el caso de uso de Procesamiento de Imágenes}
@@ -3694,17 +3694,17 @@ Tiempo de ejecución {[}Minutos{]} & $17.8$ & $13.7$ & $20.0$ & $1.9$ & $17.6$ \
 \centering
 \begin{tabular}{|ccc|}
 \hline
-\multicolumn{1}{|c|}{\multirow{3}{*}{C++}} & \multicolumn{1}{c|}{Manager} & $1.45$ GB \\ \cline{2-3} 
-\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Worker} & $1.45$ GB \\ \cline{2-3} 
-\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Middleware} & $1.45$ GB \\ \hline
-\multicolumn{1}{|c|}{\multirow{3}{*}{Scala}} & \multicolumn{1}{c|}{Manager} & 194 MB \\ \cline{2-3} 
-\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Worker} & 194 MB \\ \cline{2-3} 
-\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Middleware} & 180 MB \\ \hline
-\multicolumn{1}{|c|}{\multirow{3}{*}{Go}} & \multicolumn{1}{c|}{Manager} & 15 MB \\ \cline{2-3} 
+\multicolumn{1}{|c|}{\multirow{3}{*}{C++}} & \multicolumn{1}{c|}{Manager} & $1.5$ GB \\ \cline{2-3} 
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Worker} & $1.5$ GB \\ \cline{2-3} 
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Middleware} & $1.5$ GB \\ \hline
+\multicolumn{1}{|c|}{\multirow{3}{*}{Scala}} & \multicolumn{1}{c|}{Manager} & $194.0$ MB \\ \cline{2-3} 
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Worker} & $194.0$ MB \\ \cline{2-3} 
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Middleware} & $180.0$ MB \\ \hline
+\multicolumn{1}{|c|}{\multirow{3}{*}{Go}} & \multicolumn{1}{c|}{Manager} & $15.0$ MB \\ \cline{2-3} 
 \multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Worker} & $15.8$ MB \\ \cline{2-3} 
 \multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Middleware} & $14.4$ MB \\ \hline
-\multicolumn{1}{|c|}{\multirow{2}{*}{Julia}} & \multicolumn{1}{c|}{Manager} & $1.96$ GB \\ \cline{2-3} 
-\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Worker} & $1.96$ GB \\ \hline
+\multicolumn{1}{|c|}{\multirow{2}{*}{Julia}} & \multicolumn{1}{c|}{Manager} & $2.0$ GB \\ \cline{2-3} 
+\multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Worker} & $2.0$ GB \\ \hline
 \multicolumn{1}{|c|}{\multirow{2}{*}{Elixir}} & \multicolumn{1}{c|}{Manager} & \textgreater{}$84.8$ MB \\ \cline{2-3} 
 \multicolumn{1}{|c|}{} & \multicolumn{1}{c|}{Worker} & \textgreater{}$84.8$ MB \\ \hline
 \end{tabular}
@@ -3727,9 +3727,9 @@ El significado de cada una de las métricas es el siguiente:
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
 Métrica & Rust & Go & Julia & Scala & Zig \\ \hline
-Duración [Minutos] & $16.9$ & 102 & $15.9$ & 252 & $24.3$ \\ \hline
-Uso de memoria [MB] & 231 & $15.9$ & 548 & 566 & $2.27$ \\ \hline
-Uso de CPU [\%] & 300 & 337 & 229 & 179 & 232 \\ \hline
+Duración [Minutos] & $16.9$ & $102.0$ & $15.9$ & $252.0$ & $24.3$ \\ \hline
+Uso de memoria [MB] & $231.0$ & $15.9$ & $548.0$ & $566.0$ & $2.3$ \\ \hline
+Uso de CPU [\%] & $300.0$ & $337.0$ & $229.0$ & $179.0$ & $232.0$ \\ \hline
 \end{tabular}
 \caption{Resumen de métricas del área de criptografía en FaMAF-2. Un uso del CPU del 100\% significa que el proceso utilizó, en promedio, un único \english{core}}
 \label{tab:aes:famaf_2}
@@ -3739,10 +3739,10 @@ Uso de CPU [\%] & 300 & 337 & 229 & 179 & 232 \\ \hline
 \centering
 \begin{tabular}{|c|c|}
 \hline
-Rust & $4.39$ MB \\ \hline
+Rust & $4.4$ MB \\ \hline
 Go & $11.3$ MB \\ \hline
-Julia & 716 MB \\ \hline
-Scala & 192 MB \\ \hline
+Julia & $716.0$ MB \\ \hline
+Scala & $192.0$ MB \\ \hline
 Zig & $11.7$ MB \\ \hline
 \end{tabular}
 \caption{Tamaño de imágenes de Docker para el caso de uso de Criptografía}
@@ -3767,11 +3767,11 @@ El significado de cada una de las métricas es el siguiente:
 \hline
 & \multicolumn{2}{c|}{Python} & \multicolumn{2}{c|}{Julia} \\ \hline
 Métrica & Tensorflow/Keras & PyTorch & Flux & SciKitLearn \\ \hline
-Duración [Minutos] & 21 & $7.3$ & $2.56$ & $0.35$ \\ \hline
-Uso de memoria [GB] & $2.55$ & $3.16$ & $2.69$ & $1.33$ \\ \hline
-Uso de CPU [\%] & $126.00$ & $99.99$& $106.00$& $105.00$\\ \hline
-Uso de GPU [GB] & $6.76$ & $1.08$ & $0.69$ & - \\ \hline
-Raíz del error cuadrático medio [USD] & 50500 & 52582 & 53400 & 49000 \\ \hline
+Duración [Minutos] & $21.0$ & $7.3$ & $2.6$ & $0.4$ \\ \hline
+Uso de memoria [GB] & $2.6$ & $3.2$ & $2.7$ & $1.3$ \\ \hline
+Uso de CPU [\%] & $126.0$ & $100.0$& $106.0$& $105.0$\\ \hline
+Uso de GPU [GB] & $6.8$ & $1.1$ & $0.7$ & - \\ \hline
+Raíz del error cuadrático medio [USD] & $50500.0$ & $52582.0$ & $53400.0$ & $49000.0$ \\ \hline
 \end{tabular}
 \caption{Resumen de métricas del área de redes neuronales, en FaMAF-2. Un uso del CPU del 100\% significa que el proceso utilizó, en promedio, un único \english{core}}
 \label{tab:nn:famaf_2}
@@ -3793,10 +3793,10 @@ El significado de cada una de las métricas es el siguiente:
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
 Métrica       & Go   & Java & Python & Ruby & JavaScript \\ \hline
-Uso de CPU [\%]         & $58.3$ & 582  & 1701   & 1398 & 180        \\ \hline
-Uso de memoria [MB]   & $55.2$ & 512  & 1620   & 2280 & 112        \\ \hline
-Latencia [Milisegundos]   & $100$  & 250  & 400    & 380  & 130        \\ \hline
-\english{Throughput} [Escenarios/segundo] & $70$   & 70   & 60     & 60   & 20         \\ \hline
+Uso de CPU [\%]         & $58.3$ & $582.0$  & $1701.0$   & $1398.0$ & $180.0$        \\ \hline
+Uso de memoria [MB]   & $55.2$ & $512.0$  & $1620.0$   & $2280.0$ & $112.0$        \\ \hline
+Latencia [Milisegundos]   & $100.0$  & $250.0$  & $400.0$    & $380.0$  & $130.0$        \\ \hline
+\english{Throughput} [Escenarios/segundo] & $70.0$   & $70.0$   & $60.0$     & $60.0$   & $20.0$         \\ \hline
 \end{tabular}
 \caption{Resumen de métricas del área de protocolos de comunicación, en FaMAF-2. Un uso del CPU del 100\% significa que el proceso utilizó, en promedio, un único \english{core} }
 \label{tab:http:famaf_1}
