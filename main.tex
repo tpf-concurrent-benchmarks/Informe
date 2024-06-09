@@ -5,7 +5,9 @@
 
 % Paquete para el manejo de idiomas y codificación de fuentes
 \usepackage[spanish]{babel}
-\usepackage[utf8]{inputenc}
+\decimalpoint
+
+\usepackage[utf8]{inputenc} 
 \usepackage[T1]{fontenc}
 
 % Configuración de fuentes
@@ -68,15 +70,16 @@
             citecolor = blue,
             anchorcolor = blue]{hyperref}
 \usepackage[table,xcdraw,dvipsnames]{xcolor}
+\usepackage{tcolorbox}
 \usepackage{svg}
-
+\usepackage{transparent}
 
 \usepackage[newfloat]{minted}
 \usepackage{cleveref}
 
 \usemintedstyle{default}
 \definecolor{bg}{RGB}{248,248,248}
-% \definecolor{bg}{HTML}{282828}
+\colorlet{highlight}{yellow!70}
 \usepackage{listings}
 \lstset{
   basicstyle=\ttfamily,
@@ -143,13 +146,13 @@
 \section{Resumen}
 
 
-Este trabajo tiene como objetivo evaluar distintos lenguajes de programación y sus entornos, en aplicaciones de sistemas concurrentes. Para lograrlo, se compararon estos lenguajes en cuatro dominios de aplicación: sistemas distribuidos, criptografía, redes neuronales y protocolos de comunicación, con los cuales se buscó resaltar distintos aspectos y desafíos de la concurrencia.
+Este trabajo tiene como objetivo evaluar distintos lenguajes de programación y sus entornos, en aplicaciones de sistemas concurrentes. Para lograrlo, se compararon estos lenguajes en cuatro dominios de aplicación: sistemas distribuidos, criptografía, redes neuronales y servidores, con los cuales se buscó resaltar distintos aspectos y desafíos de la concurrencia.
 
 Los resultados de la evaluación permitieron analizar aspectos cuantificables, como el rendimiento de los lenguajes, así como aspectos cualitativos, como la facilidad de uso y el tiempo de desarrollo. Esto nos permitió concluir cuáles herramientas son más adecuadas según el caso de uso y las necesidades específicas de cada aplicación.
 
 \subsection{Palabras clave}
 
-Concurrencia, \english{benchmarks}, lenguajes de programación, entornos de desarrollo, sistemas distribuidos, criptografía, redes neuronales, protocolos de comunicación, comparación, optimización.
+Concurrencia, \english{benchmarks}, lenguajes de programación, entornos de desarrollo, sistemas distribuidos, criptografía, redes neuronales, servidores, comparación, optimización.
 
 \newpage
 
@@ -169,21 +172,11 @@ Concurrency, benchmarks, programming languages, environments, distributed system
 
 \newpage
 
-\section{Agradecimientos}
-
-Agradecemos al Dr. Nicolás Wolovick y a la Universidad de Córdoba por brindarnos acceso a los servidores de la Facultad de Matemática, Astronomía, Física y Computación (FaMAF), que fueron fundamentales para la realización de este trabajo.
-
-También agradecemos al Centro de Simulación Computacional (CSC) del CONICET por brindarnos acceso al \english{cluster} TUPAC, aunque finalmente no fue utilizado por limitaciones técnicas y de cronograma.
-
-Por último, expresamos nuestro más sincero agradecimiento a la Lic. Rosa Wachenchauzer y al Ing. Ariel Scarpinelli por su apoyo y por brindarnos el contacto con el Dr. Nicolás Wolovick y el CSC.
-
-\newpage
-
 \section{Introducción}
 
 En los últimos años, han surgido nuevos lenguajes de programación y ecosistemas que ofrecen diferentes niveles de abstracción, mecanismos, herramientas y posibilidades para modelar problemas de manera más eficiente, utilizando diferentes técnicas de concurrencia. Estos lenguajes y ecosistemas, a menudo no explorados, están empezando a cobrar reconocimiento.
 
-Se presenta un conjunto de dominios de aplicación para el análisis: sistemas distribuidos (particularmente para el procesamiento de datos), algoritmos criptográficos, redes neuronales (dentro del contexto de la ciencia de datos) y protocolos de comunicación (enfocándonos en servidores).
+Se presenta un conjunto de dominios de aplicación para el análisis: sistemas distribuidos (particularmente para el procesamiento de datos), algoritmos criptográficos, redes neuronales (dentro del contexto de la ciencia de datos) y servidores.
 
 Para cada una de estas áreas, se busca proporcionar una base de métricas y análisis que sea útil para la toma de decisiones a la hora de elegir el ecosistema más adecuado.
 
@@ -215,10 +208,12 @@ Se obtuvo acceso a dos supercomputadoras de la Universidad de Córdoba (Facultad
 
 \begin{itemize}
     \item \textbf{FaMAF-1}: cuenta con procesador AMD EPYC 7643, 128 GB de memoria RAM, disco SSD de 894 GB, GPU NVIDIA TITAN Xp.
-    \item \textbf{FaMAF-2}: cuenta con procesador E5-2680v4, 128 GB de memoria RAM, disco SSD de 223 GB, GPU NVIDIA GeForce RTX 3070
+    \item \textbf{FaMAF-2}: cuenta con procesador E5-2680v4, 128 GB de memoria RAM, disco SSD de 223 GB, GPU NVIDIA GeForce RTX 3070.
 \end{itemize}
 
-Además, para el despliegue de todos los sistemas y aplicaciones, se utilizó Docker \cite{com:docker} para virtualizar el entorno mediante contenedores.
+Además, para el despliegue de todos los sistemas y aplicaciones, se utilizó Docker \cite{com:docker} con docker swarm para virtualizar el entorno mediante contenedores.
+
+Las métricas se almacenaron en una base de datos provista por Graphite \cite{com:graphite} y se visualizaron en Grafana \cite{com:grafana}. Se utilizó StatsD \cite{com:statsd} como protocolo para el envío de métricas, y cAdvisor \cite{com:cadvisor} para monitorear los recursos de los contenedores.
 
 \newpage
 
@@ -256,7 +251,7 @@ Corre sobre un \english{runtime} propio, que genera código de máquina nativo a
 
 Un lenguaje funcional basado en el paradigma de actores. Pensado para el desarrollo de aplicaciones escalables y mantenibles \cite{com:elixir}.
 
-Se ejecuta sobre la máquina virtual de Erlang, conocida por el desarrollo de sistemas distribuidos de baja latencia y tolerantes a fallas. El modelo de actores es concurrente por naturaleza.
+Se ejecuta sobre la máquina virtual de Erlang \cite{com:erlang}, conocida por el desarrollo de sistemas distribuidos de baja latencia y tolerantes a fallas. El modelo de actores es concurrente por naturaleza.
 
 \subsection{Rust}
 
@@ -274,7 +269,7 @@ Es un lenguaje que aún se encuentra en una etapa temprana de desarrollo, siendo
 
 Python es un lenguaje de programación interpretado, de alto nivel y propósito general que se destaca por su simplicidad, legibilidad y productividad \cite{com:python}. Es ampliamente utilizado en diversas áreas como desarrollo web, ciencia de datos, automatización, y más.
 
-A pesar de que su \english{Global Interpreter Lock} (GIL) limita la ejecución simultánea de múltiples hilos en un solo proceso, Python proporciona alternativas como la biblioteca \lstinline{multiprocessing} para la ejecución paralela de procesos independientes. Además, con la introducción de \lstinline{asyncio}, soporta programación asincrónica, permitiendo la gestión eficiente de tareas concurrentes mediante corrutinas y otros mecanismos de control de flujo asincrónico.
+A pesar de que su \english{Global Interpreter Lock} (GIL) limita la ejecución simultánea de múltiples hilos en un solo proceso, Python proporciona alternativas como la biblioteca \lstinline{multiprocessing} para la ejecución paralela de procesos independientes. Además, con la introducción de \lstinline{asyncio}, soporta programación asincrónica, permitiendo la gestión eficiente de tareas concurrentes mediante corrutinas y otros mecanismos de control de flujo asincrónico. Por último suele utilizarse como DSL \footnote{\english{Domain Specific Language}: lenguaje con un mayor nivel de abstracción optimizado para una determinada clase de problemas.} para definir un grafo de cómputo para la posterior ejecución en un ambiente diferente, más apropiado para concurrencia.
 
 \subsection{Java}
 
@@ -284,21 +279,23 @@ Ofrece un conjunto completo de herramientas y bibliotecas para el desarrollo de 
 
 \subsection{Ruby}
 
-Ruby es un lenguaje de programación interpretado, dinámico y de propósito general que pone el foco en la simplicidad y la productividad \cite{com:ruby}. Es principalmente utilizado para desarrollo web, en conjunto con el \english{framework} Ruby on Rails, conocido por su filosofía de convención sobre configuración.
+Ruby es un lenguaje de programación interpretado, dinámico y de propósito general que pone el foco en la simplicidad y la productividad \cite{com:ruby}. Es principalmente utilizado para desarrollo web, en conjunto con el \english{framework} Ruby on Rails \cite{http:ruby:ruby-on-rails}, conocido por su filosofía de convención sobre configuración.
 
 Ruby on Rails brinda concurrencia de manera automática, utilizando un paradigma multihilo para el manejo de peticiones al servidor. Además, mediante el uso de bibliotecas se puede agregar la ejecución asincrónica de tareas y colas de trabajo.
 
-\subsection{JavaScript}
+\subsection{TypeScript}
 
-JavaScript es un lenguaje de programación interpretado, dinámico y de propósito general. Se destaca por su flexibilidad y facilidad de uso. Es el estándar para desarrollo web, siendo utilizado tanto para las interfaces de cliente como para los servidores.
+Typescript \cite{js:lib:typescript} es un \english{superset} de JavaScript, agregando a este un sistema de tipos fuerte y convirtiéndolo en una herramienta más robusta para desarrollos de mayor escala.
+
+Por su parte, JavaScript es un lenguaje de programación interpretado, dinámico y de propósito general. Se destaca por su flexibilidad y facilidad de uso. Es el estándar para desarrollo web, siendo utilizado tanto para las interfaces de cliente como para los servidores.
 
 Utiliza un modelo de concurrencia basado en un bucle de eventos (\english{event loop}) y la programación asíncrona, lo que permite manejar múltiples tareas simultáneamente sin bloquear la ejecución del código. Esto se logra mediante el uso de \lstinline{callbacks}, promesas y la sintaxis \lstinline{async}/\lstinline{await}. Además, según el entorno, proporciona \english{worker threads} o \english{web workers} como abstracciones similares a los hilos, pensadas para operaciones de cómputo intensivo.
 
-\newpage % TODO: Al final, ver donde ponemos de estos
+\newpage
 
 \section{Introducción a dominios de aplicación}
 
-Para poder comparar los lenguajes previamente introducidos, resulta imperativo definir los diferentes contextos en los cuales se realizará el análisis, debido a la gran variedad de aplicaciones de la concurrencia en la actualidad. Con este propósito, se eligieron los siguientes dominios de aplicación: sistemas distribuidos, criptografía, redes neuronales en la ciencia de datos, y protocolos de comunicación.
+Para poder comparar los lenguajes previamente introducidos, resulta imperativo definir los diferentes contextos en los cuales se realizará el análisis, debido a la gran variedad de aplicaciones para la concurrencia. Con este propósito, se eligieron los siguientes dominios de aplicación: sistemas distribuidos, criptografía, redes neuronales en la ciencia de datos, y servidores.
 
 En los sistemas distribuidos, nos enfocamos en el procesamiento de datos. El objetivo de estos sistemas es manejar grandes volúmenes de datos y proporcionar servicios escalables y resilientes mediante la ejecución simultánea de múltiples procesos en diferentes nodos de una red.
 
@@ -306,7 +303,7 @@ La criptografía es un dominio que se puede ver beneficiado por el cómputo para
 
 En el campo de la ciencia de datos, las redes neuronales requieren el manejo de grandes cantidades de datos y la ejecución de operaciones altamente paralelizables. Por esta razón, en la actualidad, este proceso está migrando de las CPU a las GPU e incluso a las TPU\footnote{TPU: \english{Tensor Processing Units} son circuitos integrados específicos de aplicación creados por Google, usados para acelerar la carga de trabajo en usos de machine learning}.
 
-Estudiamos protocolos de comunicación en arquitecturas cliente-servidor, los cuales dependen de la concurrencia para gestionar múltiples conexiones simultáneas. Es interesante notar que en algunos de estos casos, debido a la gran cantidad de operaciones bloqueantes de entrada/salida, se puede obtener una clara mejora sin la necesidad de paralelismo.
+Estudiamos servidores con arquitecturas cliente-servidor, los cuales dependen de la concurrencia para gestionar múltiples conexiones simultáneas. Es interesante notar que en algunos de estos casos, debido a la gran cantidad de operaciones bloqueantes de entrada/salida, se puede obtener una clara mejora sin la necesidad de paralelismo.
 
 Para cada uno de estos dominios, se seleccionó un conjunto de lenguajes diferente, justificando su pertinencia en la comparación, siendo que no todos los lenguajes son apropiados para todos los casos de uso. 
 
@@ -324,8 +321,8 @@ Los desafíos que enfrenta un sistema distribuido son diversos:
     \item Comunicación: en muchos casos, los procesos solo pueden intercambiar información a través de Internet. Por lo tanto, la comunicación se da a través de paquetes TCP/UDP y, en consecuencia, toda la información debe serializarse y adaptarse a ese modelo.
 
     \item Sincronización: los procesos deben estar debidamente coordinados para poder cumplir satisfactoriamente sus objetivos. Para esto se desarrollaron numerosos algoritmos: de consenso (Paxos \cite{sis_dist:paxos}, Raft \cite{sis_dist:raft}) y de elección de líder (Bully \cite{sis_dist:bully}).
-    \item Tolerancia a fallas: al aumentar el número de componentes involucrados en un sistema distribuido, la probabilidad de que al menos uno falle aumenta \cite{sis_dist:growth_fail}.
-    Esta propiedad pone en evidencia la necesidad de los sistemas distribuidos de manejar, de una u otra forma, los errores. Una de las técnicas más utilizadas es la tolerancia a fallas, que se define como el método para mantener los sistemas interconectados, manteniendo su fiabilidad y disponibilidad \cite{sis_dist:fault_tol}.
+
+    \item Tolerancia a fallas: al aumentar el número de componentes involucrados en un sistema distribuido, la probabilidad de que al menos uno falle aumenta \cite{sis_dist:growth_fail}. Esta propiedad pone en evidencia la necesidad de los sistemas distribuidos de manejar, de una u otra forma, los errores. Una de las técnicas más utilizadas es la tolerancia a fallas, que se define como el método para mantener los sistemas interconectados, manteniendo su fiabilidad y disponibilidad \cite{sis_dist:fault_tol}.
 \end{itemize}
 
 La elección de un lenguaje de programación puede atenuar o amplificar estos retos, por lo que un análisis de los mismos puede resultar muy beneficioso. Algunos lenguajes, como C, fueron creados en un contexto histórico previo a los sistemas distribuidos. Como consecuencia, las herramientas que proveen pueden resultar primitivas para la tarea. Otros más modernos, como Julia, se diseñaron poniendo el foco en la computación distribuida.
@@ -425,7 +422,7 @@ Además, se realizaron ejecuciones complementarias en \english{Google Cloud Plat
 \subsubsection{Dataset}
 
 Para la evaluación del Grid Search, se ejecutará la función Griewank \cite{sis_dist:griewank} dentro del rango \break
-[-600; 600; $0.2$]\^{}3, es decir, el rango que va de -600 a 600 con paso de $0.2$ en 3 parámetros. Cada paquete (o \english{batch}) tiene un máximo de 10800000 números. El objetivo será buscar la configuración de parámetros que devuelven el mínimo resultado.
+[-600; 600; $0.2$]\^{}3, es decir, el rango que va de -600 a 600 con paso de $0.2$ en 3 parámetros. Cada lote (o \english{batch}) tiene un máximo de 10800000 números. El objetivo será buscar la configuración de parámetros que devuelven el mínimo resultado.
 
 Para la evaluación del procesamiento de imágenes se utiliza el \english{dataset} BIRDS 525 SPECIES \cite{sis_dist:birds_dataset}. Con el fin de aumentar el tiempo de procesamiento total y, en consecuencia, mejorar la calidad de las métricas, se aplicaron una serie de transformaciones que duplicaron el tamaño del \english{dataset}\footnote{El script utilizado puede encontrarse en: \url{https://github.com/tpf-concurrent-benchmarks/various/blob/main/image_processing/image_multiplicator.py}. No se utilizaron las rotaciones.}, más específicamente, espejado vertical y horizontal de las imágenes.
 
@@ -590,7 +587,7 @@ def split(maxChunkSize: Int, precision: Option[Int] = None): Iterator[Work] = {
 \label{code:scala:split}
 \end{listing}
 
-Otra herramienta que se aprovechó fue el uso de \english{Traits}\footnote{\english{Trait}: Conjunto de métodos que puede implementar una clase para definir su comportamiento.}, que permiten abstraer lógica común. En el Código~\ref{code:scala:basic_transformer} es posible apreciar la definición del \english{Trait} \lstinline{BasicTransformer} que encapsula la lógica de comunicación que utilizan todos los \english{workers} del \english{pipeline} de procesamiento de imágenes. Es interesante destacar que, gracias al nivel de abstracción del \english{Trait}, también fue posible utilizarlo en el caso de uso de Grid Search.
+Otra herramienta que se aprovechó fue el uso de \english{traits}\footnote{\english{Trait}: Conjunto de métodos que puede implementar una clase para definir su comportamiento.}, que permiten abstraer lógica común. En el Código~\ref{code:scala:basic_transformer} es posible apreciar la definición del \english{trait} \lstinline{BasicTransformer} que encapsula la lógica de comunicación que utilizan todos los \english{workers} del \english{pipeline} de procesamiento de imágenes. Es interesante destacar que, gracias al nivel de abstracción del \english{trait}, también fue posible utilizarlo en el caso de uso de Grid Search.
 
 \begin{listing}[h]
 \begin{minted}[bgcolor=bg, breaklines]{scala}
@@ -688,7 +685,7 @@ Para la comunicación entre sistemas se utilizó NATS \cite{go:lib:nats}, un \en
     \label{fig:go:image_processing_arch}
 \end{figure}
 
-Se empleó el modelo de publicador y suscriptor provisto por el \english{middleware}, en el cual los trabajadores se suscriben a una cola para recibir el trabajo. Es posible observar, en el Código~\ref{code:go:size_worker}, la lógica principal del \english{size worker} en el \english{pipeline} de imágenes, donde se realiza la suscripción a la cola de entrada y la definición de la función \english{callback} que será ejecutada al recibir un mensaje.
+Se empleó el modelo de \english{publisher} y \english{subscriber} provisto por el \english{middleware}, en el cual los trabajadores se suscriben a una cola para recibir el trabajo. Es posible observar, en el Código~\ref{code:go:size_worker}, la lógica principal del \english{size worker} en el \english{pipeline} de imágenes, donde se realiza la suscripción a la cola de entrada y la definición de la función \english{callback} que será ejecutada al recibir un mensaje.
 
 \begin{listing}[ht]
 \begin{minted}[bgcolor=bg, breaklines]{go}
@@ -850,10 +847,10 @@ Para este trabajo creamos un \english{framework} específico de procesamiento di
 
 Se puede observar, en la Figura~\ref{fig:elx:image_processing_framework}, la definición de procesos del \english{pipeline} de procesamiento de imágenes utilizando el \english{framework} mencionado. Se definen cuatro tipos de nodo:
 \begin{enumerate}
-\item Fuente (\english{Source}): ingresa los datos al sistema, que serán posteriormente enviados a la primera etapa de trabajadores.
-    \item Trabajador (\english{Worker}): realiza el procesamiento, recibiendo datos de una fuente y enviando los resultados a un sumidero.
-    \item Mediador (\english{Broker}): puede cumplir la función origen y destino desde el punto de vista del trabajador, repartiendo tareas entre etapas de trabajadores.
-    \item  Sumidero (\english{Sink}): recibe los resultados al final del \english{pipeline}
+    \item \english{Source}: ingresa los datos al sistema, que serán posteriormente enviados a la primera etapa de trabajadores.
+    \item \english{Worker}: realiza el procesamiento, recibiendo datos de una fuente y enviando los resultados a un \english{sink}.
+    \item \english{Broker}: puede cumplir la función origen y destino desde el punto de vista del trabajador, repartiendo tareas entre etapas de trabajadores.
+    \item  \english{Sink}: recibe los resultados al final del \english{pipeline}.
 \end{enumerate}
 
 \begin{figure}[ht]
@@ -872,7 +869,7 @@ Por otro lado, se puede ver en la Figura~\ref{fig:elx:image_processing_arch} el 
     \label{fig:elx:image_processing_arch}
 \end{figure}
 
-Al igual que en Julia, el código está completamente definido sobre el nodo \english{manager}. Éste es quien asigna la funcionalidad de los trabajadores, además de proveerles el trabajo. Podemos observar la definición del sistema para Grid Search en el Código~\ref{code:elx:gs} y para el \english{pipeline} de imágenes en el Código~\ref{code:elx:ip}. El método \lstinline{start_link} es el que instancia a los actores locales del \english{source}, \english{sink} y \english{broker}; mientras que los trabajadores remotos son iniciados mediante \lstinline{start_remote_worker}.
+Al igual que en Julia, el código está completamente definido sobre el nodo \english{manager}. Éste es quien asigna la funcionalidad de los \english{workers}, además de proveerles el trabajo. Podemos observar la definición del sistema para Grid Search en el Código~\ref{code:elx:gs} y para el \english{pipeline} de imágenes en el Código~\ref{code:elx:ip}. El método \lstinline{start_link} es el que instancia a los actores locales del \english{source}, \english{sink} y \english{broker}; mientras que los \english{workers} remotos son iniciados mediante \lstinline{start_remote_worker}.
 
 \begin{listing}[ht]
 \begin{minted}[bgcolor=bg, breaklines]{elixir}
@@ -1065,8 +1062,8 @@ De estos datos, es posible obtener algunas conclusiones preliminares:
 Se evaluaron, además, algunas métricas aplicables a ambos casos de uso, a saber:
 
 \begin{itemize}
-    \item Tiempo: tiempo que tomaron los desarrollos relativo al planificado (4 semanas cada uno).
-    \item Espacio: espacio que ocupan las imágenes de Docker en relación a la imagen base (alpine \cite{metrics:apline}). Unificados dado que la diferencia entre tipo de nodo (\english{manager}/\english{worker}/\english{middleware}) y caso (Grid Search, Procesamiento de Imágenes) es despreciable\footnote{Julia es la excepción, siendo que no pudo ser ejecutada en la imagen de alpine y tiene una amplia diferencia de tamaño según el caso de uso.}
+    \item Tiempo: tiempo que tomaron los desarrollos relativo al planificado. Para cada lenguaje, se estimó un tiempo de desarrollo de cuatro semanas.
+    \item Espacio: espacio que ocupan las imágenes de Docker en relación a la imagen base (alpine \cite{metrics:apline}). Unificados dado que la diferencia entre tipo de nodo (\english{manager}/\english{worker}/\english{middleware}) y caso (Grid Search, Procesamiento de Imágenes) es despreciable\footnote{Julia es la excepción, siendo que no pudo ser ejecutada en la imagen de alpine y tiene una amplia diferencia de tamaño según el caso de uso.}.
 \end{itemize}
 
 Los resultados se pueden observar en la tabla \ref{tab:sis_dist:general_metrics}, elaborada a partir de las tablas \ref{tab:gs:image_sizes} y \ref{tab:ip:image_sizes}.
@@ -1076,7 +1073,7 @@ Los resultados se pueden observar en la tabla \ref{tab:sis_dist:general_metrics}
 \begin{tabular}{|l|l|l|l|l|l|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & \multicolumn{1}{c|}{C++} & \multicolumn{1}{c|}{Scala} & \multicolumn{1}{c|}{Go} & \multicolumn{1}{c|}{Julia} & \multicolumn{1}{c|}{Elixir} \\ \hline
-Tiempo                        & $125.0$\%                    & $100.0$\%                      & $75.0$\%                    & $50.0$\%                       & $150.0$\%                       \\ \hline
+Tiempo                        & x$1.2$                    & x$1.0$                      & x$0.7$                    & x$0.5$                       & x$1.5$                       \\ \hline
 Espacio                       & x$2.5$                     & x$26.2$                      & x$2.0$                      & x$100.0$-x$266.0$                  & x$11.4$                       \\ \hline
 \end{tabular}
 \caption{Métricas generales correspondientes al área de Sistemas Distribuidos}
@@ -1100,7 +1097,7 @@ Los atributos que se tuvieron en cuenta a la hora de realizar la comparación en
     \item \textbf{Manejo de bibliotecas}: sistema de bibliotecas y módulos que provee el lenguaje. Eficacia de su gestor de paquetes (si tiene). Disponibilidad y calidad de recursos.
 \end{itemize}
 
-Para cada atributo y lenguaje se asignó un puntaje de 1 a 5, donde 1 significa que el lenguaje destaca muy negativamente en ese atributo, y 5 significa que el lenguaje destaca muy positivamente. Los resultados se observan en el Cuadro \ref{tab:sis_dist:experiences}
+Para cada atributo y lenguaje se asignó un puntaje de 0 a 5, donde 0 significa que el lenguaje destaca muy negativamente en ese atributo, y 5 significa que el lenguaje destaca muy positivamente. Los resultados se observan en el Cuadro \ref{tab:sis_dist:experiences}
 
 \begin{table}[h]
 \centering
@@ -1138,7 +1135,7 @@ Existen otros métodos de gestión de paquetes que intentan resolver este proble
 
 Scala es un lenguaje accesible y fácil de aprender, con una documentación extensa y abstracciones de alto nivel que simplifican el desarrollo. Una ventaja notable es que la experiencia previa en Java se transfiere fácilmente a Scala. Sin embargo, Scala puede ser bastante verboso y requerir una cantidad significativa de código \english{boilerplate}, lo que puede reducir su legibilidad.
 
-En el desarrollo de Grid Search, las herramientas de evaluación perezosa fueron esenciales, simplificando enormemente el proceso, mientras que el uso de \textit{Traits} facilitó la creación de componentes genéricos.
+En el desarrollo de Grid Search, las herramientas de evaluación perezosa fueron esenciales, simplificando enormemente el proceso, mientras que el uso de \textit{traits} facilitó la creación de componentes genéricos.
 
 Contar con este primer proyecto de referencia simplificó el desarrollo del \english{pipeline} de procesamiento de imágenes, ya que se reutilizó gran parte del código de comunicación con RabbitMQ.
 
@@ -1176,7 +1173,7 @@ El desarrollo y el código resultante fueron muy simples; el lenguaje es altamen
 
 Julia no proporciona herramientas para la evaluación perezosa, por lo que fue necesario buscar alternativas utilizando iteradores, cuyo desarrollo tiene una complejidad media.
 
-Las funcionalidades del modulo \lstinline{Distributed}, que forma parte de la biblioteca estándar, simplificaron enormemente el aspecto distribuido del sistema. Por ejemplo, provee ‘Canales Distribuidos’ de manera nativa, lo que no sólo simplifica la comunicación, sino que también elimina la preocupación por problemas como la diferencia de velocidad entre productores y consumidores. También, destaca en Grid Search la funcionalidad de \lstinline{pmap} distribuido, que trivializa la coordinación del trabajo.
+Las funcionalidades del modulo Distributed, que forma parte de la biblioteca estándar, simplificaron enormemente el aspecto distribuido del sistema. Por ejemplo, provee ‘Canales Distribuidos’ de manera nativa, lo que no sólo simplifica la comunicación, sino que también elimina la preocupación por problemas como la diferencia de velocidad entre productores y consumidores. También, destaca en Grid Search la funcionalidad de \lstinline{pmap} distribuido, que trivializa la coordinación del trabajo.
 
 \subsubsection{Elixir}
 
@@ -1252,7 +1249,7 @@ La criptografía es la técnica que permite proteger y ocultar la información, 
 
 Un algoritmo de cifrado toma dos valores: el dato a cifrar, comúnmente llamado ``texto plano'', y una clave. El dato se modifica para producir un ``texto cifrado''.
 
-Existen muchos algoritmos de cifrado, que pueden clasificarse en dos grandes grupos
+Existen muchos algoritmos de cifrado, que pueden clasificarse en dos grandes grupos:
 
 \begin{itemize}
     \item Algoritmos de clave simétrica: cuando la clave de cifrado coincide con la de descifrado. La familia de algoritmos AES (Advanced Encryption Standard) \cite{aes:aes} son ejemplos de ellos.
@@ -1270,83 +1267,14 @@ A continuación se presenta una breve descripción del algoritmo.
 Se definen los siguientes valores:
 
 \begin{itemize}
-    \item \textbf{Nb}: número de columnas que conforman el estado (siempre son 4)
+    \item \textbf{Nb}: número de columnas que conforman el estado (siempre son 4).
     \item \textbf{Nk}: número de \technical{palabras} (\english{words}) de 32 bits que conforman la clave. Tiene un valor 4, 6 o 8 para las versiones AES-128, AES-192 y AES-256, respectivamente.
     \item \textbf{Nr}: número de rondas (veces que itera el algoritmo). Tiene un valor de 10, 12 y 14 para las versiones AES-128, AES-192 y AES-256, respectivamente.
 \end{itemize}
 
-El primer paso consiste en generar las claves de ronda a partir de la clave inicial, proceso que se denomina `\english{Key Expansion}'. En el Código~\ref{code:aes:key_expansion} se describe el algoritmo en pseudocódigo, tal y como lo hace la especificación del estándar.
+El primer paso consiste en generar las claves de ronda a partir de la clave inicial, proceso que se denomina `\english{Key Expansion}'. Una vez obtenidas, se aplica el algoritmo de cifrado o descifrado, dependiendo del caso. El algoritmo se puede encontrar en la especificación del estándar \cite{aes:aes}.
 
-\begin{listing}[h] % FIXME: Chequear el codigo
-\begin{algorithmic}
-\Procedure{KeyExpansion}{$key$}
-    \State $i \gets 0$
-    \While{$i \leq Nk - 1$}
-        \State $w[i] \gets key[4*i\text{..}4*i+3]$
-        \State $i \gets i+1$
-    \EndWhile
-    \While{$i \leq 4*Nr+3$}
-        \State $temp \gets w[i-1]$
-        \If{$i \text{ mod } Nk = 0$}
-        \State $temp \gets \Call{SubWord}{\Call{RotWord}{temp}} \oplus Rcon[i/Nk]$
-        \ElsIf{$Nk > 6 \text{ and } i \text{ mod } Nk = 4$}
-            \State $temp \gets \Call{SubWord}{temp}$
-        \EndIf
-        \State $w[i] \gets w[i-Nk] \oplus temp$
-        \State $i \gets i+1$
-    \EndWhile
-    \State \textbf{return} $w$
-\EndProcedure
-\end{algorithmic}
-\caption{Pseudocódigo de la expansión de claves de AES}
-\label{code:aes:key_expansion}
-\end{listing}
-
-Una vez obtenidas las claves de ronda, se aplica el algoritmo de cifrado o descifrado, dependiendo del caso, tal y como se observa en los códigos \ref{code:aes:cipher} y \ref{code:aes:inv_cipher}, respectivamente.
-
-\begin{listing}[h] % FIXME: Chequear el codigo
-\begin{algorithmic}
-\Procedure{Cipher}{$in, Nr, w$}
-    \State $state \gets in$
-    \State $state \gets \Call{AddRoundKey}{state, w[0\text{..}3]}$
-     \For{$round \text{ \textbf{from} } 1 \text{ \textbf{to} } Nr - 1$}
-        \State $state \gets \Call{SubBytes}{state}$
-        \State $state \gets \Call{ShiftRows}{state}$
-        \State $state \gets \Call{MixColumns}{state}$
-        \State $state \gets \Call{AddRoundKey}{state, w[4*round\text{..}4*round + 3]}$
-    \EndFor
-    \State $state \gets \Call{SubBytes}{state}$
-    \State $state \gets \Call{ShiftRows}{state}$
-    \State $state \gets \Call{AddRoundKey}{state,w[4*Nr\text{..}4*Nr+3]}$
-    \State \textbf{return} $state$
-\EndProcedure
-\end{algorithmic}
-\caption{Pseudocódigo del algoritmo de cifrado de AES}
-\label{code:aes:cipher}
-\end{listing}
-
-\begin{listing}[h] % FIXME: Chequear el codigo
-\begin{algorithmic}
-\Procedure{InvCipher}{$in, Nr, w$}
-    \State $state \gets in$
-    \State $state \gets \Call{AddRoundKey}{state, w[0\text{..}3]}$
-     \For{$round \text{ \textbf{from} } Nr-1 \text{ \textbf{downto} } 1$}
-        \State $state \gets \Call{InvShiftRows}{state}$
-        \State $state \gets \Call{InvSubBytes}{state}$
-        \State $state \gets \Call{AddRoundKey}{state, w[4*round\text{..}4*round + 3]}$
-        \State $state \gets \Call{InvMixColumns}{state}$
-    \EndFor
-    \State $state \gets \Call{InvShiftRows}{state}$
-    \State $state \gets \Call{InvSubBytes}{state}$
-    \State $state \gets \Call{AddRoundKey}{state,w[0\text{..}3]}$
-    \State \textbf{return} $state$
-\EndProcedure
-\end{algorithmic}
-\caption{Pseudocódigo del algoritmo de descifrado de AES}
-\label{code:aes:inv_cipher}
-\end{listing}
-
-Una vez definido el algoritmo para un único bloque, se debe determinar el comportamiento para un número arbitrario de ellos. Esto se denomina comúnmente `modo de operación'. Algunos ejemplos de modos de operación son los siguientes
+Una vez definido el algoritmo para un único bloque, se debe determinar el comportamiento para un número arbitrario de ellos. Esto se denomina comúnmente `modo de operación'. Algunos ejemplos de modos de operación son los siguientes:
 
 \begin{itemize}
     \item \textbf{Cipher Block Chaining}: en este modo, el bloque en texto plano $n$ es combinado con el bloque encriptado $n - 1$, mediante la operacion XOR (ver Figura~\ref{fig:aes_cbc}).
@@ -1430,9 +1358,11 @@ let ciphered_blocks = blocks
 \end{listing}
 
 \begin{listing}[h]
-\begin{minted}[bgcolor=bg, breaklines]{rust}
+\begin{minted}[bgcolor=bg,
+               breaklines,
+               escapeinside=~~]{rust}
 let ciphered_blocks = blocks
-                      .par_iter()
+                      ~\colorbox{highlight}{.par\_iter()}~
                       .map(|block|
                             cipher.cipher_block(block)).collect::<Vec<_>>();
 \end{minted}
@@ -1442,7 +1372,7 @@ let ciphered_blocks = blocks
 
 No fue necesario utilizar ningún mecanismo propio de sincronización, ya que la biblioteca se encarga de distribuir las tareas entre los hilos, recolectarlas y devolverlas en orden.
 
-Por otro lado, la implementación del cifrado y descifrado de bloques se realizó en un \lstinline{struct} llamado \lstinline{AESBlockCipher}, como se ve en el Código~\ref{code:aes:rust_cipher_block} (se omitió el código de descifrado por ser muy similar al de cifrado). La sintaxis se asemeja bastante a la de un lenguaje orientado a objetos, como Java o Python. Sin embargo, las herramientas que provee Rust en dicho paradigma son muy diferentes \cite{aes:rust_oop}. Lo más destacable es que no posee clases, sino \lstinline{structs}, y el polimorfismo se logra a través de \english{Traits}, que entre otras restricciones, no permite definirle variables. Además, al ser un lenguaje de tipado estático, el compilador debe conocer el tamaño de todas las variables, lo que genera ciertas dificultades, como al retornar un \english{Trait}.
+Por otro lado, la implementación del cifrado y descifrado de bloques se realizó en un \lstinline{struct} llamado \lstinline{AESBlockCipher}, como se ve en el Código~\ref{code:aes:rust_cipher_block} (se omitió el código de descifrado por ser muy similar al de cifrado). La sintaxis se asemeja bastante a la de un lenguaje orientado a objetos, como Java. Sin embargo, las herramientas que provee Rust en dicho paradigma son muy diferentes \cite{aes:rust_oop}. Lo más destacable es que no posee clases, sino \lstinline{structs}, y el polimorfismo se logra a través de \english{traits}, que entre otras restricciones, no permite definirle variables. Además, al ser un lenguaje de tipado estático, el compilador debe conocer el tamaño de todas las variables, lo que genera ciertas dificultades, como al retornar un \english{trait}.
 
 \begin{listing}[h]
 \begin{minted}[bgcolor=bg, breaklines]{rust}
@@ -1489,18 +1419,18 @@ impl AESBlockCipher {
 
 \subsubsection{Go}
 
-Seleccionamos este lenguaje por su hincapié en la concurrencia \cite{go:ex:concurrency_patterns} y la simplicidad \cite{go:ex:simple}, lo que lo convierte en un buen punto de comparación contra otros lenguajes.
+Seleccionamos este lenguaje debido a su enfoque en la concurrencia \cite{go:ex:concurrency_patterns} y la simplicidad, lo que lo convierte en un buen punto de comparación contra otros lenguajes.
 
 Se utilizaron herramientas nativas de Go para la concurrencia: \lstinline{goroutines} \footnote{ \lstinline{Goroutine}: abstracción comparable a los hilos.} y \lstinline{channels}, en conjunto con el módulo \lstinline{sync} para sincronizar.
 
 En la filosofía del lenguaje prima la idea de \technical{No comunicar compartiendo memoria, sino, compartir memoria comunicando} \cite{go:ex:sharing}. Por lo cual, esta implementación difiere de las otras, manteniendo un flujo de mensajes continuo, en vez de trabajar sobre un \english{chunk} de memoria compartida.
 
-Se implementó un diseño de tipo \english{pipeline} con una fuente que envía mensajes de trabajo a un conjunto de trabajadores mediante un canal, y un sumidero que los recibe y reordena. En la Figura~\ref{fig:go:robustness} se puede apreciar el despliegue de las gorutines.
+Se implementó un diseño de tipo \english{pipeline} con una fuente que envía mensajes a un conjunto de trabajadores mediante un canal, y un sumidero que los recibe y reordena. En la Figura~\ref{fig:go:robustness} se puede apreciar el despliegue de las goroutines.
 
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.7]{resources/aes/go_robustness.png}
-    \caption{Diagrama de robustez que representa las gorutines de Go en AES}
+    \caption{Diagrama de robustez que representa las goroutines de Go en AES}
     \label{fig:go:robustness}
 \end{figure}
 
@@ -1597,13 +1527,13 @@ end
 \end{listing}
 
 \begin{listing}[h]
-\begin{minted}[bgcolor=bg, breaklines]{julia}
+\begin{minted}[bgcolor=bg, breaklines, escapeinside=~~]{julia}
 function cipher_blocks!(blocks::Vector{Vector{Vector{UInt8}}},
                         buffers_filled::Int,
                         chunks_filled::Vector{Int},
                         expanded_key::AESKey)
 
-    @sync for i in 1:buffers_filled
+    ~\colorbox{highlight}{@sync}~ for i in 1:buffers_filled
         @spawn aes_block_cipher.cipher_blocks(blocks[i][1:chunks_filled[i]],
                                             expanded_key, chunks_filled[i])
     end
@@ -1612,8 +1542,6 @@ end
 \caption{Encriptación concurrente de los bloques en Julia}
 \label{code:julia:aes_concurrent}
 \end{listing}
-
-La estructura general de la aplicación es similar a la del resto de los lenguajes, en donde hay una porción sincrónica del programa que lee el archivo a encriptar en un buffer, y luego se divide entre los \textit{threads} para que realicen la tarea de encriptación. Finalmente, se juntan los resultados y se escriben, de manera sincrónica, en un archivo. El mismo proceso se da para la desencriptación, pero en sentido inverso. El buffer tiene un tamaño limitado, por lo que este proceso se itera hasta haber encriptado o desencriptado todo el archivo.
 
 La estructura general de la aplicación es similar a la del resto de lenguajes, en donde hay una porción sincrónica del programa que lee el archivo a encriptar en un buffer, y luego se divide entre los \english{threads} para que realicen la tarea de encriptación, para finalmente juntar los resultados y escribirlo, de manera sincrónica, a un archivo. El mismo proceso se da para la desencriptación, pero en sentido inverso. El buffer tiene un tamaño limitado, por lo que se itera este proceso hasta haber encriptado o desencriptado todo el archivo.
 
@@ -1661,11 +1589,11 @@ def applyOperationsAndCompare(cipher: AESCipher,
 
 
 \begin{listing}[h]
-\begin{minted}[bgcolor=bg, breaklines]{scala}
+\begin{minted}[bgcolor=bg, breaklines, escapeinside=~~]{scala}
 def applyOperationsAndCompare(cipher: AESCipher,
                               blocks: Vector[Array[Byte]]): Boolean = {
     val cipheredBlocks = blocks
-                         .par.map(block => cipher.cipherBlock(block)).toVector
+                         ~\colorbox{highlight}{.par}~.map(block => cipher.cipherBlock(block)).toVector
     val decipheredBlocks = cipheredBlocks
                            .par.map(block => cipher.invCipherBlock(block)).toVector
 }
@@ -1778,16 +1706,16 @@ En el Cuadro~\ref{tab:aes:metrics} se pueden observar los resultados obtenidos. 
     \item \textbf{Uso de CPU}: uso de CPU promedio del contenedor que ejecuta el programa.
 \end{itemize}
 
-Los valores del cuadro son relativos, al igual que las métricas del área anterior (sección~\ref{sec:gs_metrics}).
+Los valores del cuadro son relativos a las métricas de Rust.
 
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|c|c|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & Rust & Go & Julia & Scala & Zig \\ \hline
-Duración & $100.0\%$& $603.5\%$& $94.1\%$& $1491.1\%$& $143.8\%$\\ \hline
-Uso de memoria & $100.0\%$& $6.9\%$& $237.2\%$& $245.0\%$& $1.0\%$\\ \hline
-Uso de CPU & $100.0\%$& $112.3\%$& $76.3\%$& $59.7\%$& $77.3\%$\\ \hline
+Duración & $100.0\%$& $649.7\%$& $115.3\%$& $1605.1\%$& $154.8\%$\\ \hline
+Uso de memoria & $100.0\%$& $935.3\%$& $12294.1\%$& $33294.1\%$& $133.5\%$\\ \hline
+Uso de CPU & $100.0\%$& $109.4\%$& $113.3\%$& $58.1\%$& $75.3\%$\\ \hline
 \end{tabular}
 \caption{Métricas de Criptografía. Basado en mediciones en FaMAF-2, relativas a Rust  (Ver Cuadro~\ref{tab:aes:famaf_2})}
 \label{tab:aes:metrics}
@@ -1809,7 +1737,7 @@ Se evaluaron, al igual que en el área de Sistemas Distribuidos, métricas relac
 \begin{tabular}{|l|c|c|c|c|c|}
 \hline
 \multicolumn{1}{|c|}{Métrica} & Rust & Go & Julia & Scala & Zig \\ \hline
-Tiempo & $125.0$\% & $75.0$\% & $150.0$\% & $75.0$\% & $125.0$\% \\ \hline
+Tiempo & x$1.2$\% & x$0.7$\% & x$1.5$\% & x$0.7$\% & x$1.2$\% \\ \hline
 Espacio & x$0.6$ & x$1.4$ & x$91.9$ & x$24.6$ & x$1.5$ \\ \hline
 \end{tabular}
 \caption{Métricas generales correspondientes al área de Criptografía}
@@ -1833,7 +1761,7 @@ Los resultados se expresan en el Cuadro~\ref{tab:aes:experiences}.
 Expresividad & \goodMetric{5} & 3 & \goodMetric{4} & \goodMetric{4} & 3 \\ \hline
 Simplicidad & \badMetric{1} & \goodMetric{5} & 3 & \goodMetric{4} & \goodMetric{4} \\ \hline
 Memoria & \goodMetric{5} & \goodMetric{4} & 3 & 3 & \goodMetric{5} \\ \hline
-Errores & \goodMetric{5} & 3 & 3 & 3 & \badMetric{2} \\ \hline
+Errores & \goodMetric{5} & 3 & \badMetric{2} & 3 & \badMetric{2} \\ \hline
 Concurrencia & \goodMetric{5} & \goodMetric{5} & \goodMetric{5} & \goodMetric{5} & \badMetric{2} \\ \hline
 Bibliotecas & \goodMetric{5} & \goodMetric{5} & \goodMetric{4} & \goodMetric{4} & \badMetric{0} \\ \hline
 \end{tabular}
@@ -1845,43 +1773,14 @@ Bibliotecas & \goodMetric{5} & \goodMetric{5} & \goodMetric{4} & \goodMetric{4} 
 
 La experiencia de desarrollo en general es muy buena, aunque puede resultar difícil de aprender en un principio. Las abstracciones en Rust son \technical{de cero costo}, lo que significa que no perjudican a la \english{performance}.
 
-Rust destaca por sobre el resto de lenguajes introduciendo el concepto de \english{ownership}, que tiene la interesante característica de resolver dos grandes problemas, aparentemente no relacionados
+Rust destaca por sobre el resto de lenguajes introduciendo el concepto de \english{ownership}, que tiene la interesante característica de resolver dos grandes problemas, aparentemente no relacionados:
 
 \begin{itemize}
     \item Garantizar la seguridad de la memoria: uno de los inconvenientes que suelen tener los lenguajes de bajo nivel, es el manejo correcto de la memoria. Los \english{memory leaks} pueden generar un constante deterioro en programas que se ejecutan de manera continua, como los servidores, al punto de tener que reiniciarlos. Esto no ocurre en Rust, a menos que se apliquen malas prácticas a propósito (como el uso de \lstinline{std::mem::forget}). Los chequeos de memoria se realizan en tiempo de compilación, por lo que tampoco incurren en un costo de \english{performance}.
+    
     \item Evitar errores de concurrencia: el compilador es capaz de detectar situaciones en las cuales es posible que ocurran errores propios de un programa concurrente.
     
-    Un clásico ejemplo es el de una variable contadora compartida por múltiples hilos. La acción de incrementar una variable suele ser una operación que involucra múltiples operaciones no atómicas del procesador: copiar el valor a un registro, actualizarlo y copiarlo nuevamente en la memoria. Si estas operaciones se intercalan, los errores comienzan a surgir rápidamente.
-    
-    En Rust, un programa con esas características ni siquiera compilaría, forzando al programador a buscar una solución correcta. Para solucionarlo se puede utilizar, por ejemplo, las abstracciones \lstinline{std::sync::Arc} y \lstinline{std::sync::Mutex} para encapsular la variable y compartirla entre múltiples hilos, tal y como se observa en el Código~\ref{code:aes:rust_concurrency}.
 \end{itemize}
-
-\begin{listing}[h]
-\begin{minted}[bgcolor=bg, breaklines]{rust}
-use std::thread;
-use std::sync::{Mutex, Arc};
-
-fn main() {
-    let counter = Arc::new(Mutex::new(0));
-    let mut handles = vec![];
-
-    for _ in 0..10 {
-        let counter = Arc::clone(&counter);
-        let handle = thread::spawn(move || {
-            let mut num = counter.lock().unwrap();
-            *num += 1;
-        });
-        handles.push(handle);
-    }
-    for handle in handles {
-        handle.join().unwrap();
-    }
-    println!("Result: {}", *counter.lock().unwrap());
-}
-\end{minted}
-\caption{Implementación de un contador multihilo en Rust}
-\label{code:aes:rust_concurrency}
-\end{listing}
 
 Estas características del lenguaje tienen como desventaja el elevado tiempo de compilación. Esto suele ser un muy buen \english{trade-off} en situaciones donde el rendimiento es crítico, como en este caso de uso, pero puede dificultar el prototipado.
 
@@ -1889,8 +1788,8 @@ En cuanto al desarrollo particular del algoritmo AES, la biblioteca Rayon simpli
 
 Por otro lado, el uso de los \lstinline{structs} de \lstinline{BufReader} y \lstinline{BufWriter}, que pertenecen a la biblioteca estándar, mejoró mucho la \english{performance}, ya que las lecturas y escrituras a disco eran el cuello de botella. Se llegó a esta conclusión corriendo el programa con ambas configuraciones y comparando el tiempo de encriptación y desencriptación de cada bloque.
 
-\subsubsection{Go}
 
+\subsubsection{Go}
 
 La implementación de la lógica de negocio se realizó en base a la implementación en Rust. El proceso fue extremadamente simple y directo, presentando mínimos inconvenientes. La velocidad de desarrollo fue notable al tener la lógica definida, tomando mucho menos tiempo del esperado.
 
@@ -1912,108 +1811,36 @@ A pesar de este contratiempo, el desarrollo del algoritmo arrojó buenos resulta
 
 Durante el desarrollo del algoritmo surgieron otros problemas menores. Por ejemplo, Julia utiliza índices que comienzan en 1 y rangos cerrados, debido a que sus orígenes se remontan a la comunidad matemática. Como el resto de las implementaciones utilizan rangos semi-abiertos comenzados en 0, esto causó errores al adaptar el algoritmo. Si bien no fueron problemas graves, requirieron precauciones adicionales para evitar errores difíciles de detectar si el desarrollador no está familiarizado con estas diferencias. Otro desafío común fueron los mensajes de error, que a menudo no indicaban correctamente la ubicación del error en el código, lo que prolongó el tiempo necesario para el \english{debugging}.
 
-Después de implementar y verificar el funcionamiento correcto del algoritmo, procedimos a integrarlo con paralelismo. En Julia, el paralelismo es muy simple y directo. Como se muestra en el Código~\ref{code:aes:julia_multithreading}, tomado de ENCCS \cite{jl:ex:encss_jl_threading}, paralelizar código en Julia es tan sencillo como agregar la macro \lstinline{@threads} antes de un bucle \lstinline{for}. Julia maneja automáticamente la ejecución de la rutina y el acceso a la memoria compartida.
+Después de implementar y verificar el funcionamiento correcto del algoritmo, procedimos a integrarlo con paralelismo.
 
-
-\begin{listing}[h]
-\begin{minted}[bgcolor=bg, breaklines]{julia}
-using Base.Threads
-
-function threaded_sqrt_array(A)
-    B = similar(A)
-    @threads for i in eachindex(A)
-        @inbounds B[i] = sqrt(A[i])
-    end
-    B
-end
-\end{minted}
-\caption{Ejemplo de utilización de las macros \lstinline{@threads} y \lstinline{@inbounds}}
-\label{code:aes:julia_multithreading}
-\end{listing}
-
-Con estas consideraciones, pensamos que paralelizar el código sería una tarea sumamente fácil, implicando simplemente agregar una línea de código. Sin embargo, al medir el desempeño de nuestro algoritmo con múltiples hilos, descubrimos que el rendimiento era peor que la versión sincrónica. Esta situación nos llevó a investigar las causas de tal pérdida de rendimiento. Durante esta exploración, descubrimos varias herramientas que Julia ofrece para mejorar la \english{performance}, a saber:
+Inicialmente, pensamos que paralelizar el código sería una tarea sumamente fácil, implicando simplemente agregar una línea de código. Sin embargo, al medir el desempeño de nuestro algoritmo con múltiples hilos, descubrimos que el rendimiento era peor que la versión sincrónica. Esta situación nos llevó a investigar las causas de tal pérdida de rendimiento. Durante esta exploración, descubrimos varias herramientas que Julia ofrece para mejorar la \english{performance}, a saber:
 
 \begin{itemize}
     \item \lstinline{@inbounds}: sirve para indicarle al intérprete que no realice la verificación de límites cuando se accede a un vector. Esto es muy útil para algoritmos criptográficos que siempre operan sobre dimensiones definidas.
-    \item Soporte para operaciones SIMD\footnote{SIMD: acrónimo de \english{Single Instruction, Multiple Data} (``una instrucción, múltiples datos'')}: autoriza al intérprete para reordenar la ejecución de un ciclo de la manera más beneficiosa para el programa. Es importante asegurar que las operaciones en ese ciclo sean independientes para evitar introducir errores.
+    \item Soporte para operaciones SIMD\footnote{SIMD: acrónimo de \english{Single Instruction, Multiple Data} (``una instrucción, múltiples datos'')}: autoriza al intérprete a desenvolver los ciclos para aprovechar las características del ambiente de ejecución. Es importante asegurar que las operaciones en ese ciclo sean independientes para evitar introducir errores.
     \item \lstinline{@view}: permite crear una referencia a un arreglo, en lugar de una copia. Esto permitió disminuir significativamente el número de veces que se reserva memoria.
-    \item Funciones terminadas con `!': en Julia, una función que termina con `!' indica que modifica sus argumentos de entrada. En muchos casos, las funciones de la biblioteca estándar tienen una versión con `!' y otra sin. Usualmente la versión con `!' es más eficiente, ya que realiza la operación en el lugar, reduciendo la necesidad de reservar memoria adicional.
+    \item \english{Bang convention}: una función que termina con `!' indica que modifica sus argumentos de entrada. En muchos casos, las funciones de la biblioteca estándar tienen una versión con `!' y otra sin. Usualmente la versión con `!' es más eficiente, ya que realiza la operación en el lugar, reduciendo la necesidad de reservar memoria adicional.
 \end{itemize}
 
-Al hacer uso de todas estas herramientas, la eficiencia del código mejoró enormemente. No obstante, la versión con un solo hilo seguía siendo más rápida que la versión multihilo. Esto nos llevó a pensar que la falta de rendimiento utilizando paralelismo se debía a un caso de \english{false sharing}\footnote{\english{False sharing}: mecanismo por el cual el protocolo de caché puede forzar a un programa a recargar todo un bloque de caché a pesar de no existir necesidad para ello, debido a que se intenta acceder periódicamente a datos que nunca serán alterados pero que comparten bloques de caché con datos que sí son alterados.}. En nuestro programa, para leer el archivo que se quería encriptar, se leía sobre un \english{buffer} que luego se dividía en diferentes partes, las cuales eran pasadas a distintas hilos para su encriptación. Julia no nos brinda control directo sobre cómo se reserva la memoria de la aplicación ni sobre cómo se controla el acceso entre diferentes hilos. Esta característica del lenguaje puede considerarse una ventaja, pues simplifica su uso, pero la pérdida de rendimiento la convierte en un problema. Un método recomendado para evitar el \english{false sharing} es espaciar los \english{buffers} de cada hilo en relación a dónde se ubican en la memoria. Como no hay una forma explícita de hacer esto en Julia, recurrimos a probarlo reservando \english{buffers} vacíos entre los verdaderos \english{buffers} que se iban a usar para el algoritmo. Luego de hacer este \english{refactor}, se probó nuevamente el programa, y no se notó mejoría en el rendimiento, por lo que se concluyó que ese no era el problema.
+Al hacer uso de todas estas herramientas, la eficiencia del código mejoró enormemente. No obstante, la versión con un solo hilo seguía siendo más rápida que la versión multihilo. Para detectar el problema, se utilizó un \english{profiler}, el cual permitió descubrir que el problema era el recolector de basura. Como se encuentra escrito en C, no fue posible visualizarlo en la primera ejecución del \english{profiler}. Luego de un período de investigación, se descubrió que esta funcionalidad no es totalmente \english{multi-threaded}, y como tal, bloqueaba el sistema al momento de ejecutarse. Esto nos pareció una decisión de diseño cuestionable para un lenguaje que proclama su idoneidad para el procesamiento en paralelo.
 
-Nuestro siguiente paso en la búsqueda de una solución fue usar un \english{profiler}, que resultó ser muy agradable de usar. Este \english{profiler} genera un gráfico que permite navegar a través de cada función ejecutada, y las funciones están ordenadas verticalmente, según el \english{stack}; y horizontalmente, según cuánto tiempo estuvieron ejecutándose en relación al tiempo de ejecución total. Además, es posible visualizar el programa en su totalidad o por hilo. Cuando se realizó el primer \english{profile} de la aplicación, los resultados parecían indicar que el 75\% del tiempo no había ninguna función ejecutándose. Luego de un poco de investigación, se descubrió que el \english{profiler} omitía las funciones ejecutadas en C. Sin embargo, este inconveniente pudo ser solucionado cambiando la versión del \english{profiler} y agregando un \english{flag} especial.
-
-La ejecución de este nuevo \english{profiler} permitió detectar que el verdadero problema era el recolector de basura. Como se encuentra escrito en C, no fue posible visualizarlo en la primera ejecución del \english{profiler}. Luego de un período de investigación, se descubrió que el recolector de basura es parcialmente \english{multi-threaded}, y como tal, bloqueaba el sistema al momento de ejecutarse. Esto nos pareció una decisión de diseño cuestionable para un lenguaje que proclama su idoneidad para el procesamiento en paralelo. No obstante, quedó claro que una reducción en el número de invocaciones del recolector de basura traería aparejada una mejoría en el rendimiento del programa. Para conseguir esto, fue de mucha ayuda una macro llamada \lstinline{@time}.
-
-Esta macro no solo indica cuánto tiempo tardó en ejecutarse una función, sino que también indica cuántas reservas de memoria hubo dentro de ella. Gracias a esto, fue posible observar los puntos críticos del sistema y cambiar el diseño de nuestro código, a fin de minimizar las reservas de memoria. Un caso destacable fue el de la función \lstinline{circshift!}, cuyo uso era crítico para el algoritmo ya que se usaba para mezclar las filas de la tabla, uno de los pasos más repetidos. El nombre de la función, al terminar con \lstinline{!}, sugiere que la operación se realiza sobre el argumento de entrada, y por lo tanto no debería reservar memoria. Contrario a nuestra hipótesis, esta función estaba reservando memoria cada vez que se ejecutaba, bloqueando el resto del programa en el proceso. Para resolver esto, fue necesario reescribir la función.
-
-Luego de todas estas optimizaciones, el esfuerzo rindió frutos y Julia logró el mejor rendimiento de todos los lenguajes explorados. Claramente, para esto se requirió un trabajo y conocimiento mayor, lo que sin duda debería considerarse al momento de elegir un lenguaje para implementar un programa de estas características.
+Quedó claro que una reducción en el número de invocaciones del recolector de basura traería aparejada una mejoría en el rendimiento del programa. Para conseguir esto, fue de mucha ayuda una macro llamada \lstinline{@time}. Esta macro no solo indica cuánto tiempo tardó en ejecutarse una función, sino que también indica cuántas reservas de memoria hubo dentro de ella. Gracias a esto, fue posible observar los puntos críticos del sistema y cambiar el diseño de nuestro código, a fin de minimizar las reservas de memoria.
 
 \subsubsection{Scala}
 
-Scala no tiene la capacidad de diferencia entre los distintos tipos de enteros (signados, no signados o aquellos con diferente cantidad de bits/bytes). En este caso, tenemos los tipos \lstinline{int} (tipo nativo) e \lstinline{Integer} (clase de Java) que son los mismos dos tipos/clases con los que nos podemos encontrar en Java. Sin embargo, sí existe el tipo de dato ``Byte`` que nos permitió hacer una transferencia/paralelismo uno a uno con la especificación del estándar de AES. Al mismo tiempo, el lenguaje presentó una expresividad muy alta debido a que permite un híbrido entre programación orientada a objetos y programación funcional.Esto hace que el código sea más legible y mantenible, algo que puede ser muy interesante en proyectos grandes, como una alternativa a Java. Además, el hecho de ser híbrido permite programar puramente en POO (si se viene del ámbito de C\#, Java o incluso C++) o programar puramente en estilo funcional.
+Scala no tiene la capacidad de diferenciar entre los distintos tipos de enteros (signados, no signados o aquellos con diferente cantidad de bits/bytes). Scala posee los tipos \lstinline{int} (tipo nativo) e \lstinline{Integer} (clase de Java) que son los mismos dos tipos/clases con los que nos podemos encontrar en Java. Sin embargo, sí existe el tipo de dato \lstinline{Byte} que nos permitió hacer una transferencia/paralelismo uno a uno con la especificación del estándar de AES. Al mismo tiempo, el lenguaje presentó una expresividad muy alta debido a que permite un híbrido entre programación orientada a objetos y programación funcional. Esto hace que el código sea más legible y mantenible, algo que puede ser muy interesante en proyectos grandes, como una alternativa a Java. Además, el hecho de ser híbrido permite programar puramente en POO (si se viene del ámbito de C\#, Java o incluso C++) o programar puramente en estilo funcional.
 
-En cuanto al uso de bibliotecas, Scala no tiene una biblioteca que nos provea de un cliente nativo para enviar datos a Graphite, por lo que optamos por utilizar una biblioteca de Java (mantenida por DataDog \cite{com:datadog}) \cite{scala:lib:java-dogstatsd-client}.
+En cuanto al uso de bibliotecas, Scala no tiene una biblioteca que nos provea de un cliente de StatsD que implemente las funcionalidades que requeríamos, por lo que optamos por utilizar una biblioteca de Java \cite{scala:lib:java-dogstatsd-client} (mantenida por DataDog \cite{com:datadog}).
 
 \subsubsection{Zig}
 
-Es un lenguaje de programación principalmente imperativo. Resultó fácil de aprender, introduciendo algunos conceptos nuevos pero sencillos, como por ejemplo la capacidad de definir números de una cantidad arbitraria de \english{bits}.
+Es un lenguaje de programación imperativo. Resultó fácil de aprender, introduciendo algunos conceptos nuevos pero sencillos, como por ejemplo la capacidad de definir números de una cantidad arbitraria de \english{bits}.
 
-El punto más destacado del lenguaje es el manejo de memoria. La solución que ofrece es muy simple: las funciones aceptan \english{allocators}, que son estructuras que permiten reservar y liberar memoria. Lo interesante es que dichas acciones no involucran necesariamente memoria del \english{heap} ni una llamada al sistema (\english{syscall}). El uso de esta abstracción a lo largo de toda la biblioteca estándar es muy beneficioso: en algunas ocasiones, una estructura (por ejemplo, una lista) puede ser lo bastante pequeña como para definirse en el \english{stack}, y otras veces se requiere en el \english{heap}. Gracias a los \english{allocators}, la elección entre uno u otro es tan simple como la modificación de un parámetro de inicialización, tal y como se observa en los códigos \ref{code:aes:zig_fba} y \ref{code:aes:zig_gpa}.
-
-\begin{listing}[h]
-\begin{minted}[bgcolor=bg, breaklines]{zig}
-const std = @import("std");
-const ArrayList = std.ArrayList;
-
-pub fn main() !void {
-    var buffer: [1000]u8 = undefined;
-    var fba = std.heap.FixedBufferAllocator.init(&buffer);
-    const allocator = fba.allocator();
-    var list = ArrayList(u32).init(allocator);
-    try list.append(1);
-    std.debug.print("list[0] = {}\n", .{list.items[0]});
-    list.deinit(); // Libera la memoria del buffer estático
-}
-\end{minted}
-\caption{Inicialización de una lista en el \english{stack} por medio de un \lstinline{FixedBufferAllocator}, en Zig}
-\label{code:aes:zig_fba}
-\end{listing}
-
-\begin{listing}[h]
-\begin{minted}[bgcolor=bg, breaklines]{zig}
-const std = @import("std");
-const ArrayList = std.ArrayList;
-
-pub fn main() !void {
-    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
-    const allocator = gpa.allocator();
-    var list = ArrayList(u32).init(allocator);
-    try list.append(1);
-    std.debug.print("list[0] = {}\n", .{list.items[0]});
-    list.deinit(); // Libera la memoria del heap
-}
-\end{minted}
-\caption{Inicialización de una lista en el \english{heap} por medio de un \lstinline{GeneralPurposeAllocator}, en Zig}
-\label{code:aes:zig_gpa}
-\end{listing}
-
-Algunos de los \english{allocators} más usados son:
-
-\begin{itemize}
-    \item \english{Page allocator}: es el más básico de todos, pues realiza una \english{syscall} cada vez que se reserva o libera memoria.
-    \item \english{Arena allocator}: simplifica la liberación de toda la memoria reservada a un único \english{free}.
-    \item \english{Fixed buffer allocator}: permite reservar memoria a partir de un \english{buffer} predefinido, que a su vez puede encontrarse en el \english{heap} o en el \english{stack}.
-    \item \english{General purpose allocator}: implementación centrada en la seguridad, que previene errores de tipo \english{double-free}, \english{use-after-free} y \english{memory leaks}. También es \english{thread-safe}.
-    \item \english{C allocator}: muy rápido, pero con muy pocas \english{features} de seguridad.
-\end{itemize}
-
-Cabe destacar que es posible definir nuevos \english{allocators} con un comportamiento diferente.
+El punto más destacado del lenguaje es el manejo de memoria. La solución que ofrece es muy simple: las funciones aceptan \english{allocators}, que son estructuras que permiten reservar y liberar memoria. Lo interesante es que dichas acciones no involucran necesariamente memoria del \english{heap} ni una llamada al sistema (\english{syscall}). El uso de esta abstracción a lo largo de toda la biblioteca estándar es muy beneficioso: en algunas ocasiones, una estructura (por ejemplo, una lista) puede ser lo bastante pequeña como para definirse en el \english{stack}, y otras veces se requiere en el \english{heap}. Gracias a los \english{allocators}, la elección entre uno u otro es tan simple como la modificación de un parámetro de inicialización.
 
 Por otro lado, el lenguaje tiene carencias en otras áreas. El manejo de errores es pobre, por lo que nos resultó dificultoso realizar \english{debugging}. Algunos errores no son descriptivos o indican líneas incorrectas debido a que el propio compilador presenta errores. Además, como en la mayoría de los lenguajes, no está permitido compilar si hay errores, pero Zig presenta errores que deberían ser \english{warnings} (por ejemplo variables o parámetros sin utilizar, que suele suceder cuando estamos en proceso de desarrollo). 
 
-Uno de nuestros objetivos era probar el modelo de concurrencia nativo del lenguaje y eso no fue posible puesto que las funcionalidades asincrónicas fueron removidas a partir de la v0.11 (se encontraba en v0.12 a la fecha del desarrollo) porque generaban errores. Esta inestabilidad genera que no se encuentran bibliotecas útiles a raíz de que se introducen \english{breaking changes} entre versiones y el código queda rápidamente obsoleto. Al ser lenguaje que se encuentra en las primeras fases de su desarrollo, posee una mala integración con los entornos de desarrollo; y suelen renombrar funciones o métodos que son comunes para la industria. Por ejemplo, al utilizar semáforos, la operación \lstinline{signal} es llamada \lstinline{post}. Si bien es un inconveniente menor, dificulta innecesariamente el proceso de aprendizaje e investigación de la biblioteca estándar.
+Uno de nuestros objetivos era probar el modelo de concurrencia nativo del lenguaje, y eso no fue posible puesto que las funcionalidades asincrónicas fueron removidas a partir de la v0.11 (se encontraba en v0.12 a la fecha del desarrollo), porque generaban errores. A raíz de que se introducen \english{breaking changes} entre versiones y el código queda rápidamente obsoleto, se dificulta la creación y mantenimiento de bibliotecas útiles. Al ser lenguaje que se encuentra en las primeras fases de su desarrollo, posee una mala integración con los entornos de desarrollo; y suelen renombrar funciones o métodos que son comunes para la industria. Por ejemplo, al utilizar semáforos, la operación \lstinline{signal} es llamada \lstinline{post}. Si bien es un inconveniente menor, dificulta innecesariamente el proceso de aprendizaje e investigación de la biblioteca estándar.
 
 Este tipo de errores o falencias entorpecen el desarrollo, pero el equipo de Zig está trabajando activamente en solucionarlos. Cabe destacar que el lenguaje aún no ha alcanzado su primera versión estable.
 
@@ -2046,9 +1873,9 @@ Como observamos buen rendimiento y buena experiencia de desarrollo, y siendo que
 
 El rendimiento es muy bueno, siendo las optimizaciones necesarias y trabajosas. Provee varias herramientas interesantes para optimizar el código, tales como las macros \lstinline{@inbounds}, \lstinline{@view} y \lstinline{@time}.
 
-Es uno de los lenguajes más complejos dentro de los evaluados, pero siendo que el caso de uso amerita cierta complejidad, no lo consideramos una carencia.
+La experiencia de desarrollo es muy buena, si bien algunas funcionalidades pueden presentar cierta complejidad para su uso.
 
-Si bien el rendimiento es bueno y la experiencia de desarrollo también lo es en general, la implementación parcial \english{multi-threaded} del recolector de basura es un inconveniente clave. Objetos hasta 2kB son asignados en un thread disponible de una pool de asignaciones, mientras que objetos mayores a 2kB son asignados dinámicamente en el \english{heap}. A raíz de esto, es posible optimizar el código a modo de minimizar su impacto.
+Si bien el rendimiento es bueno y la experiencia de desarrollo también lo es en general, la implementación parcial \english{multi-threaded} del recolector de basura es un inconveniente clave. Objetos hasta 2 kB son asignados en un thread disponible de una \english{pool} de asignaciones, mientras que objetos mayores a 2 kB son asignados dinámicamente en el \english{heap}. A raíz de esto, es posible optimizar el código a modo de minimizar su impacto.
 
 \subsubsection{Go}
 
@@ -2076,13 +1903,13 @@ La experiencia de desarrollo es buena. Cumple su objetivo de crear código mante
 
 \section{Dominio de aplicación: Redes neuronales}
 
-Definimos las redes neuronales tal y como lo hace \english{IBM} \cite{nn:definition}
+Definimos las redes neuronales tal y como lo hace \english{IBM} \cite{nn:definition}.
 
 \begin{displayquote}[\cite{nn:definition}]
 ``Una red neuronal es un programa, o modelo, de \english{Machine Learning} que toma decisiones de forma similar al cerebro humano, utilizando procesos que imitan la forma en que las neuronas biológicas trabajan juntas para identificar fenómenos, sopesar opciones y llegar a conclusiones.''
 \end{displayquote}
 
-Las redes neuronales constan de dos o mas capas de nodos o neuronas. Cada neurona posee una ponderación (peso o \english{weight}) y umbral (\english{threshold}), y se conecta a un conjunto de neuronas de la capa anterior y la siguiente. Si la salida de la neurona supera el valor umbral, transmitirá información a la siguiente capa.
+Las redes neuronales constan de dos o más capas de nodos o neuronas interconectadas. Cada conexión posee una ponderación (peso o \english{weight}). A la combinación de las señales de entrada de una neurona se le aplica una función de activación para determinar su valor de salida.
 
 En la Figura~\ref{fig:nn:diagram} se observa, a modo de ejemplo, una representación clásica de una red neuronal. La primera capa ($L_1$) se suele llamar `capa de entrada' y la última ($L_3$) `capa de salida'. El resto de capas ($L_2$, en este caso) se llaman `capas ocultas'. Estas últimas pueden estar presentes o no. Si lo están, se trata de una red neuronal profunda.
 
@@ -2115,7 +1942,7 @@ En esta sección se especifican los detalles de despliegue. Esto incluye el ento
 
 \subsubsection{Entorno}
 
-El despliegue se realizó en el servidor de FaMAF-2 considerando que, para este caso en particular, necesitaríamos el uso de la GPU para el entrenamiento de los modelos. Nos encontramos con la dificultad de que, como el servidor cuenta con CUDA 12 \footnote{CUDA: plataforma que permite desarrollar aplicaciones paralelas que se ejecutan en una GPU de Nvidia}, debíamos utilizar una imagen de Docker específica para que permita hacer la integración con esa determinada versión de CUDA.
+El despliegue se realizó en el servidor de FaMAF-2 considerando que, para este caso en particular, necesitaríamos el uso de la GPU para el entrenamiento de los modelos. Nos encontramos con la dificultad de que, como el servidor cuenta con CUDA 12 \footnote{CUDA: plataforma que permite desarrollar aplicaciones paralelas que se ejecutan en una GPU de NVIDIA}, debíamos utilizar una imagen de Docker específica para que permita hacer la integración con esa determinada versión de CUDA.
 
 \subsubsection{Dataset}
 
@@ -2274,7 +2101,7 @@ pipe.steps.append(("keras", keras_reg))
 
 pipe.fit(X_train, y_train, keras__validation_data=(X_test_transformed, y_test))
 \end{minted}
-\caption{Entrenamiento de red neuronal con Tensorflow/Keras con Pipes de Sklearn}
+\caption{Entrenamiento de red neuronal con Tensorflow/Keras con pipes de Sklearn}
 \label{code:nn:python_pipe_training_tensorflow}
 \end{listing}
 
@@ -2317,7 +2144,7 @@ Para el caso de Julia, se replicó el mismo procedimiento que en Python. Se util
 
 En la etapa de entrenamiento, se emplearon dos bibliotecas: Flux \cite{jl:lib:flux} y ScikitLearn. 
 
-En el Código~\ref{code:nn:julia_training} se presenta un extracto de nuestro código en el cual entrenamos el modelo utilizando Flux. Como se puede observar, la biblioteca Flux es muy flexible y de bajo nivel, lo que permite manipular el bucle de entrenamiento de la manera que deseemos. Proporciona herramientas esenciales, como funciones de pérdida, cargadores de datos y \textit{early stopping}, pero también ofrece la posibilidad de realizar nuestras propias implementaciones e integrarlas en el proceso. En cuanto a la construcción del modelo, Flux demuestra una notable flexibilidad, permitiéndonos controlar cada capa de la red y sus dimensiones. En el Código~\ref{code:nn:julia_model} se muestra la función que utilizamos para construir el modelo.
+En el Código~\ref{code:nn:julia_training} se presenta un extracto de nuestro código en el cual entrenamos el modelo utilizando Flux. Como se puede observar, la biblioteca Flux es muy flexible, permitiendo manipular el bucle de entrenamiento para definir las operaciones entre \english{epochs}. Para esto, proporciona herramientas esenciales, como funciones de pérdida, cargadores de datos y \textit{early stopping}, pero también ofrece la posibilidad de realizar nuestras propias implementaciones de estas e integrarlas en el proceso.
 
 \begin{listing}[h]
 \begin{minted}[bgcolor=bg, breaklines]{julia}
@@ -2345,6 +2172,8 @@ end
 \caption{Entrenamiento red neuronal en Julia}
 \label{code:nn:julia_training}
 \end{listing}
+
+Otro aspecto de este desarrollo es la construcción de la red neuronal, para esto Flux también nos otorga mucha libertad y herramientas. Éste nos permite controlar para cada capa, su tipo y dimensiones, armando así una cadena que define al modelo completo. En el Código~\ref{code:nn:julia_model} se muestra la función que utilizamos para construir el modelo.
 
 \begin{listing}[h]
 \begin{minted}[bgcolor=bg, breaklines]{julia}
@@ -2381,7 +2210,7 @@ En los ejemplos de código \ref{code:nn:julia_training} y \ref{code:nn:julia_mod
 
 \subsubsection{Despliegue}
 
-En el Cuadro~\ref{tab:nn:metrics} se pueden observar los resultados correspondientes al caso de uso de redes neuronales. El significado de cada una de las métricas es el siguiente:
+En el Cuadro~\ref{tab:nn:metrics} se pueden observar los resultados correspondientes al caso de uso de redes neuronales, relativos a las métricas de Julia utilizando Flux. El significado de cada una de las métricas es el siguiente:
 
 \begin{itemize}
     \item \textbf{Duración}: tiempo que tardó el sistema en realizar la ejecución.
@@ -2418,14 +2247,17 @@ De estos datos, es posible obtener algunas conclusiones preliminares:
 
 \subsubsection{Desarrollo}
 
+Se presentan las métricas de tiempo de desarrollo y espacio de los desplegables por lenguaje en la tabla \ref{tab:nn:dev_metrics}. Estas se presentan por lenguaje y no por \english{framework}, siendo que las implementaciones se planearon y llevaron a cabo con esta división en mente.
+
 \begin{table}[H]
 \centering
 \begin{tabular}{|c|c|c|}
 \hline
 Métrica & Python & Julia \\ \hline
-Tiempo & $100.0$\% & $125.0$\% \\ \hline
+Tiempo & x$1.0$\% & x$1.2$\% \\ \hline
 \end{tabular}
 \caption{Métrica temporal para redes neuronales, relativa a los valores planificados (ver Sección~\ref{sec:annex:schedule} (\nameref{sec:annex:schedule})}
+\label{tab:nn:dev_metrics}
 \end{table}
 
 \subsection{Experiencias}
@@ -2457,9 +2289,9 @@ Bibliotecas & \multicolumn{1}{c|}{\goodMetric{4}} & \goodMetric{4} \\ \hline
 
 En general, Python cumple con su propósito para este caso de uso. Si bien es más sencillo entrenar una red neuronal en el ecosistema de Tensorflow/Keras, PyTorch no se queda atrás desde el punto de vista de simplicidad. Sin embargo, es importante destacar que el caso de uso expuesto es relativamente simple, por lo que sería necesario evaluar cómo se comportan ambas variantes en un escenario más complejo. En cuanto a la extensibilidad, PyTorch presenta una cierta dependencia al requerir la transformación de los datos hacia sus propias estructuras antes de pasarlos como entradas a los modelos. Además, tanto las entradas como el modelo deben residir en el mismo dispositivo (CPU o GPU). Por otro lado, Tensorflow/Keras no presenta esta particularidad.
 
-En lo que respecta al uso de la GPU, tuvimos la suerte de lograr que el entrenamiento en Tensorflow/Keras funcionara mediante la GPU, y simultáneamente, conseguimos lo mismo para PyTorch. Por lo tanto, desde este punto de vista, no encontramos diferencias significativas.
+Tanto el entrenamiento en Tensorflow/Keras como en PyTorch utilizaron la misma imagen base de Docker para habilitar el uso de GPU. 
 
-Al intentar utilizar la biblioteca pytorch-ignite dentro del ecosistema de PyTorch, nos encontramos con un problema de \english{segmentation fault} al intentar importar dicha biblioteca. Sin embargo, al realizar pruebas locales, esta biblioteca funcionaba correctamente, incluso sin utilizar Docker. La intención de utilizar esta biblioteca era implementar un \english{early stop}, a fin de detener el entrenamiento del modelo cuando no se detectaran mejoras significativas en iteraciones sucesivas. Luego de investigar, descubrimos que la versión de Python (3.11) del servidor FaMAF-2 no era compatible con la versión de Python requerida (3.10.12) por esta biblioteca, por lo que tuvimos que añadir dicha versión a nuestra configuración de Docker.
+Al intentar utilizar la biblioteca pytorch-ignite \cite{python:lib:pytorch-ignite} dentro del ecosistema de PyTorch, nos encontramos con un problema de \english{segmentation fault} al intentar importar dicha biblioteca. Sin embargo, al realizar pruebas locales, esta biblioteca funcionaba correctamente, incluso sin utilizar Docker. La intención de utilizar esta biblioteca era implementar un \english{early stop}, a fin de detener el entrenamiento del modelo cuando no se detectaran mejoras significativas en iteraciones sucesivas. Luego de investigar, descubrimos que la versión de Python (3.11) del servidor FaMAF-2 no era compatible con la versión de Python requerida (3.10.12) por esta biblioteca, por lo que tuvimos que añadir dicha versión a nuestra configuración de Docker.
 
 \subsubsection{Julia}
 
@@ -2475,11 +2307,11 @@ En la etapa de preprocesamiento, resaltan ciertas carencias:
     \item Al intentar realizar una transformación lineal de una característica, se experimentaron fallos debido al uso excesivo de memoria. Se tuvo que implementar el procesamiento por lotes (\english{batching}) manualmente.
 \end{itemize}
 
-En la etapa de entrenamiento, Flux también presentó sus complejidades. A pesar de ser una biblioteca bastante completa y bien diseñada, su carácter único y su falta de popularidad dificultan la búsqueda de información. Aunque Flux cuenta con su propia página de documentación, esta es difícil de navegar y, en ocasiones, está desactualizada. Por ejemplo, en un momento del desarrollo se intentó utilizar una función de la documentación, solo para descubrir que dicha función había sido deprecada.
+    En la etapa de entrenamiento, Flux también presentó sus complejidades. A pesar de ser una biblioteca bastante completa y bien diseñada, su carácter único y su falta de popularidad dificultan la búsqueda de información. Aunque Flux cuenta con su propia página de documentación \cite{jl:lib:flux}, esta es difícil de navegar y, en ocasiones, está desactualizada. % Por ejemplo, en un momento del desarrollo se intentó utilizar una función de la documentación, solo para descubrir que dicha función había sido deprecada \cite{???}.
 
 Además, ciertos aspectos son algo ambiguos, como la necesidad de transponer el conjunto de datos antes de usarlo para entrenar, lo cual tampoco está bien mencionado en la documentación.
 
-Otra cualidad importante de Flux es el bajo nivel de control que ofrece en la construcción de redes neuronales. Por un lado, esto es una ventaja, ya que permite mucha flexibilidad al armar y entrenar el modelo, además de mejorar su eficiencia. No obstante, también trae desventajas, haciendo el proceso más laborioso y propenso a errores. Por ejemplo, durante mucho tiempo pensamos que el rendimiento del modelo desarrollado en Flux era considerablemente inferior al de otros modelos, simplemente porque no se había transpuesto el vector objetivo al calcular la métrica de error cuadrático y la biblioteca Flux no detectó este error. Sin embargo, el punto más débil de Flux es la falta de ciertas funcionalidades, que tuvimos que implementar nosotros mismos, como un escalador de datos para normalizar los datos antes del entrenamiento.
+Otra cualidad importante de Flux es el alto nivel de control que ofrece en la construcción de redes neuronales. Por un lado, esto es una ventaja, ya que permite mucha flexibilidad al armar y entrenar el modelo, además de mejorar su eficiencia. No obstante, también trae desventajas, haciendo el proceso más laborioso y propenso a errores. Por ejemplo, durante mucho tiempo pensamos que el rendimiento del modelo desarrollado en Flux era considerablemente inferior al de otros modelos, simplemente porque no se había transpuesto el vector objetivo al calcular la métrica de error cuadrático y la biblioteca Flux no detectó este error. Sin embargo, el punto más débil de Flux es la falta de ciertas funcionalidades, que tuvimos que implementar nosotros mismos, como un escalador de datos para normalizar los datos antes del entrenamiento.
 
 Otra dificultad fue el uso de la GPU. Este problema surge principalmente de la biblioteca CUDA, ya que es necesario conseguir una versión cuyos controladores coincidan con los de la GPU que se quiere usar. A pesar de esto, creemos que las capacidades de uso de GPU que provee Flux son su mejor atributo y la principal razón por la que recomendamos la biblioteca, tanto por su poder como por su facilidad de uso.
 
@@ -2491,7 +2323,7 @@ A continuación se presentan nuestras conclusiones, organizadas por lenguaje, en
 
 \subsubsection{Python}
 
-En cuanto a los resultados de las métricas en ambas alternativas, PyTorch resulta ser el vencedor por un amplio margen, consumiendo menos porcentaje de CPU y menos memoria de GPU. No obstante, el modelo entrenado con PyTorch presenta un error cuadrático medio apenas más alto que su contraparte en Tensorflow, la cual consume muchos más recursos que PyTorch.
+En cuanto a los resultados de las métricas en ambas alternativas, PyTorch resulta ser el vencedor por un amplio margen, consumiendo menos porcentaje de CPU y menos memoria de GPU. No obstante, el modelo entrenado con PyTorch presenta un error cuadrático medio apenas más alto que su contraparte en Tensorflow \footnote{Cabe destacar que la utilización de modelos provistos por los \english{frameworks} no permiten definir exactamente la misma configuración, con lo cual, sería improbable obtener los mismos resultados.}, la cual consume muchos más recursos que PyTorch.
 
 Pasando a la simplicidad y expresividad, Python, al ser naturalmente un lenguaje de \english{scripting}, facilita enormemente el desarrollo en el ámbito de \english{machine learning}. No requiere \textit{boilerplate} innecesario y las bibliotecas disponibles en la comunidad están muy bien documentadas, salvo por el problema mencionado con \textit{PyTorch} y las distintas versiones de Python. En comparación con Julia, es evidente que el ecosistema de Python está mucho más desarrollado hasta el momento.
 
@@ -2507,24 +2339,15 @@ Es importante tener en cuenta que muchas de las carencias de Julia en el desarro
 
 \newpage
 
-\section{Dominio de aplicación: Protocolos de Comunicación}
+\section{Dominio de aplicación: Servidores}
 
-Un protocolo de comunicación es un conjunto de reglas que determina la forma en que dos o más entidades comparten información. Son fundamentales para garantizar la interoperabilidad en un contexto distribuido: si se respeta el protocolo, es posible modificar la implementación de un sistema sin perjudicar al resto de sistemas que utilizan su interfaz.
+Los servidores son sistemas que proporcionan recursos y servicios a procesos clientes a través de la red. Estos centralizan la información y el procesamiento, permitiendo que múltiples clientes accedan simultáneamente a los recursos.
 
-En el contexto de Internet, los protocolos de comunicación pueden clasificarse, según el modelo TCP/IP, en 4 capas:
+En las arquitecturas cliente-servidor, se suele emplear el patrón de comunicación \english{request - reply}, donde el cliente realiza una petición y el servidor responde de manera sincrónica. Este modelo es fundamental para el desarrollo de servicios, destacándose por su versatilidad y capacidad de aplicación en diversas situaciones.
 
-\begin{itemize}
-    \item Capa de aplicación: es la capa donde las aplicaciones de red y sus protocolos se comunican directamente con el usuario final. En esta capa podemos encontrar protocolos como HTTP (utilizado para transferir páginas web), FTP (utilizado para la transferencia de archivos) y MQTT (utilizado para la comunicación en redes IoT).
-    \item Capa de transporte: proporciona comunicación de procesos, posiblemente ubicados en distintos dispositivos. Gestiona la entrega de datos de extremo a extremo, controlando la integridad y la corrección de los datos transmitidos. En esta capa encontramos a los protocolos TCP (que garantiza una transmisión confiable y ordenada) y UDP (que permite una transmisión rápida pero sin garantía de entrega).
-    \item Capa de red: proporciona comunicación entre diferentes dispositivos en una red, determinando la ruta que los datos deben seguir para llegar a su destino. En esta capa encontramos al protocolo IP (que maneja el direccionamiento y la fragmentación de los paquetes de datos).
-    \item Capa de acceso a red: engloba las capas de enlace y física, gestionando la transmisión de datos entre dispositivos en la misma red local. Se encarga del direccionamiento físico (usando direcciones MAC), el control de acceso al medio, y la detección y corrección de errores. En esta capa podemos encontrar protocolos como Ethernet (que define las reglas para el cableado y la transmisión de datos en redes locales), Wi-Fi (que permite la conexión inalámbrica entre dispositivos) y ARP (que resuelve las direcciones IP a direcciones MAC).
-\end{itemize}
+La relevancia de este sistema radica en su adaptabilidad, especialmente en el desarrollo de servicios concurrentes. La alta frecuencia de operaciones de entrada/salida (I/O) puede beneficiarse significativamente de la concurrencia, mejorando el rendimiento sin necesidad de paralelismo explícito.
 
-Resulta de gran interés analizar la capa de aplicación, pues tiene el mayor número de protocolos y, con el surgimiento de nuevas tecnologías, dicho número se incrementa día a día. En los párrafos y secciones que siguen, este informe solo hará referencia a los protocolos de esta capa.
-
-Al momento de seleccionar un lenguaje de programación para un nuevo proyecto, resulta fundamental conocer qué herramientas brinda para poder cumplir con la especificación de los protocolos utilizados. Realizar una implementación ``de cero'' puede ser una tarea muy difícil, dependiendo de la complejidad del protocolo. En muchos casos, el uso de una biblioteca especializada es preferido.
-
-Esta sección tiene como objetivo analizar distintos lenguajes junto con algunas de sus bibliotecas y/o \english{frameworks} más utilizados, en el contexto del protocolo HTTP.
+Esta sección tiene como objetivo analizar distintos lenguajes de programación junto con algunas de sus bibliotecas y \english{frameworks} más utilizados, específicamente en el contexto de servidores HTTP.
 
 \subsection{Caso de uso: servidor HTTP}
 
@@ -2594,8 +2417,7 @@ Para tal fin, se definieron las rutas, los parámetros a recibir en cada ruta, y
     \end{itemize}
 \end{itemize}
 
-Para la autenticación y autorización, se utilizó \english{JSON Web Tokens} (JWT)\footnote{\english{JSON Web Token}: estándar que define una forma compacta y auto-contenida de intercambiar información de manera segura utilizando el formato JSON.}.
-
+Para la autenticación y autorización, se utilizaron \english{JSON Web Tokens} (JWT)\footnote{\english{JSON Web Token}: estándar que define una forma compacta y auto-contenida de intercambiar información de manera segura utilizando el formato JSON.}.
 
 \subsection{Entorno}
 
@@ -2603,7 +2425,7 @@ El objetivo al desarrollar el entorno para estas pruebas fue crear un ambiente r
 
 \subsubsection{Despliegue}
 
-Para este caso en particular, se añadió una base de datos PostgreSQL.
+Para este caso en particular, se añadió una base de datos PostgreSQL \cite{http:postgresql}.
 
 Debido a que FaMAF-1 se encontraba en uso durante el período de pruebas, los casos fueron ejecutados solamente en FaMAF-2. De esta manera, nos aseguramos de que las métricas tengan la menor interferencia posible con otros programas.
 
@@ -2612,10 +2434,10 @@ Debido a que FaMAF-1 se encontraba en uso durante el período de pruebas, los ca
 Se utilizó Artillery \cite{http:artillery} como plataforma para realizar pruebas mixtas de carga y estrés del servidor. El esquema de pruebas es el siguiente:
 
 \begin{itemize}
-    \item Artillery genera un usuario y se le asigna un rol de “encuestador” con probabilidad de 5\%, o de votante, con probabilidad de 95\%
-    \item En ambos casos, el usuario se registra y obtiene un JWT
-    \item El encuestador publica una encuesta aleatoriamente, seleccionada de un conjunto predefinido de encuestas
-    \item El votante elige aleatoriamente una encuesta a la que desea votar, y vota una opción, también aleatoriamente
+    \item Artillery genera un usuario y se le asigna un rol de “encuestador” con probabilidad de 5\%, o de votante, con probabilidad de 95\%.
+    \item En ambos casos, el usuario se registra y obtiene un JWT.
+    \item El encuestador publica una encuesta aleatoriamente, seleccionada de un conjunto predefinido de encuestas.
+    \item El votante elige aleatoriamente una encuesta a la que desea votar, y vota una opción, también aleatoriamente.
 \end{itemize}
 
 La cantidad de usuarios por segundo que genera Artillery se incrementa gradualmente, comenzando en un usuario por segundo, hasta llegar a 70 usuarios por segundo.
@@ -2628,16 +2450,15 @@ A continuación se describe cada una de las implementaciones, con sus detalles p
 
 \subsubsection{Java}
 
-Se optó por utilizar el \english{framework} Spring al ser el \textit{framework} web más popular dentro del ecosistema de Java \cite{http:java}. Dentro del ecosistema de Spring, se emplearon las bibliotecas Spring Boot para inicializar el proyecto y generar una configuración base, Spring Security para el manejo de credenciales de seguridad, y Spring Data JPA para conectarse a la base de datos mediante Hibernate, el \textit{ORM} (Object-relational mapping) elegido.
+Se optó por utilizar el \english{framework} Spring \cite{http:java:spring} al ser el \textit{framework} web más popular dentro del ecosistema de Java \cite{http:java}. Dentro del ecosistema de Spring, se emplearon las bibliotecas Spring Boot \cite{http:java:spring-boot}  para inicializar el proyecto y generar una configuración base, Spring Security \cite{http:java:spring-security} para el manejo de credenciales de seguridad, y Spring Data JPA \cite{http:java:spring-data-jpa} para conectarse a la base de datos mediante Hibernate \cite{http:java:hibernate}, el \textit{ORM} \footnote{ORM: \english{Object-relational mapping}, es una técnica que permite convertir la información de una base de datos relacional, en objetos de la programación orientada a objetos.} elegido.
 
 El código se dividió en cuatro capas:
 
 \begin{itemize}
-    \item \textbf{\technical{Services:}} ejecutan los casos de uso definidos en la aplicación, utilizando los repositorios para acceder a la base de datos.
-    \item \textbf{\technical{Controllers:}} funcionan como punto de entrada de la aplicación. Definen los tipos de datos a recibir, verifican su validez y delegan la responsabilidad de ejecutar una acción a la capa de servicio.
-    \item \textbf{\technical{Entities:}} representan el modelo de datos. Cada clase se mapea 1 a 1 con una tabla de la base de datos, lo que permite la serialización y deserialización con gran facilidad.
-    \item \textbf{\technical{Repositories:}} realizan las operaciones hacia la base de datos utilizando, en nuestro caso, un \textit{ORM}.
-    \item \textbf{\technical{DTOs (Data transfer objects):}} conjunto de clases que permiten definir el formato de respuesta independientemente de cómo están definidas las entidades en el modelo de datos.
+    \item \textbf{Servicios}: ejecutan los casos de uso definidos en la aplicación, utilizando los repositorios para acceder a la base de datos.
+    \item \textbf{Controladores}: funcionan como punto de entrada de la aplicación. Definen los tipos de datos a recibir, verifican su validez y delegan la responsabilidad de ejecutar una acción a la capa de servicio.
+    \item \textbf{Entidades}: representan el modelo de datos. Cada clase se mapea 1 a 1 con una tabla de la base de datos, lo que permite la serialización y deserialización con gran facilidad.
+    \item \textbf{Repositorios}: realizan las operaciones hacia la base de datos utilizando, en nuestro caso, un \textit{ORM}.
 \end{itemize}
 
 A modo de ejemplo, en el Código~\ref{code:http_java_endpoint}, se muestra uno de los \english{controllers} definiendo un \english{endpoint}.
@@ -2668,13 +2489,13 @@ public class PollsController {
 
 \subsubsection{Python}
 
-Se optó por la biblioteca FastAPI ya que, aunque no es la más utilizada a nivel comercial al momento de realizar este trabajo, su popularidad está en crecimiento, mientras que la de otros \textit{frameworks} como Flask y Django se reduce o se encuentra estancada \cite{http:python_survey}. Adicionalmente, se utilizó SQLAlchemy para interactuar con la base de datos. El código se estructuró en cinco módulos:
+Se optó por la biblioteca FastAPI \cite{python:lib:fastapi} ya que, aunque no es la más utilizada a nivel comercial al momento de realizar este trabajo, su popularidad está en crecimiento, mientras que la de otros \textit{frameworks} como Flask \cite{python:lib:flask} y Django \cite{python:lib:django} se reduce o se encuentra estancada \cite{http:python_survey}. Adicionalmente, se utilizó SQLAlchemy \cite{python:lib:sqlalchemy} para interactuar con la base de datos. El código se estructuró en cinco módulos:
 
 \begin{itemize}
-    \item \textbf{Controladores:} estos módulos definen los \textit{endpoints} del servidor y los tipos de retorno. Se encargan de transmitir la información a los Servicios y se implementan mediante funciones, siguiendo los patrones de diseño presentes en la documentación de FastAPI.
-    \item \textbf{Servicios:} encargados de implementar la lógica de negocio, interactuando con los Modelos y Serializadores.
-    \item \textbf{Modelos:} clases que facilitan el acceso a la base de datos mediante un ORM.
-    \item \textbf{Serializadores:} responsables de la validación de datos, haciendo uso de \lstinline{Pydantic}. Carecen de lógica propia, delegando esta tarea completamente a la biblioteca.
+    \item \textbf{Controladores}: estos módulos definen los \textit{endpoints} del servidor y los tipos de retorno. Se encargan de transmitir la información a los Servicios y se implementan mediante funciones, siguiendo los patrones de diseño presentes en la documentación de FastAPI.
+    \item \textbf{Servicios}: encargados de implementar la lógica de negocio, interactuando con los Modelos y Serializadores.
+    \item \textbf{Modelos}: clases que facilitan el acceso a la base de datos mediante un ORM.
+    \item \textbf{Serializadores}: responsables de la validación de datos, haciendo uso de \lstinline{Pydantic}. Carecen de lógica propia, delegando esta tarea completamente a la biblioteca.
 \end{itemize}
 
 El Código~\ref{code:http_python_endpoint} ejemplifica la definición de uno de los \english{endpoints}. Se destaca la simplicidad del código, con un mínimo de \english{boilerplate}. Por otro lado, en el Código~\ref{code:http:python_serializer} se muestra la definición de un serializador.
@@ -2716,14 +2537,14 @@ class FullPollSerializer(PollPreviewSerializer):
 
 \subsubsection{Ruby}
 
-Se optó por Ruby on Rails debido a que es el \english{framework} más popular para desarrollar aplicaciones en Ruby \cite{http:ruby_top_100}. Este \english{framework} se basa en el principio de ``Convención sobre Configuración'', lo que implica que toma numerosas decisiones por defecto que el programador debe seguir, incluyendo convenciones de nombres de variables y organización de archivos de la aplicación. Como resultado, la aplicación se estructuró en las siguientes secciones:
+Se optó por Ruby on Rails debido a que es el \english{framework} más popular para desarrollar aplicaciones en Ruby \cite{http:ruby_top_100}. Este \english{framework} se basa en el principio de "Convención sobre Configuración'', lo que implica que toma numerosas decisiones por defecto que el programador debe seguir, incluyendo convenciones de nombres de variables y organización de archivos de la aplicación. Como resultado, la aplicación se estructuró en las siguientes secciones:
 
 \begin{itemize}
-    \item \textbf{Rutas:} definidas en el archivo \lstinline{routes.db}, especifican los \english{endpoints} del servidor y pasan los parámetros a los controladores.
-    \item \textbf{Controladores:} responsables de obtener los parámetros de la \english{request}, pasarlos a los Modelos y retornar la información necesaria al usuario en el formato correspondiente (por ejemplo, JSON).
-    \item \textbf{Modelos:} clases que permiten el acceso a la base de datos mediante un ORM.
-    \item \textbf{Serializadores:} clases utilizadas para serializar las estructuras de retorno al formato JSON.
-    \item \textbf{Esquema:} definido en el archivo \lstinline{schema.db}, representa el esquema de la base de datos. Este esquema no debe modificarse directamente, sino a través de migraciones de la base de datos definidas en el directorio \lstinline{migrate}.
+    \item \textbf{Rutas}: definidas en el archivo \lstinline{routes.db}, especifican los \english{endpoints} del servidor y pasan los parámetros a los controladores.
+    \item \textbf{Controladores}: responsables de obtener los parámetros de la \english{request}, pasarlos a los Modelos y retornar la información necesaria al usuario en el formato correspondiente (por ejemplo, JSON).
+    \item \textbf{Modelos}: clases que permiten el acceso a la base de datos mediante un ORM.
+    \item \textbf{Serializadores}: clases utilizadas para serializar las estructuras de retorno al formato JSON.
+    \item \textbf{Esquema}: definido en el archivo \lstinline{schema.db}, representa el esquema de la base de datos. Este esquema no debe modificarse directamente, sino a través de migraciones de la base de datos definidas en el directorio \lstinline{migrate}.
 \end{itemize}
 
 En el Código~\ref{code:http:ruby_routes} se muestra la definición de las rutas. Rails utiliza un conjunto de convenciones para determinar qué método debe responder a la petición. Por ejemplo, para la creación de un nuevo usuario, se emplea el método \lstinline{create} de la clase \lstinline{UsersController}.
@@ -2764,22 +2585,22 @@ end
 \label{code:http:ruby_user_model}
 \end{listing}
 
-\subsubsection{JavaScript}
+\subsubsection{TypeScript}
 
-Se eligió el lenguaje junto con la biblioteca Express por ser uno de los más populares para el desarrollo de servidores y ampliamente utilizado en la industria \cite{http:web_frameworks_survey}. Se utilizaron las siguientes bibliotecas: TypeScript, para incluir tipado al lenguaje; Zod, para validar los esquemas de datos en las rutas del servidor; y Sequelize, como ORM para interactuar con la base de datos.
+Se eligió el lenguaje junto con la biblioteca Express \cite{js:lib:express} por ser uno de los más populares para el desarrollo de servidores y ampliamente utilizado en la industria \cite{http:web_frameworks_survey}. Se utilizaron las siguientes bibliotecas: Zod \cite{js:lib:zod}, para validar los esquemas de datos en las rutas del servidor; y Sequelize \cite{js:lib:sequelize}, como ORM para interactuar con la base de datos.
 
 El código se estructura en los siguientes módulos:
 
 \begin{itemize}
-    \item \textbf{Rutas:} Definidas en los archivos \lstinline{routes/pollsRouter.ts} y \lstinline{routes/userssRouter.ts}. Donde se especifica que \english{middlewares} y controladores se utilizaran para manejar las peticiones a cada \english{endpoint}.
+    \item \textbf{Rutas}: Definidas en los archivos \lstinline{routes/pollsRouter.ts} y \lstinline{routes/userssRouter.ts}. Donde se especifica que \english{middlewares} y controladores se utilizaran para manejar las peticiones a cada \english{endpoint}.
     
-    \item \textbf{Controladores:} definidos en los archivos \lstinline{routes/polls.ts} y \lstinline{routes/users.ts}. Donde se definen los controladores principales de cada \english{endpoint}.
+    \item \textbf{Controladores}: definidos en los archivos \lstinline{routes/polls.ts} y \lstinline{routes/users.ts}. Donde se definen los controladores principales de cada \english{endpoint}.
 
-    \item \textbf{Persistencia:} definidos en el directorio \lstinline{persistance}. Expone las interfaces para el manejo de datos, efectuando los cambios necesarios en los datos en la base de datos.
+    \item \textbf{Persistencia}: definidos en el directorio \lstinline{persistance}. Expone las interfaces para el manejo de datos, efectuando los cambios necesarios en los datos en la base de datos.
     
-    \item \textbf{\english{Middlewares}:} definidos en el directorio \lstinline{middlewares}. Contienen lógica complementaria, incluyendo la autenticación de usuarios y validación de esquemas.
+    \item \textbf{\english{Middlewares}}: definidos en el directorio \lstinline{middlewares}. Contienen lógica complementaria, incluyendo la autenticación de usuarios y validación de esquemas.
     
-    \item \textbf{Modelos:} definidos en el directorio \lstinline{db/models}. Donde se definen los modelos de la base de datos y sus relaciones.
+    \item \textbf{Modelos}: definidos en el directorio \lstinline{db/models}. Donde se definen los modelos de la base de datos y sus relaciones.
 \end{itemize}
 
 
@@ -2837,7 +2658,7 @@ export const authenticateUser = (
 
 \subsubsection{Go}
 
-Para Go se utilizó el \english{framework} Gin\cite{http:go:gin}, el cual permite crear un servidor HTTP asincrónico. En el ejemplo \ref{code:http_go:gin} podemos ver como es la declaración de rutas en Gin.
+Para Go se utilizó el \english{framework} Gin \cite{http:go:gin}, el cual permite crear un servidor HTTP asincrónico. En el ejemplo \ref{code:http_go:gin} podemos ver como es la declaración de rutas en Gin.
 
 \begin{listing}
 \begin{minted}[bgcolor=bg, breaklines]{go}
@@ -2874,20 +2695,20 @@ func setupRouter(db_controller *sql.DB) *gin.Engine {
 \label{code:http_go:gin}
 \end{listing}
 
-Además, para la capa de persistencia se empleó una base de datos PostgreSQL, a la cual se accedió a través de la biblioteca \lstinline{sql} \cite{http:go:sql} que es parte de la biblioteca estándar de Go. Se utilizó el mismo esquema de base de datos que en los otros lenguajes y se autenticó a los usuarios mediante un \english{token} JWT, utilizando la biblioteca \lstinline{golang-jwt} \cite{http:go:jwt}. Adicionalmente, por comodidad, se implementó la documentación con la biblioteca \lstinline{gin-swagger}, la cual provee documentación bajo el estándar OpenAPI \cite{http:ex:openapi}. La estructura del código fue la siguiente:
+Además, para la capa de persistencia se empleó una base de datos PostgreSQL, a la cual se accedió a través de la biblioteca sql \cite{http:go:sql} que es parte de la biblioteca estándar de Go. Se utilizó el mismo esquema de base de datos que en los otros lenguajes y se autenticó a los usuarios mediante un \english{token} JWT, utilizando la biblioteca golang-jwt \cite{http:go:jwt}. Adicionalmente, por comodidad, se implementó la documentación con la biblioteca gin-swagger, la cual provee documentación bajo el estándar OpenAPI \cite{http:ex:openapi}. La estructura del código fue la siguiente:
 
 \begin{itemize}
-    \item \textbf{Main:} en el archivo principal (\textit{main}) se definieron las rutas de nuestra API y se inicializó el servidor.
+    \item \textbf{Main}: en el archivo principal (\textit{main}) se definieron las rutas de nuestra API y se inicializó el servidor.
     
-    \item \textbf{\textit{Endpoints}:} define las funciones que controlan la lógica del programa.
+    \item \textbf{Endpoints}: define las funciones que controlan la lógica del programa.
     
-    \item \textbf{\textit{Database}:} este módulo se encarga de todo lo relacionado con la base de datos, como la conexión, la creación de tablas y las consultas.
+    \item \textbf{Database}: este módulo se encarga de todo lo relacionado con la base de datos, como la conexión, la creación de tablas y las consultas.
     
-    \item \textbf{\textit{Models}:} en este directorio se define la estructura de los distintos datos que utiliza el programa, como el formato de las solicitudes (\english{requests}) o los datos de la base de datos.
+    \item \textbf{Models}: en este directorio se define la estructura de los distintos datos que utiliza el programa, como el formato de las solicitudes (\english{requests}) o los datos de la base de datos.
     
-    \item \textbf{\textit{JWT}:} este módulo maneja la lógica relacionada con la autenticación del usuario.
+    \item \textbf{JWT}: este módulo maneja la lógica relacionada con la autenticación del usuario.
     
-    \item \textbf{\textit{Utils}:} define distintas funciones auxiliares que se requirieron, como el \english{hash} de contraseñas o la búsqueda de configuraciones.
+    \item \textbf{Utils}: define distintas funciones auxiliares que se requirieron, como el \english{hash} de contraseñas o la búsqueda de configuraciones.
 \end{itemize}
 
 \subsection{Métricas}
@@ -2901,11 +2722,13 @@ En el Cuadro~\ref{tab:http:metrics} se pueden observar los resultados correspond
     \item \textbf{Throughput}: cantidad de peticiones por segundo que soporta. Se testeó un máximo de 70 escenarios por segundo.
 \end{itemize}
 
+Dado que algunas implementaciones lograron ejecutar correctamente la totalidad de las pruebas, se concluyó que la base de datos no representaba una limitación para las pruebas efectuadas.
+
 \begin{table}[h]
 \centering
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
-Métrica & Go       & Java     & Python   & Ruby     & JavaScript \\ \hline
+Métrica & Go       & Java     & Python   & Ruby     & TypeScript \\ \hline
 Uso de CPU   & $10.0$\%  & $100.0$\% & $292.3$\% & $240.2$\% & $30.9$\%    \\ \hline
 Uso de memoria  & $10.8$\%  & $100.0$\% & $316.4$\% & $445.3$\% & $21.9$\%    \\ \hline
 Latencia     & $40.0$\%  & $100.0$\% & $160.0$\% & $152.0$\% & $52.0$\%    \\ \hline
@@ -2919,53 +2742,59 @@ De estos datos, es posible obtener algunas conclusiones preliminares:
 
 \begin{itemize}
     \item Go brinda la menor latencia utilizando muy pocos recursos: esto se debe principalmente a dos características de la implementación: es el único lenguaje compilado de los analizados, y además no utiliza un ORM. Esto le permitió completar las pruebas satisfactoriamente.
-    \item El uso de CPU y memoria de Python es muy elevado, mientras que su latencia es muy pobre: los valores observador para este lenguaje contradicen nuestras expectativas, puesto que la documentación oficial de FastAPI proclama una \english{performance} comparable a la de NodeJS y Go \cite{http:fastapi_performance}.
+
+    \item El uso de CPU y memoria de Python es muy elevado, mientras que su latencia es muy pobre: los valores observador para este lenguaje contradicen nuestras expectativas, puesto que la documentación oficial de FastAPI proclama una \english{performance} comparable a la de NodeJS \cite{js:runtime:node} y Go \cite{http:fastapi_performance}.
 \end{itemize}
 
 \subsection{Experiencias}
 
 Se realizó una evaluación subjetiva de los lenguajes de programación, poniendo foco en la facilidad de uso de las bibliotecas y nuestra experiencia desarrollando con ellos.
 
-\subsection{Comparación}
+\subsubsection{Comparación}
+
+Los atributos que se tuvieron en cuenta a la hora de realizar la comparación entre lenguajes coinciden con los mencionados anteriormente (ver la Sección~\ref{sec:subjective_comparison} para una descripción de los mismos). Los resultados se expresan en el Cuadro~\ref{tab:http:experiences}.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\multicolumn{1}{|c|}{Atributo} & Go & Java & Python & Ruby & TypeScript \\ \hline
+Expresividad & 3 & 3 & \goodMetric{5} & \goodMetric{4} & \goodMetric{5} \\ \hline
+Simplicidad & \goodMetric{4} & 3 & \goodMetric{4} & \goodMetric{5} & \goodMetric{5} \\ \hline
+Memoria & 4 & \goodMetric{4} & 3 & \badMetric{2} & 3\\ \hline
+Errores & 3 & \goodMetric{4} & 3 & \goodMetric{4} & 3 \\ \hline
+Concurrencia & \goodMetric{5} & \goodMetric{5} & 3 & \goodMetric{4} & \goodMetric{4} \\ \hline
+Bibliotecas & \goodMetric{5} & \goodMetric{5} & \goodMetric{4} & \goodMetric{5} & \goodMetric{5} \\ \hline
+\end{tabular}
+\caption{Resumen de la comparación de atributos para el área de servidores}
+\label{tab:http:experiences}
+\end{table}
 
 \subsubsection{Go}
 
-La experiencia de desarrollo en Go fue muy satisfactoria. Gin se encarga de manejar los \english{sockets} y la concurrencia, y su interfaz es muy sencilla de usar. Una de las mejores cualidades de Gin es su manejo de los parámetros de la \english{request}, como se observa en el Código \ref{code:http_go}. En este ejemplo, el modelo de datos de un usuario se define como un \lstinline{struct} de Go. Luego, simplemente se utiliza la función \lstinline{ShouldBindJSON} con la variable de usuario en el contexto, y Gin se encarga de validar que la \english{request} tenga el formato correcto. Si el formato es correcto, los campos de la variable se completan automáticamente.
+La experiencia de desarrollo en Go fue muy satisfactoria. Gin se encarga de manejar los \english{sockets} y la concurrencia, y su interfaz es muy sencilla de usar. Una de las mejores cualidades de Gin es su manejo de los parámetros de la \english{request}, que se pueden validar automáticamente en base a los esquemas definidos.
 
-\begin{listing}[h]
-\begin{minted}[bgcolor=bg, breaklines]{go}
-var user models.UserInDB
+Además, para el desarrollo fue muy útil gin-swagger, una biblioteca que permite generar documentación al estilo Swagger para testear los \english{endpoints} y detectar errores de manera temprana.
 
-if err := c.ShouldBindJSON(&user); err != nil {
-	c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
-	return
-}
-\end{minted}
-\caption{Validación de petición en Go}
-\label{code:http_go}
-\end{listing}
-
-Además, para el desarrollo fue muy útil \lstinline{gin-swagger}, una biblioteca que permite generar documentación al estilo Swagger para testear los \english{endpoints} y detectar errores de manera temprana.
-
-Para la base de datos, se utilizó un PostgreSQL, al igual que en los otros ejemplos. Para interactuar con la base de datos desde el código, se empleó la biblioteca \lstinline{sql}, que es parte de la biblioteca estándar de Go. Esta biblioteca resultó ser una grata sorpresa, ya que facilitó la interacción con la base de datos sin añadir la complejidad que un ORM podría agregar al código.
+Para la base de datos, se utilizó un PostgreSQL, al igual que en los otros ejemplos. Para interactuar con la base de datos desde el código, se empleó la biblioteca sql, que es parte de la biblioteca estándar de Go. Esta biblioteca resultó ser una grata sorpresa, ya que facilitó la interacción con la base de datos sin añadir la complejidad que un ORM podría agregar al código.
 
 
 \subsubsection{Java}
 
 El desarrollo con Java fue bastante directo debido al conocimiento previo del lenguaje adquirido tanto en la facultad como a nivel laboral.
 
-Al ser un lenguaje orientado a objetos, generó una cantidad considerable de \textit{boilerplate} a pesar de que el proyecto era pequeño. En particular, la configuración de la autenticación resultó bastante engorrosa. Además, Spring fomenta una forma particular de programación según su documentación oficial, separando el código en servicios, entidades y repositorios. Spring se basa en gran medida en anotaciones para generar configuraciones, como la inyección de dependencias y la determinación de qué clases se ejecutan al iniciar el proyecto.
+Debido a las particularidades del lenguaje y el \english{framework}, se generó una cantidad considerable de \textit{boilerplate} a pesar de que el proyecto era pequeño. En particular, la configuración de la autenticación resultó bastante engorrosa. Además, Spring fomenta una forma particular de programación según su documentación oficial, separando el código en servicios, entidades y repositorios. Al mismo tiempo, Spring se basa en gran medida en anotaciones para generar configuraciones, como la inyección de dependencias y la determinación de qué clases se ejecutan al inicio de la ejecución del proyecto.
 
-En cuanto al modelo de concurrencia, el modo "por defecto" de Spring (Java 17) utiliza un modelo sincrónico de un \english{thread} del sistema operativo por petición, partiendo de un \english{threadpool} con 200 \english{threads} base. Si bien existe un modo asincrónico, no se consideró para este desarrollo, aunque es un aspecto a investigar en el futuro.
+En cuanto al modelo de concurrencia, el modo ``por defecto'' de Spring (Java 17) utiliza un modelo sincrónico de un \english{thread} del sistema operativo por petición, partiendo de un \english{threadpool} con 200 \english{threads} base. Si bien existe un modo asincrónico, no se consideró para este desarrollo, aunque es un aspecto a investigar en el futuro.
 
-En términos de configuración, resulta muy fácil cambiar de una base de datos a otra. Por ejemplo, se comenzó el desarrollo con una base de datos en memoria (H2) y luego se cambió a PostgreSQL simplemente modificando la URL de conexión, sin necesidad de alterar el código existente.
+En términos de configuración, resulta muy fácil cambiar de una base de datos a otra. Por ejemplo, se comenzó el desarrollo con una base de datos en memoria (H2 \cite{http:java:h2}) y luego se cambió a PostgreSQL simplemente modificando la URL de conexión, sin necesidad de alterar el código existente.
 
-El manejo de errores se basa principalmente en excepciones. Una vez que una excepción es lanzada, es atrapada por un controlador global de excepciones que permite devolver una respuesta personalizada en función de la excepción recibida.
+El manejo de errores se basa principalmente en excepciones. Una vez que una de ellas es lanzada, es atrapada por un controlador global de excepciones que permite devolver una respuesta personalizada en función de la excepción recibida.
 
 
 \subsubsection{Python}
 
-FastAPI simplifica mucho la validación de datos de entrada y salida y es altamente configurable mediante la inyección de dependencias. Se destaca la generación automática de documentación (OpenAPI y Redoc) y la excelente integración con el IDE. Por otro lado, incluye un módulo de seguridad en el que se implementan un gran número de mecanismos de autenticación, entre ellos HTTP Basic, OAuth2 y API Keys.
+FastAPI simplifica mucho la validación de datos de entrada y salida y es altamente configurable mediante la inyección de dependencias. Se destaca la generación automática de documentación (Swagger \cite{http:swagger} y Redoc \cite{http:redoc}) y la excelente integración con el IDE. Por otro lado, incluye un módulo de seguridad en el que se implementan un gran número de mecanismos de autenticación, entre ellos HTTP Basic \cite{http:basic_auth}, OAuth2 \cite{http:oauth2} y API Keys.
 
 SQLAlchemy implementa un ORM, aunque no es requerido para su uso. Dicho ORM es muy completo, pues brinda \english{features} avanzadas que otros ORM no: claves primarias compuestas, mapeos autorreferenciales y \english{caching} de objetos, entre otras. Se puede utilizar de manera sincrónica o asincrónica.
 
@@ -2973,30 +2802,30 @@ Gracias a estas características del \english{framework}, el desarrollo fue bast
 
 \subsubsection{Ruby}
 
-El principio ``Convención sobre configuración'', explicado anteriormente, trae dos consecuencias a la hora de desarrollar la aplicación
+El principio "Convención sobre configuración'', explicado anteriormente, trae dos consecuencias a la hora de desarrollar la aplicación
 \begin{itemize}
     \item Un programador que ve un proyecto por primera vez puede familiarizarse rápidamente con el mismo, si ya tiene conocimiento en el \english{framework}
     \item El equipo de trabajo debe adaptarse al \english{framework}, y no al revés. Traducir una aplicación escrita en otro lenguaje (o incluso en otro \english{framework} de Ruby), resulta muy difícil
 \end{itemize}
 Estas cuestiones deben analizarse para el caso de uso en el que se desea utilizar el \english{framework}.
 
-Al momento de crear un proyecto en Rails se incluyen un gran número de utilidades, tales como una base de datos (SQLite por defecto), un ORM, un sistema de migración de \english{schemas}, un archivo Dockerfile para poder ejecutar el servidor en un contenedor, entre muchas otras cosas.
+Al momento de crear un proyecto en Rails se incluyen un gran número de utilidades, tales como una base de datos (SQLite \cite{http:sqlite} por defecto), un ORM, un sistema de migración de \english{schemas}, un archivo Dockerfile para poder ejecutar el servidor en un contenedor, entre muchas otras cosas.
 
-Una \english{feature} destacable es la consola, que permite, entre otras cosas, interactuar con la base de datos utilizando las clases definidas en el ORM. Es posible crear nuevos ítems, modificarlos o eliminarlos, lo cual es muy útil para probar funcionalidades nuevas sin tener que implementar los \english{endpoints} ni usar herramientas externas (como Postman o \lstinline{curl}).
+Una \english{feature} destacable es la consola, que permite, entre otras cosas, interactuar con la base de datos utilizando las clases definidas en el ORM. Es posible crear nuevos ítems, modificarlos o eliminarlos, lo cual es muy útil para probar funcionalidades nuevas sin tener que implementar los \english{endpoints} ni usar herramientas externas (como Postman \cite{js:ex:postman} o \lstinline{curl} \cite{http:curl}).
 
 Todas estas características hicieron que el desarrollo sea muy particular. No fue sencillo, ya que el equipo no contaba con conocimientos previos ni de Ruby ni del \english{framework}. Sin embargo, creemos que tiene mucho mayor potencial para desarrollar una aplicación real y completa con relativa facilidad. Los \english{frameworks} utilizados en los otros lenguajes, si bien en principio son más fáciles de aprender, carecen de un ecosistema de bibliotecas propio. Ruby posee una gran cantidad de bibliotecas diseñadas para integrarse de manera armónica con un proyecto Rails, tales como \lstinline{ActiveModelSerializers} \cite{http:ruby:active_model_serializer} y \lstinline{Bcrypt} \cite{http:ruby:bcrypt}.
 
-\subsubsection{JavaScript}
+\subsubsection{TypeScript}
 
 El lenguaje es muy extensible y cuenta con una amplia gama de bibliotecas para diversas funcionalidades, lo cual puede representar una ventaja significativa. Sin embargo, esta abundancia de opciones también puede dificultar la selección de la biblioteca más adecuada.
 
-Dentro del \english{stack} seleccionado, no se encontró una forma adecuada de generar documentación (\lstinline{Swagger}) de manera automática. De modo que se optó por la utilización de Postman \cite{js:ex:postman}; notablemente, éste provee funcionalidades de automatización, programables utilizando JavaScript.
+Dentro del \english{stack} seleccionado, no se encontró una forma adecuada de generar documentación (\lstinline{Swagger}) de manera automática. De modo que se optó por la utilización de Postman; notablemente, éste provee funcionalidades de automatización, programables utilizando JavaScript.
 
-El ORM, \lstinline{Sequelize}, abstrae completamente la existencia de una base de datos, permitiendo trabajar directamente con los modelos. Excepto por que no proporciona soporte para asociaciones con clave primaria compuesta, lo que llevó a realizar algunas consultas utilizando SQL crudo.
+El ORM, Sequelize, abstrae completamente la existencia de una base de datos, permitiendo trabajar directamente con los modelos. Excepto por que no proporciona soporte para asociaciones con clave primaria compuesta, lo que llevó a realizar algunas consultas utilizando SQL crudo.
 
 La arquitectura de \english{pipeline} de Express genera una división de tareas natural de las diferentes etapas de manejo de peticiones, generando implementaciones de \english{endpoints} que son fáciles tanto de entender como de extender.
 
-La integración del lenguaje y el tipado mediante \lstinline{TypeScript} en el IDE es muy completa, lo que simplifica el desarrollo y la navegación del código.
+La integración del lenguaje y el tipado mediante TypeScript en el IDE es muy completa, lo que simplifica el desarrollo y la navegación del código.
 
 \subsection{Conclusiones}
 
@@ -3008,25 +2837,57 @@ Go se destacó como la implementación que menos recursos utilizó, tanto en té
 \subsection{Java}
 Java utilizó una cantidad considerablemente mayor de recursos, pero mantuvo los valores dentro de parámetros razonables. Al igual que Go, logró completar las pruebas de carga sin saturarse, aunque con una latencia ligeramente mayor. Spring es un \textit{framework} maduro con una documentación extensa, lo que lo convierte en una muy buena opción, especialmente si el equipo tiene experiencia con Java.
 
-\subsection{JavaScript}
-JavaScript utilizó más recursos que Go pero menos que Java, aunque no logró completar las pruebas de carga. Requiere replicación y el uso de un balanceador de carga para escalar la aplicación, lo cual excede el alcance de este análisis. Sin embargo, dado que en un entorno real estas herramientas serían necesarias, no se considera una deficiencia. JavaScript cuenta con buenos recursos, aunque se detectaron carencias en algunas bibliotecas. Se recomienda su uso si el equipo solo tiene experiencia en JavaScript.
+\subsection{TypeScript}
+TypeScript utilizó más recursos que Go pero menos que Java, aunque no logró completar las pruebas de carga. Requiere replicación y el uso de un balanceador de carga para escalar la aplicación, lo cual excede el alcance de este análisis. Sin embargo, dado que en un entorno real estas herramientas serían necesarias, no se considera una deficiencia. Cuenta con buenos recursos, aunque se detectaron carencias en algunas bibliotecas. Se recomienda su uso si el equipo solo tiene experiencia en TypeScript o JavaScript.
 
 \subsection{Python}
 Python fue la implementación que más recursos utilizó entre las analizadas y, a pesar de ello, no completó las pruebas satisfactoriamente. El \english{framework} utilizado provee buenos recursos, bien documentados, que lograron satisfacer todos los requerimientos del caso de uso. Sin embargo, solo se recomendaría si la \english{performance} no es un factor importante y el equipo tiene experiencia con este \english{framework}.
 
 \subsection{Ruby}
-Ruby fue el segundo lenguaje qué más recursos utilizó, pero no logró completar las pruebas de carga. A pesar de proveer un ecosistema muy completo para desarrollar aplicaciones complejas, su filosofía de ``Convención sobre configuración'' puede dificultar el seguimiento del código para quienes no están familiarizados con el \textit{framework}. No se recomienda su uso a menos que el equipo tenga mucha experiencia con este \english{framework}.
+Ruby fue el segundo lenguaje qué más recursos utilizó, pero no logró completar las pruebas de carga. A pesar de proveer un ecosistema muy completo para desarrollar aplicaciones complejas, su filosofía de "Convención sobre configuración'' puede dificultar el seguimiento del código para quienes no están familiarizados con el \textit{framework}. No se recomienda su uso a menos que el equipo tenga mucha experiencia con este \english{framework}.
 
 \newpage
 
 \section{Riesgos materializados y lecciones aprendidas}
 
-% Ideas:
-% Tecnologias que no funcionaron: Akka, lo mitigamos adaptando la implementacion usando RabbitMQ, docker-compose (no estaba instalado en el servidr de FaMAF), lo solucionamos usando docker swarm, y de paso aprendimos a usarlo, sockets de zeromq, despliegue en redes neuronales no fue tan lineal, tambien hubo problemas en las versiones de python, en criptografia usamos un lenguaje muy nuevo (zig) que no tiene version estable, por lo que habia features que no funcionaban o funcionaban mal
-% TUPAC no funciono porque era dificil de usar con los diferentes lenguajes, nos pasamos a FaMAF
-% Temas de organizacion: al principio coordinamos las tareas pendientes con Trello, pero despues nos resulto mas facil la coordinacion "por whatsapp"
-% Cambio de calendario: al inicio del trabajo profesional creiamos que ibamos a tener tiempo hasta finales de junio para terminarlo. A mediados del segundo cuatrimestre se nos informo que el trabajo se entregaba la segunda semana de junio. No fue tan grave porque ese mes lo teniamos reservado para ajustes e imprevistos.
+% En esta sección se deben explicar los riesgos que se materializaron a lo largo del proyecto, estuvieran o no previstos al comienzo (más aún si no estaban previstos).
+% Por ejemplo, desvíos en las estimaciones que hayan obligado a modificar el alcance, interesados con los que esperaban contar que finalmente no estuvieron disponibles, metodologías o tecnologías que no funcionaron como se esperaba, y cuestiones de este estilo.
+% Los riesgos no previstos son per se lecciones aprendidas, pero también resulta de interés explicitar qué aspectos del proyecto les dejaron lecciones positivas que hayan servido para el aprendizaje.
 
+A lo largo del desarrollo del proyecto, se materializaron ciertos riesgos, previstos e imprevistos. Estos, a su vez, conforman lecciones a tener en cuenta en el futuro.
+
+\subsection{Despliegue}
+
+% 1. TUPAC no funciono porque era dificil de usar con los diferentes lenguajes, nos pasamos a FaMAF
+Al inicio del desarrollo de sistemas distribuidos, y durante la etapa de planificación, nos pusimos en contacto con el CONICET para la utilización del \english{cluster} TUPAC. Luego de realizar pruebas de concepto, concluimos que este \english{cluster} no proporcionaba las herramientas que requeríamos, razón por la cual debíamos buscar otro entorno de despliegue. Se remarca aquí la importancia de planificar el tiempo requerido para el acceso, investigación, prueba y configuración de los entornos de ejecución. 
+
+% 2. docker-compose (no estaba instalado en el servidor de FaMAF), lo solucionamos usando docker swarm, y de paso aprendimos a usarlo, 
+El siguiente entorno que exploramos fueron los servidores de FaMAF, los cuales permitían el despliegue de contenedores Docker. Nuestra idea inicial era utilizar Docker Compose \cite{com:docker-compose} para el despliegue de servicios, pero nos encontramos con que ésta dependencia no estaba instalada en los servidores de FaMAF. En su lugar, utilizamos Docker Swarm \cite{com:docker-swarm}, lo cual requirió un aprendizaje adicional, pero cumplió con nuestras expectativas de manera destacada. Esta situación resalta nuevamente la necesidad de planificar el tiempo dedicado al despliegue, anticipando posibles inconvenientes y la necesidad de aprender nuevas herramientas.
+
+\subsection{Desarrollos}
+
+% 3. Tecnologias que no funcionaron: Akka, lo mitigamos adaptando la implementacion usando RabbitMQ
+Durante el desarrollo de sistemas distribuidos utilizando Scala, encontramos dificultades con la biblioteca Akka. Esto consumió un tiempo considerable en la investigación de la documentación y la realización de pruebas de concepto. Este problema enfatiza la importancia de estimar tiempo adicional al trabajar con herramientas y lenguajes desconocidos.
+
+% 4. sockets de zeromq, ???
+En el desarrollo con C++ y ZeroMQ, nos vimos en la necesidad de implementar \english{polling} sobre dos tipos de \textit{sockets} simultáneamente. Inicialmente, utilizamos \textit{sockets push-pull} para la distribución equitativa de tareas, pero el último mensaje de finalización del proceso no llegaba al último trabajador, causando que ambos procesos no finalizaran correctamente y no enviaran las métricas al servicio de Graphite. Al no encontrar solución en la documentación oficial, optamos por utilizar \textit{sockets pub-sub}, lo cual resolvió el problema. Esto resalta la importancia de realizar pruebas mínimas de concepto anticipadamente, especialmente con herramientas y tecnologías en las que no se tienen experiencia.
+
+% 5. en criptografia usamos un lenguaje muy nuevo (zig) que no tiene version estable, por lo que habia features que no funcionaban o funcionaban mal
+En el dominio de aplicación de criptografía, decidimos utilizar Zig, un lenguaje muy nuevo. Este no posee una versión estable, lo que resultó en funcionalidades que no cumplían con lo prometido. Nuestro objetivo de probar el modelo de concurrencia nativo del lenguaje no fue posible debido a la eliminación de las funcionalidades asincrónicas en la versión 0.11 (actualmente en la versión 0.12). Esto subraya la importancia de evaluar la estabilidad y madurez de las tecnologías antes de integrarlas en proyectos críticos.
+
+% 6. despliegue en redes neuronales no fue tan lineal, tambien hubo problemas en las versiones de python,
+En el desarrollo de redes neuronales, encontramos dificultades al configurar el despliegue debido a que el servidor FaMAF-2 utilizaba CUDA 12. Esto requirió el uso de una imagen Docker específica para integrar dicha versión de CUDA, un proceso que implicó prueba y error. Además, una de las bibliotecas de Python requería una versión específica de Python que no estaba disponible en el servidor, obligándonos a compilarla dentro de nuestra propia imagen Docker. Este problema, no documentado oficialmente, fue resuelto gracias a las pruebas realizadas en nuestros entornos de desarrollo locales.
+
+% 7. Las implementaciones iniciales de Http no seguian las specs y por eso fallaban los tests, usamos un postman como api docs, aprendimos que eso habria que hacerlo desde el principio.
+Durante el desarrollo de servidores, las pruebas de carga fallaban inicialmente debido a que las implementaciones no seguían correctamente las especificaciones, utilizando nombres y formatos incorrectos para los parámetros y respuestas. Aunque la corrección de estos errores fue sencilla, representó una pérdida de tiempo inesperada. Esto podría haberse mitigado implementando mecanismos de validación de interfaces desde el inicio y utilizándolos durante el desarrollo.
+
+\subsection{Organización}
+
+% 8. Temas de organizacion: al principio coordinamos las tareas pendientes con Trello, pero despues nos resulto mas facil la coordinacion "por whatsapp"
+Al inicio del proyecto, organizamos las tareas mediante un tablero de tareas, con el objetivo de hacer un seguimiento de su asignación y su estado. A medida que el proyecto fue avanzando, migramos de manera natural a medios más informales de organización. Esto nos enseña que cada proyecto se puede adaptar mejor o peor a distintos modos de organización y/o equipos de trabajo. En retrospectiva, dedicar ciertos tiempos para la definición de nuestra organización y su evolución, analizando nuestras necesidades y metodología real, ha sido fructífero.
+
+% 9. Cambio de calendario: al inicio del trabajo profesional creiamos que ibamos a tener tiempo hasta finales de junio para terminarlo. A mediados del segundo cuatrimestre se nos informo que el trabajo se entregaba la segunda semana de junio. No fue tan grave porque ese mes lo teniamos reservado para ajustes e imprevistos.
+Por último, hay dos cambios importantes que no pudimos prever, aquellos de tiempo y alcance. Por un lado, nuestro cronograma inicial planificaba dos a cuatro semanas más de redacción de informe y ajustes a los desarrollos. Además, el alcance del informe se fue definiendo y expandiendo por fuera de lo que habíamos considerado inicialmente. Cabe destacar, que estas problemáticas comienzan a surgir hacia el final del proyecto, donde se ve restringido nuestro margen de maniobra. La única alternativa viable fue aumentar la carga de trabajo por sobre la estimada, y, aunque habíamos planificado la posibilidad de imprevistos hasta cierto punto, remarcamos que estimaciones más conservadoras hubieran sido más adecuadas.
 
 \newpage
 
@@ -3040,11 +2901,11 @@ Con el objetivo de facilitar la extensión de este trabajo, se incluye esta secc
 
 El proceso de investigación se basó en la exploración independiente de casos de uso y lenguajes de programación relevantes para escenarios concurrentes. Posteriormente, se seleccionaron los casos de uso considerados más pertinentes, en base a esta exploración inicial. Con esta información, se procedió a elegir los lenguajes de programación adecuados, tomando en cuenta los previamente investigados y aquellos que consideramos relevantes para el caso.
 
-\subsubsection{Agregando nuevos casos de uso}
+\subsubsection{Incorporando nuevos casos de uso}
 
-La selección de casos de uso se baso en aplicaciones reales que utilizan o pueden beneficiarse de implementaciones concurrentes.
+La selección de casos de uso se basó en aplicaciones reales que utilizan o pueden beneficiarse de implementaciones concurrentes.
 
-Inicialmente, se realizo una selección preliminar utilizando nuestra experiencia, recomendaciones y una investigación inicial. Posteriormente, se llevo a cabo un análisis más profundo de cada caso de uso para identificar aquellos más pertinentes.
+Inicialmente, se realizó una selección preliminar utilizando nuestra experiencia, recomendaciones y una investigación inicial. Posteriormente, se llevó a cabo un análisis más profundo de cada caso de uso para identificar aquellos más pertinentes.
 
 Algunos casos de uso que consideramos, pero no fueron incluidos son:
 Bases de Datos, que fue descartado debido a su complejidad;
@@ -3062,11 +2923,11 @@ Realizamos una investigación independiente de lenguajes de programación con ca
 
 Algunos lenguajes que consideramos hubiera sido interesante cubrir son:
 Zig utilizando Async, siendo que se encuentra en desarrollo al tiempo de nuestra investigación;
-Python utilizando Numba;
+Python utilizando Numba \cite{python:lib:numba};
 Clojure;
 CUDA, que no tiene competencia al tiempo de nuestra investigación.
 
-Una vez seleccionado, su adición a la comparación es simple. Primero, debe implementarse el caso de uso siguiendo las especificaciones definidas, que pueden encontrarse en la documentación de los repositorios \cite{repos:docs}. Segundo, se debe \textit{dockerizar} la aplicación, para desplegarse en conjunto con los contenedores de métricas; estos pueden encontrarse en cualquiera de los desarrollos, u obtenerse del repositorio plantilla \cite{repos:template}. Tercero, se deben ejecutar las pruebas en un ambiente común para ser comparadas; los \english{dashboards} para cada caso de uso pueden ser encontrados en la documentación.
+Una vez seleccionado, su adición a la comparación es simple. Primero, debe implementarse el caso de uso siguiendo las especificaciones definidas, que pueden encontrarse en la documentación de los repositorios \cite{repos:docs}. Luego, se debe \textit{dockerizar} la aplicación, para desplegarse en conjunto con los contenedores de métricas; estos pueden encontrarse en cualquiera de los desarrollos, u obtenerse del repositorio plantilla \cite{repos:template}. Finalmente, se deben ejecutar las pruebas en un ambiente común para ser comparadas; los \english{dashboards} para cada caso de uso pueden ser encontrados en la documentación.
 
 \subsubsection{Reenfoque sobre lo preexistente}
 
@@ -3076,17 +2937,17 @@ En los desarrollos de sistemas distribuidos, se hizo foco en sistemas de procesa
 
 Para el caso de criptografía, se optó por el algoritmo AES, escogiendo un modo de paralelismo casi trivial. No obstante, hay múltiples alternativas que podrían ser desarrolladas. Al mismo tiempo, a pesar de ser el desarrollo de menor envergadura, se impuso el requisito de persistir los datos en disco.
 
-Por el lado de las redes neuronales, nos enfocamos en una aplicación orientada a la \textit{ciencia de datos}, utilizando \textit{redes convolucionales} para \textit{clasificación de datos}, ejecutadas preferentemente en la \textit{GPU} de \textit{un solo computador} y entrenando con relativamente \textit{pocos datos}. El cambio de cualquiera de estas premisas podría resultar en conclusiones distintas. Por ejemplo, podrían evaluarse grandes modelos de lenguaje (LLM o \english{Large Language Models}) en el contexto de la predicción de texto, corriendo en TPUs de un \english{cluster} de servidores utilizando grandes cantidades de datos.
+Por el lado de las redes neuronales, nos enfocamos en una aplicación orientada a la \textit{ciencia de datos}, utilizando \textit{redes fully connected} para \textit{clasificación de datos}, ejecutadas preferentemente en la \textit{GPU} de \textit{un solo computador} y entrenando con relativamente \textit{pocos datos}. El cambio de cualquiera de estas premisas podría resultar en conclusiones distintas. Por ejemplo, podrían evaluarse grandes modelos de lenguaje (LLM o \english{Large Language Models}) en el contexto de la predicción de texto, corriendo en TPUs de un \english{cluster} de servidores utilizando grandes cantidades de datos.
 
-Por el lado de protocolos de comunicación, la elección de un caso de uso diferente que varíe la necesidad de cómputo y/o persistencia podría resultar en diferentes hallazgos. Por otro lado, también podría explorarse un protocolo completamente diferente; no necesariamente limitándose al modelo cliente-servidor.
+Por el lado de desarrollo de servidores, la elección de un caso de uso diferente que varíe la necesidad de cómputo y/o persistencia podría resultar en diferentes hallazgos. Por otro lado, también podría explorarse un protocolo completamente diferente; no necesariamente limitándose al modelo cliente-servidor.
 
 \subsection{Extensión alternativa}
 
-En nuestra investigación nos hemos centrado en los ``casos de uso`` y los ``lenguajes`` junto con sus \english{frameworks}, pero existen otras perspectivas que podrían enriquecer el estudio.
+En nuestra investigación nos hemos centrado en los casos de uso y los lenguajes junto con sus \english{frameworks}, pero existen otras perspectivas que podrían enriquecer el estudio.
 
 Podría enfocarse en otras características de los lenguajes, como la \textit{portabilidad}, evaluando el rendimiento de los lenguajes y \english{frameworks} en distintos entornos de implementación; la velocidad de desarrollo; o su extensibilidad.
 
-También se podrían explorar lenguajes emergentes, aún poco evaluados, como Zig, así como otros que podrían tener el potencial de competir con C/C++ en ciertos dominios \cite{cpp_killers}.
+También se podrían explorar lenguajes emergentes, aún poco evaluados, como Zig, así como otros que podrían tener el potencial de competir con C / C++ en ciertos dominios \cite{cpp_killers}.
 
 \newpage
 
@@ -3100,7 +2961,7 @@ En el área temática de criptografía, Rust sobresalió por su excelente rendim
 
 Para el área de redes neuronales, Julia demostró un consumo, en promedio, más eficiente de recursos, utilizando menos CPU y memoria de GPU en comparación con Python. Sin embargo, presentó un error cuadrático medio ligeramente superior. Por otro lado, la complejidad adicional en la configuración y el desarrollo, junto con la falta de herramientas maduras y errores no reconocidos, dificulta su recomendación para tareas de análisis; situación completamente opuesta a lo que sucede con el ecosistema de Python.
 
-El área de protocolos de comunicación desafió nuestras percepciones sobre ciertos \textit{frameworks}. Por ejemplo, FastAPI no cumplió con su promesa de buen rendimiento. En cambio, Gin se posicionó como una opción que, sin descuidar demasiado la facilidad de uso, brinda una elevada \english{performance}.
+El área de servidores desafió nuestras percepciones sobre ciertos \textit{frameworks}. Por ejemplo, FastAPI no cumplió con su promesa de buen rendimiento. En cambio, Gin se posicionó como una opción que, sin descuidar demasiado la facilidad de uso, brinda una elevada \english{performance}.
 
 Finalmente, se abrieron líneas de investigación futura que, sin duda, enriquecerían los resultados de esta investigación.
 
@@ -3164,7 +3025,7 @@ Una métrica que usamos constantemente para comparar la rapidez de procesamiento
 
 En Elixir, en nuestra primera ejecución con dos nodos trabajadores, obtuvimos 0.1 req/s. En comparación, el resto de los lenguajes presentaron desempeños significativamente mejores que este. Estos resultados tan pobres, combinados con nuestra limitada experiencia con el lenguaje, nos llevaron a buscar oportunidades de optimización.
 
-Después de mucha búsqueda e intentos, encontramos una herramienta que resultó de gran ayuda llamada mix profile. Mix profile es una herramienta integrada en mix\footnote{Mix: herramienta propia de Elixir que permite mediante linea de comandos, crear, compilar, ejecutar pruebas y gestionar dependencias de una aplicación.} que genera perfiles de llamadas a funciones a partir de la ejecución de cualquier aplicación de Elixir. Es importante mencionar que esta herramienta es posible gracias a Erlang, ya que Elixir la utiliza a través de su máquina virtual.
+Después de mucha búsqueda e intentos, encontramos una herramienta que resultó de gran ayuda llamada mix profile. Mix profile es una herramienta integrada en mix\footnote{Mix: herramienta propia de Elixir que permite mediante línea de comandos, crear, compilar, ejecutar pruebas y gestionar dependencias de una aplicación.} que genera perfiles de llamadas a funciones a partir de la ejecución de cualquier aplicación de Elixir. Es importante mencionar que esta herramienta es posible gracias a Erlang, ya que Elixir la utiliza a través de su máquina virtual.
 
 \begin{figure}[ht]
     \centering
@@ -3727,9 +3588,9 @@ El significado de cada una de las métricas es el siguiente:
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
 Métrica & Rust & Go & Julia & Scala & Zig \\ \hline
-Duración [Minutos] & $16.9$ & $102.0$ & $15.9$ & $252.0$ & $24.3$ \\ \hline
-Uso de memoria [MB] & $231.0$ & $15.9$ & $548.0$ & $566.0$ & $2.3$ \\ \hline
-Uso de CPU [\%] & $300.0$ & $337.0$ & $229.0$ & $179.0$ & $232.0$ \\ \hline
+Duración [Minutos] & $15.7$ & $102.0$ & $18.1$ & $252.0$ & $24.3$ \\ \hline
+Uso de memoria [MB] & $1.7$ & $15.9$ & $209.0$ & $566.0$ & $2.3$ \\ \hline
+Uso de CPU [\%] & $308.0$ & $337.0$ & $349.0$ & $179.0$ & $232.0$ \\ \hline
 \end{tabular}
 \caption{Resumen de métricas del área de criptografía en FaMAF-2. Un uso del CPU del 100\% significa que el proceso utilizó, en promedio, un único \english{core}}
 \label{tab:aes:famaf_2}
@@ -3777,7 +3638,7 @@ Raíz del error cuadrático medio [USD] & $50500.0$ & $52582.0$ & $53400.0$ & $4
 \label{tab:nn:famaf_2}
 \end{table}
 
-\subsubsection{Protocolos de comunicación: HTTP}
+\subsubsection{Servidores: HTTP}
 
 El significado de cada una de las métricas es el siguiente:
 
@@ -3792,13 +3653,13 @@ El significado de cada una de las métricas es el siguiente:
 \centering
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
-Métrica       & Go   & Java & Python & Ruby & JavaScript \\ \hline
+Métrica       & Go   & Java & Python & Ruby & TypeScript \\ \hline
 Uso de CPU [\%]         & $58.3$ & $582.0$  & $1701.0$   & $1398.0$ & $180.0$        \\ \hline
 Uso de memoria [MB]   & $55.2$ & $512.0$  & $1620.0$   & $2280.0$ & $112.0$        \\ \hline
 Latencia [Milisegundos]   & $100.0$  & $250.0$  & $400.0$    & $380.0$  & $130.0$        \\ \hline
 \english{Throughput} [Escenarios/segundo] & $70.0$   & $70.0$   & $60.0$     & $60.0$   & $20.0$         \\ \hline
 \end{tabular}
-\caption{Resumen de métricas del área de protocolos de comunicación, en FaMAF-2. Un uso del CPU del 100\% significa que el proceso utilizó, en promedio, un único \english{core} }
+\caption{Resumen de métricas del área de servidores, en FaMAF-2. Un uso del CPU del 100\% significa que el proceso utilizó, en promedio, un único \english{core} }
 \label{tab:http:famaf_1}
 \end{table}
 

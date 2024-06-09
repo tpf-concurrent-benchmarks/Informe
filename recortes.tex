@@ -1,0 +1,97 @@
+\subsection{Ejemplo de safety en rust}
+
+Un clásico ejemplo es el de una variable contadora compartida por múltiples hilos. La acción de incrementar una variable suele ser una operación que involucra múltiples operaciones no atómicas del procesador: copiar el valor a un registro, actualizarlo y copiarlo nuevamente en la memoria. Si estas operaciones se intercalan, los errores comienzan a surgir rápidamente.
+    
+En Rust, un programa con esas características ni siquiera compilaría, forzando al programador a buscar una solución correcta. Para solucionarlo se puede utilizar, por ejemplo, las abstracciones \lstinline{std::sync::Arc} y \lstinline{std::sync::Mutex} para encapsular la variable y compartirla entre múltiples hilos, tal y como se observa en el Código~\ref{code:aes:rust_concurrency}.
+
+\begin{listing}[h]
+\begin{minted}[bgcolor=bg, breaklines]{rust}
+use std::thread;
+use std::sync::{Mutex, Arc};
+
+fn main() {
+    let counter = Arc::new(Mutex::new(0));
+    let mut handles = vec![];
+
+    for _ in 0..10 {
+        let counter = Arc::clone(&counter);
+        let handle = thread::spawn(move || {
+            let mut num = counter.lock().unwrap();
+            *num += 1;
+        });
+        handles.push(handle);
+    }
+    for handle in handles {
+        handle.join().unwrap();
+    }
+    println!("Result: {}", *counter.lock().unwrap());
+}
+\end{minted}
+\caption{Implementación de un contador multihilo en Rust}
+\label{code:aes:rust_concurrency}
+\end{listing}
+
+\subsection{optimizacion aes Julia}
+
+Al hacer uso de todas estas herramientas, la eficiencia del código mejoró enormemente. No obstante, la versión con un solo hilo seguía siendo más rápida que la versión multihilo. Esto nos llevó a pensar que la falta de rendimiento utilizando paralelismo se debía a un caso de \english{false sharing}\footnote{\english{False sharing}: mecanismo por el cual el protocolo de caché puede forzar a un programa a recargar todo un bloque de caché a pesar de no existir necesidad para ello, debido a que se intenta acceder periódicamente a datos que nunca serán alterados pero que comparten bloques de caché con datos que sí son alterados.}. En nuestro programa, para leer el archivo que se quería encriptar, se leía sobre un \english{buffer} que luego se dividía en diferentes partes, las cuales eran pasadas a distintas hilos para su encriptación. Julia no nos brinda control directo sobre cómo se reserva la memoria de la aplicación ni sobre cómo se controla el acceso entre diferentes hilos. Esta característica del lenguaje puede considerarse una ventaja, pues simplifica su uso, pero la pérdida de rendimiento la convierte en un problema. Un método recomendado para evitar el \english{false sharing} es espaciar los \english{buffers} de cada hilo en relación a dónde se ubican en la memoria. Como no hay una forma explícita de hacer esto en Julia, recurrimos a probarlo reservando \english{buffers} vacíos entre los verdaderos \english{buffers} que se iban a usar para el algoritmo. Luego de hacer este \english{refactor}, se probó nuevamente el programa, y no se notó mejoría en el rendimiento, por lo que se concluyó que ese no era el problema.
+
+Nuestro siguiente paso en la búsqueda de una solución fue usar un \english{profiler}, que resultó ser muy agradable de usar. Este \english{profiler} genera un gráfico que permite navegar a través de cada función ejecutada, y las funciones están ordenadas verticalmente, según el \english{stack}; y horizontalmente, según cuánto tiempo estuvieron ejecutándose en relación al tiempo de ejecución total. Además, es posible visualizar el programa en su totalidad o por hilo. Cuando se realizó el primer \english{profile} de la aplicación, los resultados parecían indicar que el 75\% del tiempo no había ninguna función ejecutándose. Luego de un poco de investigación, se descubrió que el \english{profiler} omitía las funciones ejecutadas en C. Sin embargo, este inconveniente pudo ser solucionado cambiando la versión del \english{profiler} y agregando un \english{flag} especial.
+
+La ejecución de este nuevo \english{profiler} permitió detectar que el verdadero problema era el recolector de basura. Como se encuentra escrito en C, no fue posible visualizarlo en la primera ejecución del \english{profiler}. Luego de un período de investigación, se descubrió que el recolector de basura es parcialmente \english{multi-threaded}, y como tal, bloqueaba el sistema al momento de ejecutarse. Esto nos pareció una decisión de diseño cuestionable para un lenguaje que proclama su idoneidad para el procesamiento en paralelo. No obstante, quedó claro que una reducción en el número de invocaciones del recolector de basura traería aparejada una mejoría en el rendimiento del programa. Para conseguir esto, fue de mucha ayuda una macro llamada \lstinline{@time}.
+
+Esta macro no solo indica cuánto tiempo tardó en ejecutarse una función, sino que también indica cuántas reservas de memoria hubo dentro de ella. Gracias a esto, fue posible observar los puntos críticos del sistema y cambiar el diseño de nuestro código, a fin de minimizar las reservas de memoria. Un caso destacable fue el de la función \lstinline{circshift!}, cuyo uso era crítico para el algoritmo ya que se usaba para mezclar las filas de la tabla, uno de los pasos más repetidos. El nombre de la función, al terminar con \lstinline{!}, sugiere que la operación se realiza sobre el argumento de entrada, y por lo tanto no debería reservar memoria. Contrario a nuestra hipótesis, esta función estaba reservando memoria cada vez que se ejecutaba, bloqueando el resto del programa en el proceso. Para resolver esto, fue necesario reescribir la función.
+
+Luego de todas estas optimizaciones, el esfuerzo rindió frutos y Julia logró el mejor rendimiento de todos los lenguajes explorados. Claramente, para esto se requirió un trabajo y conocimiento mayor, lo que sin duda debería considerarse al momento de elegir un lenguaje para implementar un programa de estas características.
+
+\subsection{Some zig code}
+
+, tal y como se observa en los códigos \ref{code:aes:zig_fba} y \ref{code:aes:zig_gpa}.
+
+\begin{listing}[h]
+\begin{minted}[bgcolor=bg, breaklines]{zig}
+const std = @import("std");
+const ArrayList = std.ArrayList;
+
+pub fn main() !void {
+    var buffer: [1000]u8 = undefined;
+    var fba = std.heap.FixedBufferAllocator.init(&buffer);
+    const allocator = fba.allocator();
+    var list = ArrayList(u32).init(allocator);
+    try list.append(1);
+    std.debug.print("list[0] = {}\n", .{list.items[0]});
+    list.deinit(); // Libera la memoria del buffer estático
+}
+\end{minted}
+\caption{Inicialización de una lista en el \english{stack} por medio de un \lstinline{FixedBufferAllocator}, en Zig}
+\label{code:aes:zig_fba}
+\end{listing}
+
+\begin{listing}[h]
+\begin{minted}[bgcolor=bg, breaklines]{zig}
+const std = @import("std");
+const ArrayList = std.ArrayList;
+
+pub fn main() !void {
+    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    const allocator = gpa.allocator();
+    var list = ArrayList(u32).init(allocator);
+    try list.append(1);
+    std.debug.print("list[0] = {}\n", .{list.items[0]});
+    list.deinit(); // Libera la memoria del heap
+}
+\end{minted}
+\caption{Inicialización de una lista en el \english{heap} por medio de un \lstinline{GeneralPurposeAllocator}, en Zig}
+\label{code:aes:zig_gpa}
+\end{listing}
+
+Algunos de los \english{allocators} más usados son:
+
+\begin{itemize}
+    \item \english{Page allocator}: es el más básico de todos, pues realiza una \english{syscall} cada vez que se reserva o libera memoria.
+    \item \english{Arena allocator}: simplifica la liberación de toda la memoria reservada a un único \english{free}.
+    \item \english{Fixed buffer allocator}: permite reservar memoria a partir de un \english{buffer} predefinido, que a su vez puede encontrarse en el \english{heap} o en el \english{stack}.
+    \item \english{General purpose allocator}: implementación centrada en la seguridad, que previene errores de tipo \english{double-free}, \english{use-after-free} y \english{memory leaks}. También es \english{thread-safe}.
+    \item \english{C allocator}: muy rápido, pero con muy pocas \english{features} de seguridad.
+\end{itemize}
+
+Cabe destacar que es posible definir nuevos \english{allocators} con un comportamiento diferente.
